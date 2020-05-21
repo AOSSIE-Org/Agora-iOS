@@ -1,0 +1,843 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D12423A0BD00B40532 /* SearchBar.swift */; };
+		E13215D42423AA8C00B40532 /* CustomShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D32423AA8C00B40532 /* CustomShape.swift */; };
+		E13215D62423AB5B00B40532 /* DashboardShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D52423AB5B00B40532 /* DashboardShape.swift */; };
+		E13215D82424760200B40532 /* CreateElection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D72424760200B40532 /* CreateElection.swift */; };
+		E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */; };
+		E15FA5D624233EB400E9BF58 /* Election.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D524233EB400E9BF58 /* Election.swift */; };
+		E15FA5D824233FAA00E9BF58 /* KeyboardFollower.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */; };
+		E15FA5DE24233FF300E9BF58 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5DD24233FF300E9BF58 /* DashboardView.swift */; };
+		E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5DF2423400300E9BF58 /* ElectionView.swift */; };
+		E164BCDE24235C43002E8B23 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164BCDD24235C43002E8B23 /* CardView.swift */; };
+		E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164BCDF24236FD7002E8B23 /* Navigation.swift */; };
+		E16E5E48246EEDB00040A9CF /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E45246EEDB00040A9CF /* RealmSwift.framework */; };
+		E16E5E4A246EEDB00040A9CF /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E47246EEDB00040A9CF /* Realm.framework */; };
+		E16E5E4B246EFBB70040A9CF /* KVKCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; };
+		E16E5E4C246EFBB70040A9CF /* KVKCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E17B642B2427163400475579 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B642A2427163400475579 /* Settings.swift */; };
+		E17B642D2427189B00475579 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B642C2427189B00475579 /* LoginView.swift */; };
+		E17EDB6A242B4FD90082EDE3 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17EDB69242B4FD90082EDE3 /* BackgroundColor.swift */; };
+		E18F18792420F770002FED89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F18782420F770002FED89 /* AppDelegate.swift */; };
+		E18F187B2420F770002FED89 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F187A2420F770002FED89 /* SceneDelegate.swift */; };
+		E18F187F2420F774002FED89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E18F187E2420F774002FED89 /* Assets.xcassets */; };
+		E18F18822420F774002FED89 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E18F18812420F774002FED89 /* Preview Assets.xcassets */; };
+		E18F18852420F774002FED89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E18F18832420F774002FED89 /* LaunchScreen.storyboard */; };
+		E18F18902420F774002FED89 /* agora_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F188F2420F774002FED89 /* agora_iosTests.swift */; };
+		E18F189B2420F774002FED89 /* agora_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F189A2420F774002FED89 /* agora_iosUITests.swift */; };
+		E19012F32430729100741EF9 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19012F22430729100741EF9 /* NetworkingService.swift */; };
+		E19012F6243074B600741EF9 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E19012F5243074B600741EF9 /* SwiftyJSON */; };
+		E19012F9243075D100741EF9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E19012F8243075D100741EF9 /* Alamofire */; };
+		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E18F188C2420F774002FED89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E18F186D2420F770002FED89 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E18F18742420F770002FED89;
+			remoteInfo = "agora-ios";
+		};
+		E18F18972420F774002FED89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E18F186D2420F770002FED89 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E18F18742420F770002FED89;
+			remoteInfo = "agora-ios";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E16E5E4D246EFBB70040A9CF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E16E5E4C246EFBB70040A9CF /* KVKCalendar.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E13215D12423A0BD00B40532 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		E13215D32423AA8C00B40532 /* CustomShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomShape.swift; sourceTree = "<group>"; };
+		E13215D52423AB5B00B40532 /* DashboardShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardShape.swift; sourceTree = "<group>"; };
+		E13215D72424760200B40532 /* CreateElection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateElection.swift; sourceTree = "<group>"; };
+		E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
+		E15FA5D524233EB400E9BF58 /* Election.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Election.swift; sourceTree = "<group>"; };
+		E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFollower.swift; sourceTree = "<group>"; };
+		E15FA5DD24233FF300E9BF58 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		E15FA5DF2423400300E9BF58 /* ElectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionView.swift; sourceTree = "<group>"; };
+		E164BCDD24235C43002E8B23 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E164BCDF24236FD7002E8B23 /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		E16E5E45246EEDB00040A9CF /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVKCalendar.framework; path = Carthage/Build/iOS/KVKCalendar.framework; sourceTree = "<group>"; };
+		E16E5E47246EEDB00040A9CF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		E17B642A2427163400475579 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		E17B642C2427189B00475579 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E17EDB69242B4FD90082EDE3 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
+		E18F18752420F770002FED89 /* agora-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "agora-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E18F18782420F770002FED89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E18F187A2420F770002FED89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		E18F187E2420F774002FED89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E18F18812420F774002FED89 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E18F18842420F774002FED89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E18F18862420F774002FED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E18F188B2420F774002FED89 /* agora-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "agora-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E18F188F2420F774002FED89 /* agora_iosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = agora_iosTests.swift; sourceTree = "<group>"; };
+		E18F18912420F774002FED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E18F18962420F774002FED89 /* agora-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "agora-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E18F189A2420F774002FED89 /* agora_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = agora_iosUITests.swift; sourceTree = "<group>"; };
+		E18F189C2420F774002FED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E19012F22430729100741EF9 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		E1DD630E2428AC7E00DFCA04 /* RealmSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = RealmSwift.framework.dSYM; sourceTree = "<group>"; };
+		E1DD630F2428AC7E00DFCA04 /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Realm.framework.dSYM; sourceTree = "<group>"; };
+		E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		E1DD63112428AC7E00DFCA04 /* D75AF007-77EC-3490-9084-CAAC150C9D4F.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "D75AF007-77EC-3490-9084-CAAC150C9D4F.bcsymbolmap"; sourceTree = "<group>"; };
+		E1DD63122428AC7E00DFCA04 /* BDF484BB-9D71-3B79-A490-D2894BB7A4C1.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "BDF484BB-9D71-3B79-A490-D2894BB7A4C1.bcsymbolmap"; sourceTree = "<group>"; };
+		E1DD63132428AC7E00DFCA04 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		E1DD63142428AC7E00DFCA04 /* E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap"; sourceTree = "<group>"; };
+		E1DD63152428AC7E00DFCA04 /* 2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap"; sourceTree = "<group>"; };
+		E1E98279242935FD007C461C /* ElectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionEditView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E18F18722420F770002FED89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E16E5E48246EEDB00040A9CF /* RealmSwift.framework in Frameworks */,
+				E16E5E4A246EEDB00040A9CF /* Realm.framework in Frameworks */,
+				E16E5E4B246EFBB70040A9CF /* KVKCalendar.framework in Frameworks */,
+				E19012F6243074B600741EF9 /* SwiftyJSON in Frameworks */,
+				E19012F9243075D100741EF9 /* Alamofire in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E18F18882420F774002FED89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E18F18932420F774002FED89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E15FA5CB24233DF000E9BF58 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		E15FA5CD24233E0800E9BF58 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E15FA5D524233EB400E9BF58 /* Election.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E15FA5CE24233E0F00E9BF58 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E164BCDF24236FD7002E8B23 /* Navigation.swift */,
+				E15FA5D024233E3E00E9BF58 /* Components */,
+				E15FA5CF24233E2F00E9BF58 /* Extensions */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E15FA5CF24233E2F00E9BF58 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */,
+				E164BCDD24235C43002E8B23 /* CardView.swift */,
+				E13215D12423A0BD00B40532 /* SearchBar.swift */,
+				E13215D32423AA8C00B40532 /* CustomShape.swift */,
+				E13215D52423AB5B00B40532 /* DashboardShape.swift */,
+				E17EDB69242B4FD90082EDE3 /* BackgroundColor.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E15FA5D024233E3E00E9BF58 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E17B642C2427189B00475579 /* LoginView.swift */,
+				E15FA5DD24233FF300E9BF58 /* DashboardView.swift */,
+				E15FA5DF2423400300E9BF58 /* ElectionView.swift */,
+				E13215D72424760200B40532 /* CreateElection.swift */,
+				E17B642A2427163400475579 /* Settings.swift */,
+				E1E98279242935FD007C461C /* ElectionEditView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		E18F186C2420F770002FED89 = {
+			isa = PBXGroup;
+			children = (
+				E18F18772420F770002FED89 /* agora-ios */,
+				E18F188E2420F774002FED89 /* agora-iosTests */,
+				E18F18992420F774002FED89 /* agora-iosUITests */,
+				E18F18762420F770002FED89 /* Products */,
+				E1DD630C2428AC7D00DFCA04 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E18F18762420F770002FED89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E18F18752420F770002FED89 /* agora-ios.app */,
+				E18F188B2420F774002FED89 /* agora-iosTests.xctest */,
+				E18F18962420F774002FED89 /* agora-iosUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E18F18772420F770002FED89 /* agora-ios */ = {
+			isa = PBXGroup;
+			children = (
+				E19012F12430724A00741EF9 /* Services */,
+				E15FA5CE24233E0F00E9BF58 /* View */,
+				E15FA5CD24233E0800E9BF58 /* Model */,
+				E15FA5CB24233DF000E9BF58 /* Utils */,
+				E18F18782420F770002FED89 /* AppDelegate.swift */,
+				E18F187A2420F770002FED89 /* SceneDelegate.swift */,
+				E18F187E2420F774002FED89 /* Assets.xcassets */,
+				E18F18832420F774002FED89 /* LaunchScreen.storyboard */,
+				E18F18862420F774002FED89 /* Info.plist */,
+				E18F18802420F774002FED89 /* Preview Content */,
+			);
+			path = "agora-ios";
+			sourceTree = "<group>";
+		};
+		E18F18802420F774002FED89 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E18F18812420F774002FED89 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E18F188E2420F774002FED89 /* agora-iosTests */ = {
+			isa = PBXGroup;
+			children = (
+				E18F188F2420F774002FED89 /* agora_iosTests.swift */,
+				E18F18912420F774002FED89 /* Info.plist */,
+			);
+			path = "agora-iosTests";
+			sourceTree = "<group>";
+		};
+		E18F18992420F774002FED89 /* agora-iosUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E18F189A2420F774002FED89 /* agora_iosUITests.swift */,
+				E18F189C2420F774002FED89 /* Info.plist */,
+			);
+			path = "agora-iosUITests";
+			sourceTree = "<group>";
+		};
+		E19012F12430724A00741EF9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				E19012F22430729100741EF9 /* NetworkingService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		E1DD630C2428AC7D00DFCA04 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */,
+				E16E5E47246EEDB00040A9CF /* Realm.framework */,
+				E16E5E45246EEDB00040A9CF /* RealmSwift.framework */,
+				E1DD630D2428AC7E00DFCA04 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E1DD630D2428AC7E00DFCA04 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E1DD630E2428AC7E00DFCA04 /* RealmSwift.framework.dSYM */,
+				E1DD630F2428AC7E00DFCA04 /* Realm.framework.dSYM */,
+				E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */,
+				E1DD63112428AC7E00DFCA04 /* D75AF007-77EC-3490-9084-CAAC150C9D4F.bcsymbolmap */,
+				E1DD63122428AC7E00DFCA04 /* BDF484BB-9D71-3B79-A490-D2894BB7A4C1.bcsymbolmap */,
+				E1DD63132428AC7E00DFCA04 /* Realm.framework */,
+				E1DD63142428AC7E00DFCA04 /* E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap */,
+				E1DD63152428AC7E00DFCA04 /* 2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap */,
+			);
+			name = iOS;
+			path = Carthage/Build/iOS;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E18F18742420F770002FED89 /* agora-ios */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E18F189F2420F774002FED89 /* Build configuration list for PBXNativeTarget "agora-ios" */;
+			buildPhases = (
+				E18F18712420F770002FED89 /* Sources */,
+				E18F18722420F770002FED89 /* Frameworks */,
+				E18F18732420F770002FED89 /* Resources */,
+				E18D86782466D52600959C40 /* ShellScript */,
+				E16E5E4D246EFBB70040A9CF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "agora-ios";
+			packageProductDependencies = (
+				E19012F5243074B600741EF9 /* SwiftyJSON */,
+				E19012F8243075D100741EF9 /* Alamofire */,
+			);
+			productName = "agora-ios";
+			productReference = E18F18752420F770002FED89 /* agora-ios.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E18F188A2420F774002FED89 /* agora-iosTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E18F18A22420F774002FED89 /* Build configuration list for PBXNativeTarget "agora-iosTests" */;
+			buildPhases = (
+				E18F18872420F774002FED89 /* Sources */,
+				E18F18882420F774002FED89 /* Frameworks */,
+				E18F18892420F774002FED89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E18F188D2420F774002FED89 /* PBXTargetDependency */,
+			);
+			name = "agora-iosTests";
+			productName = "agora-iosTests";
+			productReference = E18F188B2420F774002FED89 /* agora-iosTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E18F18952420F774002FED89 /* agora-iosUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E18F18A52420F774002FED89 /* Build configuration list for PBXNativeTarget "agora-iosUITests" */;
+			buildPhases = (
+				E18F18922420F774002FED89 /* Sources */,
+				E18F18932420F774002FED89 /* Frameworks */,
+				E18F18942420F774002FED89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E18F18982420F774002FED89 /* PBXTargetDependency */,
+			);
+			name = "agora-iosUITests";
+			productName = "agora-iosUITests";
+			productReference = E18F18962420F774002FED89 /* agora-iosUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E18F186D2420F770002FED89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = HalfPolygon;
+				TargetAttributes = {
+					E18F18742420F770002FED89 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					E18F188A2420F774002FED89 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = E18F18742420F770002FED89;
+					};
+					E18F18952420F774002FED89 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = E18F18742420F770002FED89;
+					};
+				};
+			};
+			buildConfigurationList = E18F18702420F770002FED89 /* Build configuration list for PBXProject "agora-ios" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E18F186C2420F770002FED89;
+			packageReferences = (
+				E19012F4243074B600741EF9 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+				E19012F7243075D100741EF9 /* XCRemoteSwiftPackageReference "Alamofire" */,
+			);
+			productRefGroup = E18F18762420F770002FED89 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E18F18742420F770002FED89 /* agora-ios */,
+				E18F188A2420F774002FED89 /* agora-iosTests */,
+				E18F18952420F774002FED89 /* agora-iosUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E18F18732420F770002FED89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E18F18852420F774002FED89 /* LaunchScreen.storyboard in Resources */,
+				E18F18822420F774002FED89 /* Preview Assets.xcassets in Resources */,
+				E18F187F2420F774002FED89 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E18F18892420F774002FED89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E18F18942420F774002FED89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E18D86782466D52600959C40 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/input.xcfilelist",
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+				"$(SRCROOT)/output.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E18F18712420F770002FED89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E15FA5D624233EB400E9BF58 /* Election.swift in Sources */,
+				E164BCDE24235C43002E8B23 /* CardView.swift in Sources */,
+				E15FA5DE24233FF300E9BF58 /* DashboardView.swift in Sources */,
+				E19012F32430729100741EF9 /* NetworkingService.swift in Sources */,
+				E17B642D2427189B00475579 /* LoginView.swift in Sources */,
+				E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */,
+				E17EDB6A242B4FD90082EDE3 /* BackgroundColor.swift in Sources */,
+				E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */,
+				E17B642B2427163400475579 /* Settings.swift in Sources */,
+				E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */,
+				E13215D62423AB5B00B40532 /* DashboardShape.swift in Sources */,
+				E18F18792420F770002FED89 /* AppDelegate.swift in Sources */,
+				E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */,
+				E13215D42423AA8C00B40532 /* CustomShape.swift in Sources */,
+				E13215D82424760200B40532 /* CreateElection.swift in Sources */,
+				E18F187B2420F770002FED89 /* SceneDelegate.swift in Sources */,
+				E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */,
+				E15FA5D824233FAA00E9BF58 /* KeyboardFollower.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E18F18872420F774002FED89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E18F18902420F774002FED89 /* agora_iosTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E18F18922420F774002FED89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E18F189B2420F774002FED89 /* agora_iosUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E18F188D2420F774002FED89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E18F18742420F770002FED89 /* agora-ios */;
+			targetProxy = E18F188C2420F774002FED89 /* PBXContainerItemProxy */;
+		};
+		E18F18982420F774002FED89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E18F18742420F770002FED89 /* agora-ios */;
+			targetProxy = E18F18972420F774002FED89 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E18F18832420F774002FED89 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E18F18842420F774002FED89 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E18F189D2420F774002FED89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E18F189E2420F774002FED89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E18F18A02420F774002FED89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"agora-ios/Preview Content\"";
+				DEVELOPMENT_TEAM = 9F94YLNW6S;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "agora-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.halfpolygon.agora-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E18F18A12420F774002FED89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"agora-ios/Preview Content\"";
+				DEVELOPMENT_TEAM = 9F94YLNW6S;
+				ENABLE_PREVIEWS = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = "agora-ios/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.halfpolygon.agora-ios";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		E18F18A32420F774002FED89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9F94YLNW6S;
+				INFOPLIST_FILE = "agora-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.halfpolygon.agora-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/agora-ios.app/agora-ios";
+			};
+			name = Debug;
+		};
+		E18F18A42420F774002FED89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9F94YLNW6S;
+				INFOPLIST_FILE = "agora-iosTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.halfpolygon.agora-iosTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/agora-ios.app/agora-ios";
+			};
+			name = Release;
+		};
+		E18F18A62420F774002FED89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9F94YLNW6S;
+				INFOPLIST_FILE = "agora-iosUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.halfpolygon.agora-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "agora-ios";
+			};
+			name = Debug;
+		};
+		E18F18A72420F774002FED89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9F94YLNW6S;
+				INFOPLIST_FILE = "agora-iosUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.halfpolygon.agora-iosUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "agora-ios";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E18F18702420F770002FED89 /* Build configuration list for PBXProject "agora-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E18F189D2420F774002FED89 /* Debug */,
+				E18F189E2420F774002FED89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E18F189F2420F774002FED89 /* Build configuration list for PBXNativeTarget "agora-ios" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E18F18A02420F774002FED89 /* Debug */,
+				E18F18A12420F774002FED89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E18F18A22420F774002FED89 /* Build configuration list for PBXNativeTarget "agora-iosTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E18F18A32420F774002FED89 /* Debug */,
+				E18F18A42420F774002FED89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E18F18A52420F774002FED89 /* Build configuration list for PBXNativeTarget "agora-iosUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E18F18A62420F774002FED89 /* Debug */,
+				E18F18A72420F774002FED89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E19012F4243074B600741EF9 /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		E19012F7243075D100741EF9 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E19012F5243074B600741EF9 /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E19012F4243074B600741EF9 /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+		E19012F8243075D100741EF9 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E19012F7243075D100741EF9 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = E18F186D2420F770002FED89 /* Project object */;
+}

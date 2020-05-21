@@ -1,3 +1,15 @@
+## Getting Started
+
+1. [Download](https://developer.apple.com/xcode/download/) the Xcode 11 release.
+2. Clone repository branch dashboard_ele_view
+        ```git clone -b dashboard_ele_view https://gitlab.com/siddharth952/agora-ios.git```
+
+3. [Download Carthage](https://github.com/Carthage/Carthage)
+4. Run `carthage update` to install tools and dependencies.
+
+
+
+
 ## Readme
 
 iOS Application for Agora Web that uses [Agora](https://gitlab.com/aossie/Agora/): An Electronic Voting Library implemented in Scala. This application uses [Agora Web API](https://gitlab.com/aossie/Agora-Web) as backend application.

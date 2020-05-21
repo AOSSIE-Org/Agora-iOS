@@ -1,0 +1,180 @@
+//
+//  CardView.swift
+//  agora-ios
+//
+//  Created by Siddharth sen on 3/19/20.
+//  Copyright © 2020 HalfPolygon. All rights reserved.
+//
+
+import SwiftUI
+import Combine
+import RealmSwift
+
+
+
+class BindableResults<Element>: ObservableObject where Element: RealmSwift.RealmCollectionValue {
+    
+    var results: Results<Element>
+    private var token: NotificationToken!
+    
+    init(results: Results<Element>) {
+        self.results = results
+        lateInit()
+    }
+    
+    func lateInit() {
+        token = results.observe { [weak self] _ in
+            self?.objectWillChange.send()
+        }
+    }
+    
+    deinit {
+        token.invalidate()
+    }
+}
+
+
+
+
+struct CardView : View {
+    let config = Realm.Configuration(schemaVersion : 2)
+    
+    @ObservedObject var elections = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 2)).objects(Election.self))
+    
+    @State var activateLink: Int? = 0
+    
+    var body: some View {
+        
+       Group {
+            ScrollView {
+                VStack(alignment: .center) {
+                    
+                    ForEach(self.elections.results, id: \.id) { item in
+                        drawCard(actionDrawCard: self.$activateLink, cardTitle: item.title, place: item.place, isAllDay: item.isAllDay, timeZone: item.timeZone, numberRepeat: item.numberRepeat, Reminder: item.Reminder, eleColor: item.eleColor, detailText: item.electionDescription, candidates: item.candidates)
+                    }
+                }
+            }
+        }.onAppear(){
+            
+            do{
+                let realm = try Realm(configuration: self.config)
+                let  result = realm.objects(Election.self)
+                
+                print(result)
+                
+                
+            }catch{
+                print(error.localizedDescription)
+            }
+        }
+    }
+}
+
+
+struct drawCard:View {
+    
+    //Binding
+    @Binding var actionDrawCard:Int?
+    @State var show = false
+
+    
+    let cardTitle:String
+    let place:String
+    let isAllDay:Bool
+    let start = Date()
+    let end = Date()
+    let timeZone:String
+    let numberRepeat:String
+    let Reminder:String
+    let eleColor:String
+    let detailText:String
+    let candidates:String
+    
+    
+    var body: some View{
+        
+        VStack() {
+            
+            HStack(alignment: .top) {
+                Text(cardTitle)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .font(.subheadline)
+                    .padding(.top, show ? 10 : 5)
+                    .padding(.bottom, show ? 10 : 0)
+                
+                Spacer()
+                Text(place)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .font(.subheadline)
+                    .opacity(0.75)
+                    .padding(.top, show ? 10 : 5)
+                    .padding(.bottom, show ? 10 : 0)
+            }
+            
+            
+            Text(detailText)
+                .foregroundColor(.white)
+                .multilineTextAlignment(.leading)
+                .animation(.spring())
+                .lineLimit(.none)
+            
+            //            if(show){Button(action: {}){
+            //                Text("Continue")
+            //                    .foregroundColor(Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
+            //                    .fontWeight(.bold)
+            //                    .font(.title)
+            //                    .cornerRadius(0)
+            //                    .onTapGesture {
+            //                        //perform some tasks if needed before opening Destination view
+            //                        self.actionDrawCard = 1
+            //                }
+            //                }
+            //
+            //            }
+            
+            Spacer()
+            
+            Button(action: {
+                self.show.toggle()
+            }) {
+                HStack {
+                    Spacer()
+                    Image(systemName: show ? "arrowtriangle.down.fill" : "arrowtriangle.down")
+//                        .foregroundColor(Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
+                        .foregroundColor(Color(.white))
+                        .font(Font.title.weight(.semibold))
+                        .imageScale(.small)
+                    //                    Text(show ? "Collapse" : "Details") // true:false
+                    //                        .foregroundColor(Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
+                    //                        .fontWeight(.bold)
+                    //                        .font(.title)
+                    //                        .cornerRadius(0)
+                }
+            }
+            .padding(.bottom, show ? 20 : 15)
+            
+        }
+        .padding()
+        .padding(.top, 15)
+        .frame(width: show ? 350 : 350, height: show ? 220 : 80)
+        .background(Color(eleColor))
+        .cornerRadius(10)
+        .shadow(radius: 20)
+        .animation(.spring())
+    }
+    
+}
+
+
+//preview
+#if DEBUG
+struct CardView_Previews : PreviewProvider {
+    static var previews: some View {
+        CardView()
+    }
+}
+#endif
+
+
