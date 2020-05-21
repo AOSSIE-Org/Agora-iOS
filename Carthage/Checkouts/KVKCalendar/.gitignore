@@ -1,0 +1,10 @@
+*xcuserdata*
+/build/*
+/.idea/*
+*.mobileprovision
+report.xml
+fastlane/test_output/
+fastlane/xcov_report/
+.scannerwork
+*.xcuserstate
+Example/build/*

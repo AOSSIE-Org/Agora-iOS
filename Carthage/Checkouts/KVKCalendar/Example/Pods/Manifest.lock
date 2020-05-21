@@ -1,0 +1,16 @@
+PODS:
+  - KVKCalendar (0.2.8)
+
+DEPENDENCIES:
+  - KVKCalendar (from `../`)
+
+EXTERNAL SOURCES:
+  KVKCalendar:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  KVKCalendar: 9d7c72e9cee36192076121867a8aba8ecbc81b7a
+
+PODFILE CHECKSUM: 6cdcbea7a0ace2862d5f6d4bf2b87c4fc4ead4e4
+
+COCOAPODS: 1.8.4

@@ -1,0 +1,14 @@
+before_script:
+  - brew update;
+  - brew install carthage;
+#  - sudo gem install xcpretty; 
+  - carthage bootstrap;
+stages:
+    - build
+build_project:
+    stage: build
+    script:
+      - xcodebuild clean -project agora-ios.xcodeproj -scheme agora-ios | xcpretty
+      - xcodebuild test -project agora-ios.xcodeproj -scheme agora-ios -destination 'platform=iOS Simulator,name=iPhone 11,OS=13.4.1' | xcpretty -s
+    tags:
+       - ios
