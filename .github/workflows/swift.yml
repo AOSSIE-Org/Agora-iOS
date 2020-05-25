@@ -1,0 +1,30 @@
+name: Swift
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clean Project
+      run: set -o pipefail && xcodebuild clean -project agora-ios.xcodeproj -scheme agora-ios | xcpretty
+    - uses: actions/cache@v1
+      with:
+        path: Carthage
+        key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-carthage-
+          
+    - name: Install Dependencies
+      if: steps.cache.outputs.cache-hit != 'true'
+      run: carthage bootstrap --platform iOS --cache-builds
+
+    - name: Run tests
+      run: set -o pipefail && xcodebuild test -project agora-ios.xcodeproj -scheme agora-ios -destination 'platform=iOS Simulator,name=iPhone 11,OS=latest' | xcpretty
