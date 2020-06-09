@@ -73,8 +73,8 @@ struct Settings: View {
 }
 
 struct SettingsTop:View{
-    @State var name = "Name"
-    @State var email = "xyz@gmail.com"
+    @State var name = Credentials.username
+    @State var email = Credentials.email
     var body : some View{
         
         VStack(spacing:0){
