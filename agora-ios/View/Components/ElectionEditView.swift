@@ -14,10 +14,10 @@ struct ElectionEditView: View {
         VStack{
             Button(action: {
                 
-                let config = Realm.Configuration(schemaVersion : 1)
+                let config = Realm.Configuration(schemaVersion : 3)
                 do{
                     let realm = try Realm(configuration: config)
-                    let result = realm.objects(Election.self)
+                    let result = realm.objects(DatabaseElection.self)
                     
                     for i in result{
                         
@@ -40,10 +40,10 @@ struct ElectionEditView: View {
             
             Button(action: {
                 
-                let config = Realm.Configuration(schemaVersion : 2)
+                let config = Realm.Configuration(schemaVersion : 3)
                 do{
                     let realm = try Realm(configuration: config)
-                    let result = realm.objects(Election.self)
+                    let result = realm.objects(DatabaseElection.self)
                     
                     for i in result{
                         
@@ -61,10 +61,10 @@ struct ElectionEditView: View {
             
             Button(action: {
                           
-                          let config = Realm.Configuration(schemaVersion : 2)
+                          let config = Realm.Configuration(schemaVersion : 3)
                           do{
                               let realm = try Realm(configuration: config)
-                            let result = realm.objects(Election.self).filter("election.@count > 0")
+                            let result = realm.objects(DatabaseElection.self).filter("election.@count > 0")
                               print(result)
                             var election_count:Int = 0
                             

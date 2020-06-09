@@ -27,29 +27,29 @@ struct LoginView: View {
                 NavigationView{
                     // ScrollView based on height
                     
+                    VStack(spacing:0) {
+                        
                         VStack(spacing:0) {
-                            
-                            VStack(spacing:0) {
-                                ZStack {
-                                    TopCircleShape()
+                            ZStack {
+                                TopCircleShape()
+                                
+                                GeometryReader { geo in
                                     
-                                    GeometryReader { geo in
-                                        
-                                        Image("boy_ship")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: geo.size.width * 0.90, height: geo.size.height, alignment: .center)
-                                    }
-                                    
+                                    Image("boy_ship")
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: geo.size.width * 0.90, height: geo.size.height, alignment: .center)
                                 }
+                                
                             }
-                            Spacer()
-                            
-                            FirstPage()
-                                .padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
-                                .padding(.bottom,UIApplication.shared.windows.first?.safeAreaInsets.bottom)
-                            
-                        }.edgesIgnoringSafeArea(.top)
+                        }
+                        Spacer()
+                        
+                        FirstPage()
+                            .padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
+                            .padding(.bottom,UIApplication.shared.windows.first?.safeAreaInsets.bottom)
+                        
+                    }.edgesIgnoringSafeArea(.top)
                 }
             }
         }.onAppear{
@@ -60,8 +60,6 @@ struct LoginView: View {
                 self.status = status
             }
         }
-        
-        
         
     }
 }
@@ -168,8 +166,8 @@ struct SignUpView: View{
                     UserTextField(fieldName: "Email", userField: self.$email)
                     Button(action: {}) {
                         Text("Sign up").foregroundColor(.black).frame(width: geo.size.width,height: 50).foregroundColor(.white)
-                        .background(Color.yellow)
-                        .cornerRadius(20)
+                            .background(Color.yellow)
+                            .cornerRadius(20)
                         
                     }
                     
@@ -201,106 +199,118 @@ struct AuthenticateView:View {
     
     @State var email:String = ""
     @State var pass:String = ""
-    @State var remember:Bool = false
-
+    @State var remember:Bool = true
+    
     @State var alert:Bool = false
     @State var msg:String = ""
     @State var height:CGFloat = 0
     
+    @State var activityShow:Bool = false
+    
     var body: some View{
         
         ZStack(alignment:.topLeading){
+            
             GeometryReader{geo in
+                
                 ScrollView(UIScreen.main.bounds.height < 750 ? . vertical :(self.height == 0 ? .init(): .vertical),showsIndicators: false){
-                VStack(spacing:5){
-                    
-                    Image("login_tree").resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: geo.size.width * 0.60, height: geo.size.height/3, alignment: .center)
-                    
-                    
-                    
-                //MARK: Login
-                    VStack(alignment: .leading){
-                        Text("Login")
-                            .font(.title)
-                            .fontWeight(.bold)
-                        Text("Username")
-                            .fontWeight(.bold)
-                            .padding(.top,20)
-                        VStack{
-                            TextField("",text: self.$email)
-                            Rectangle().fill(self.email == "" ? Color.black.opacity(0.08):Color.yellow)
-                                .frame(height:3)
-                        }
-                        Text("Password")
-                            .fontWeight(.bold)
-                            .padding(.top,20)
-                        VStack{
-                            SecureField("",text: self.$pass)
-                            Rectangle().fill(self.pass == "" ? Color.black.opacity(0.08):Color.yellow)
-                            .frame(height:3)
-                        }
-                    }
-                    HStack{
+                    VStack(spacing:5){
                         
-                    Button(action: {
-                        self.remember.toggle()
-                    }){
-                    HStack(spacing:10){
-                        ZStack{
-                            Circle()
-                            .stroke(LinearGradient(gradient: Gradient(colors: [Color("Color2"), Color("Color1")]), startPoint: .top, endPoint: .bottom))
-                                .frame(width:20,height:20)
-                            
-                            if self.remember{
-                                Circle()
-                                .fill(Color("Color2"))
-                                .frame(width: 10, height: 10)
+                        Image("login_tree").resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geo.size.width * 0.60, height: geo.size.height/3, alignment: .center)
+                        
+                        
+                        
+                        //MARK: Login
+                        VStack(alignment: .leading){
+                            Text("Login")
+                                .font(.title)
+                                .fontWeight(.bold)
+                            Text("Username")
+                                .fontWeight(.bold)
+                                .padding(.top,20)
+                            VStack{
+                                TextField("",text: self.$email)
+                                Rectangle().fill(self.email == "" ? Color.black.opacity(0.08):Color.yellow)
+                                    .frame(height:3)
+                            }
+                            Text("Password")
+                                .fontWeight(.bold)
+                                .padding(.top,20)
+                            VStack{
+                                SecureField("",text: self.$pass)
+                                Rectangle().fill(self.pass == "" ? Color.black.opacity(0.08):Color.yellow)
+                                    .frame(height:3)
                             }
                         }
-                        Text("Remember me")
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.black)
-                    }
-                    }
-                        Spacer()
+                        HStack{
+                            
+                            Button(action: {
+                                self.remember.toggle()
+                            }){
+                                HStack(spacing:10){
+                                    ZStack{
+                                        Circle()
+                                            .stroke(LinearGradient(gradient: Gradient(colors: [Color("Color2"), Color("Color1")]), startPoint: .top, endPoint: .bottom))
+                                            .frame(width:20,height:20)
+                                        
+                                        if self.remember{
+                                            Circle()
+                                                .fill(Color("Color2"))
+                                                .frame(width: 10, height: 10)
+                                        }
+                                    }
+                                    Text("Remember me")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color.black)
+                                }
+                            }
+                            Spacer()
+                            Button(action: {
+                                
+                            }){
+                                Text("Forgot Password?")
+                            }
+                        }
+                        
+                        //MARK: Social Login Buttons
+                        
+                        // AppleID
+                        Button (action: {}) {
+                            AppleIdButton().background(Color.primary).clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous)).padding(7).frame(width: geo.size.width * 0.80, height: geo.size.height * 0.10)
+                        }
+                        
+                        //TODO: Facebook
+                        
+                        //button
                         Button(action: {
+                            // Show Activity Indicator
+                            
+                            self.activityShow.toggle()
+                            // Login, get auth token and get elections
+                            var apiService = APIService(userXAUTH: "")
+                            
+                            apiService.userLogin(username: self.email.lowercased(), password: self.pass, endpoint: .login, complete:
+                                
+                                apiService.header = [
+                                    //AUTH Key
+                                    "X-Auth-Token": "\(Credentials.token)"]
+                            )
+                            
+                            
+                            apiService.getElection(endpoint: .electionGetAll, ID: "")
                             
                         }){
-                        Text("Forgot Password?")
-                        }
+                            Text("Sign In").frame(width: UIScreen.main.bounds.width - 30,height: 50)
+                            
+                        }.foregroundColor(.black)
+                            .background(Color.yellow)
+                            .cornerRadius(20)
+                            .navigationBarTitle("")
+                            .navigationBarHidden(true)
+                            .navigationBarBackButtonHidden(true)
                     }
-                    
-                    //MARK: Social Login Buttons
-                    
-                    // AppleID
-                    Button (action: {}) {
-                        AppleIdButton().background(Color.primary).clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous)).padding(7).frame(width: geo.size.width * 0.80, height: geo.size.height * 0.10)
-                    }
-                    
-                    //TODO: Facebook
-//                    Button (action: {}) {
-//
-//                    }
-                    
-                    
-                    
-                    
-                    //button
-                    Button(action: {
-                        UserDefaults.standard.set(true, forKey: "status")
-                        NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                    }){
-                        Text("Sign In").frame(width: UIScreen.main.bounds.width - 30,height: 50)
-                        
-                    }.foregroundColor(.black)
-                        .background(Color.yellow)
-                        .cornerRadius(20)
-                        .navigationBarTitle("")
-                        .navigationBarHidden(true)
-                        .navigationBarBackButtonHidden(true)
-                }
                     
                 }.padding(.bottom,self.height) // Move view according to keyboard
                     .edgesIgnoringSafeArea(.all)
@@ -333,6 +343,10 @@ struct AuthenticateView:View {
                 Image(systemName: "chevron.left").font(.title)
                 
             }.foregroundColor(.orange)
+            
+            if self.activityShow == true{
+                ActivityIndicator()
+            }
             
         }
         .padding()
