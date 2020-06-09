@@ -41,6 +41,7 @@
 		E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */; };
 		E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19FF6B624852E5F0087A238 /* CornersShape.swift */; };
 		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
+		E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB7A64248FCC0C008726D8 /* DateJSON.swift */; };
 		E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 		E1DD63142428AC7E00DFCA04 /* E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap"; sourceTree = "<group>"; };
 		E1DD63152428AC7E00DFCA04 /* 2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap"; sourceTree = "<group>"; };
 		E1E98279242935FD007C461C /* ElectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionEditView.swift; sourceTree = "<group>"; };
+		E1EB7A64248FCC0C008726D8 /* DateJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateJSON.swift; sourceTree = "<group>"; };
 		E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,17 +157,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E10BDEAB248B81C3000A634F /* network */ = {
+		E10BDEAB248B81C3000A634F /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */,
 			);
-			path = network;
+			path = Database;
 			sourceTree = "<group>";
 		};
 		E15FA5CB24233DF000E9BF58 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */,
+				E1EB7A64248FCC0C008726D8 /* DateJSON.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -173,8 +177,7 @@
 		E15FA5CD24233E0800E9BF58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E10BDEAB248B81C3000A634F /* network */,
-				E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */,
+				E10BDEAB248B81C3000A634F /* Database */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -525,6 +528,7 @@
 				E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */,
 				E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */,
 				E18F18792420F770002FED89 /* AppDelegate.swift in Sources */,
+				E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */,
 				E16F276B2486366800F754B0 /* UserTextField.swift in Sources */,
 				E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */,
 				E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */,

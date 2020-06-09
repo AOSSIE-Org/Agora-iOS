@@ -9,24 +9,20 @@
 import SwiftUI
 import RealmSwift
 
-
 struct DashboardView: View {
     
     @State var activeLink:Int = 0
     
-   
     var body: some View {
         
         
+        VStack {
+            Top_Dashboard()
+            Spacer()
+            Mid_Dashboard().offset(y:-3)
+            
+        }
         
-            VStack {
-                        Top_Dashboard()
-                        Spacer()
-                Mid_Dashboard().offset(y:-3)
-      
-            }
-     
-
     }
 }
 
@@ -38,18 +34,18 @@ struct Top_Dashboard: View {
         VStack(spacing:0){
             HStack(){
                 Text("     Hello,\n" + userName).fontWeight(.medium)
-                                                .opacity(0.8)
-                                                   .font(.largeTitle)
-                                                   .padding(.top,10)
-                                                   .padding(.bottom,10)
+                    .opacity(0.8)
+                    .font(.largeTitle)
+                    .padding(.top,10)
+                    .padding(.bottom,10)
                     .offset(x:UIScreen.main.bounds.width / 3 - 10)
                 
                 Spacer()
                 
                 Button(action: {}, label: { Image(systemName: "plus").resizable().frame(width: 32, height: 32,alignment: .topTrailing).foregroundColor(.white).offset(x:-20,y:-20).onTapGesture {
-                                            //perform some tasks if needed before opening Destination view
-                                        print("New Election Tapped")
-                                    }})
+                    //perform some tasks if needed before opening Destination view
+                    print("New Election Tapped")
+                    }})
                 
             }.padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
                 .background(ZStack {
@@ -60,42 +56,6 @@ struct Top_Dashboard: View {
         
     }
 }
-
-
-
-//
-//      return  VStack {
-//
-//                LinearGradient(gradient: Gradient(colors: [Color("Color1"), Color("Color2")]), startPoint: .topLeading, endPoint: .bottomTrailing).frame(width: UIScreen.main.bounds.width , height: 176, alignment: .center).clipShape(RoundedRectangle(cornerRadius: 30, style: .circular)).offset(x: 0, y: -10)
-//                Image("Mountains")
-//
-//                HStack {
-//                    Text("     Hello,\n" + userName).foregroundColor(.black)
-//                                   .fontWeight(.bold)
-//                                   .font(.largeTitle)
-//                                   .padding(.top,10)
-//                                   .padding(.bottom,10)
-//
-//
-//
-//
-//                    Button(action: {}, label: { Image(systemName: "plus").resizable().frame(width: 32, height: 32,alignment: .topTrailing).foregroundColor(.white).onTapGesture {
-//                            //perform some tasks if needed before opening Destination view
-//
-//
-//                        print("New Election Tapped")
-//                    }})
-//                }
-//
-//          //
-//            }
-//
-//      }
-//
-//
-//}
-
-
 
 
 
@@ -120,29 +80,29 @@ struct Mid_Dashboard: View{
             }
             
         }.onAppear(){
-
-                do{
-                    let realm = try Realm(configuration: self.config)
-                    let  result = realm.objects(DatabaseElection.self)
-                    
-                    
-                    for _ in result {
-                        self.electionCountMid += 1
-                        print("REALM: Total Records \(self.electionCountMid)")
-                    }
-                    
-                    
-                    
-                    print(result)
-                    
-                    
-                }catch{
-                    print(error.localizedDescription)
+            
+            do{
+                let realm = try Realm(configuration: self.config)
+                let  result = realm.objects(DatabaseElection.self)
+                
+                
+                for _ in result {
+                    self.electionCountMid += 1
+                    print("REALM: Total Records \(self.electionCountMid)")
                 }
+                
+                
+                
+                print(result)
+                
+                
+            }catch{
+                print(error.localizedDescription)
+            }
         }
-    
+        
     }
-
+    
 }
 
 struct StaticCard: View {
@@ -153,28 +113,28 @@ struct StaticCard: View {
         HStack {
             HStack{
                 Text(headerText)
-                                   .foregroundColor(.white)
-                                   .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
                     .font(.largeTitle)
-                                   .padding(.top,10)
-                                   .padding(.bottom,10)
+                    .padding(.top,10)
+                    .padding(.bottom,10)
                 Spacer()
                 
                 Text("\(numberElections)")
-                .foregroundColor(.white)
-                .fontWeight(.bold)
-                .font(.largeTitle)
-                .padding(.top,10)
-                .padding(.bottom,10)
+                    .foregroundColor(.white)
+                    .fontWeight(.bold)
+                    .font(.largeTitle)
+                    .padding(.top,10)
+                    .padding(.bottom,10)
                     .opacity(0.8)
                 
                 
             }.padding()
-            .padding(.top, 15)
+                .padding(.top, 15)
                 //UIScreen.main.bounds.width / 2 - 20
                 .frame(width:UIScreen.main.bounds.width - 20,height:120)
                 .background(Color(myColor))
-            .cornerRadius(10)
+                .cornerRadius(10)
                 .shadow(color: .gray, radius: 6, x: 0, y: 2)
                 .animation(.spring())
             
@@ -186,14 +146,14 @@ struct StaticCard: View {
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
-         Group {
-                DashboardView()
-                   .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
-                   .previewDisplayName("iPhone 8")
-
-                DashboardView()
-                   .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
-                   .previewDisplayName("iPhone 11")
-             }
+        Group {
+            DashboardView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 8"))
+                .previewDisplayName("iPhone 8")
+            
+            DashboardView()
+                .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
+                .previewDisplayName("iPhone 11")
+        }
     }
 }

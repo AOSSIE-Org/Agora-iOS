@@ -16,6 +16,6 @@ struct Credentials {
     static var avatarURL:String = ""
     static var twoFactorAuthentication:Bool = false
     static var token:String = ""
-    static var expiresOn:String = ""
+    static var expiresOn:Date = Date()
     static var trustedDevice:String = ""
 }

@@ -199,7 +199,18 @@ public struct APIService{
                        let json = try? JSON(data:data)
                        print("Login Successful!")
                        
-                       Credentials.token = json!["token"]["token"].stringValue
+                        // Set values
+                        Credentials.username = json!["username"].stringValue
+                        Credentials.email = json!["email"].stringValue
+                        Credentials.firstName = json!["firstName"].stringValue
+                        Credentials.lastName = json!["lastName"].stringValue
+                        Credentials.avatarURL = json!["avatarURL"].stringValue
+                        Credentials.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
+                        Credentials.token = json!["token"]["token"].stringValue
+                        Credentials.expiresOn = json!["token"]["expiresOn"].dateValue!
+                        Credentials.trustedDevice = json!["trustedDevice"].stringValue
+                        
+                      
                       
                        UserDefaults.standard.set(Credentials.token, forKey: "userXAUTH")
                         
