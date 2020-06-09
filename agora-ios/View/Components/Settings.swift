@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import RealmSwift
 
 struct Settings: View {
     @State private var showingAlert = false
@@ -37,8 +38,30 @@ struct Settings: View {
                             print("Logging out...")
                             
                             
+                            //Delete all elections
+                            let config = Realm.Configuration(schemaVersion : 3)
+                            do{
+                                let realm = try Realm(configuration: config)
+                                let result = realm.objects(DatabaseElection.self)
+                                
+                                for i in result{
+                                    
+                                    try! realm.write {
+                                        realm.delete(i)}
+                                
+                            }
+                                
+                            }catch{
+                                print(error.localizedDescription)
+                            }
+                            
+                            
                             UserDefaults.standard.set(false, forKey: "status")
                             NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                            
+                            UserDefaults.standard.set("", forKey: "userXAUTH")
+                          
+                
                             
                         }), secondaryButton: .default(Text("Dismiss")))
                     }

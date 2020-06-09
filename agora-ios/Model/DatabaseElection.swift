@@ -9,9 +9,10 @@
 import Foundation
 import RealmSwift
 
-class Election: Object{
+class DatabaseElection: Object{
     
     let id = UUID() // sys. gen. unique ID as we do not care of the actual value of it.
+    @objc dynamic var _id:String = ""
     @objc dynamic var title:String = ""
     @objc dynamic var place:String = ""
     @objc dynamic var isAllDay:Bool = false
@@ -27,6 +28,8 @@ class Election: Object{
     @objc dynamic var candidates:String = ""
     
     
-   
+   override static func primaryKey() -> String? {
+       return "_id"
+   }
     
 }

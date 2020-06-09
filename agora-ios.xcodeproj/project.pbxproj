@@ -10,7 +10,7 @@
 		E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D12423A0BD00B40532 /* SearchBar.swift */; };
 		E13215D82424760200B40532 /* CreateElection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D72424760200B40532 /* CreateElection.swift */; };
 		E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */; };
-		E15FA5D624233EB400E9BF58 /* Election.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D524233EB400E9BF58 /* Election.swift */; };
+		E15FA5D624233EB400E9BF58 /* DatabaseElection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */; };
 		E15FA5D824233FAA00E9BF58 /* KeyboardFollower.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */; };
 		E15FA5DE24233FF300E9BF58 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5DD24233FF300E9BF58 /* DashboardView.swift */; };
 		E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5DF2423400300E9BF58 /* ElectionView.swift */; };
@@ -33,11 +33,15 @@
 		E18F18852420F774002FED89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E18F18832420F774002FED89 /* LaunchScreen.storyboard */; };
 		E18F18902420F774002FED89 /* agora_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F188F2420F774002FED89 /* agora_iosTests.swift */; };
 		E18F189B2420F774002FED89 /* agora_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F189A2420F774002FED89 /* agora_iosUITests.swift */; };
-		E19012F32430729100741EF9 /* NetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19012F22430729100741EF9 /* NetworkingService.swift */; };
+		E19012F32430729100741EF9 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19012F22430729100741EF9 /* APIService.swift */; };
 		E19012F6243074B600741EF9 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E19012F5243074B600741EF9 /* SwiftyJSON */; };
 		E19012F9243075D100741EF9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E19012F8243075D100741EF9 /* Alamofire */; };
+		E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1926F43248CEA7800CC08A3 /* Credentials.swift */; };
+		E1989DAB248B5C52004ACBE7 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */; };
+		E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */; };
 		E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19FF6B624852E5F0087A238 /* CornersShape.swift */; };
 		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
+		E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +79,7 @@
 		E13215D12423A0BD00B40532 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		E13215D72424760200B40532 /* CreateElection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateElection.swift; sourceTree = "<group>"; };
 		E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
-		E15FA5D524233EB400E9BF58 /* Election.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Election.swift; sourceTree = "<group>"; };
+		E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseElection.swift; sourceTree = "<group>"; };
 		E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFollower.swift; sourceTree = "<group>"; };
 		E15FA5DD24233FF300E9BF58 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		E15FA5DF2423400300E9BF58 /* ElectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionView.swift; sourceTree = "<group>"; };
@@ -104,7 +108,10 @@
 		E18F18962420F774002FED89 /* agora-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "agora-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18F189A2420F774002FED89 /* agora_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = agora_iosUITests.swift; sourceTree = "<group>"; };
 		E18F189C2420F774002FED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E19012F22430729100741EF9 /* NetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingService.swift; sourceTree = "<group>"; };
+		E19012F22430729100741EF9 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		E1926F43248CEA7800CC08A3 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
+		E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		E19FF6B624852E5F0087A238 /* CornersShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornersShape.swift; sourceTree = "<group>"; };
 		E1DD630E2428AC7E00DFCA04 /* RealmSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = RealmSwift.framework.dSYM; sourceTree = "<group>"; };
 		E1DD630F2428AC7E00DFCA04 /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Realm.framework.dSYM; sourceTree = "<group>"; };
@@ -115,6 +122,7 @@
 		E1DD63142428AC7E00DFCA04 /* E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap"; sourceTree = "<group>"; };
 		E1DD63152428AC7E00DFCA04 /* 2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap"; sourceTree = "<group>"; };
 		E1E98279242935FD007C461C /* ElectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionEditView.swift; sourceTree = "<group>"; };
+		E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +155,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E10BDEAB248B81C3000A634F /* network */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = network;
+			sourceTree = "<group>";
+		};
 		E15FA5CB24233DF000E9BF58 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -158,7 +173,8 @@
 		E15FA5CD24233E0800E9BF58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E15FA5D524233EB400E9BF58 /* Election.swift */,
+				E10BDEAB248B81C3000A634F /* network */,
+				E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -184,6 +200,7 @@
 				E181E71C2484F7BD00875E3F /* AppleIdButton.swift */,
 				E19FF6B624852E5F0087A238 /* CornersShape.swift */,
 				E16F276A2486366800F754B0 /* UserTextField.swift */,
+				E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -226,7 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				E181E71B2484F50300875E3F /* agora-ios.entitlements */,
-				E19012F12430724A00741EF9 /* Services */,
+				E19012F12430724A00741EF9 /* Backend */,
 				E15FA5CE24233E0F00E9BF58 /* View */,
 				E15FA5CD24233E0800E9BF58 /* Model */,
 				E15FA5CB24233DF000E9BF58 /* Utils */,
@@ -266,12 +283,39 @@
 			path = "agora-iosUITests";
 			sourceTree = "<group>";
 		};
-		E19012F12430724A00741EF9 /* Services */ = {
+		E19012F12430724A00741EF9 /* Backend */ = {
 			isa = PBXGroup;
 			children = (
-				E19012F22430729100741EF9 /* NetworkingService.swift */,
+				E1989DAC248B5CE6004ACBE7 /* wrappers */,
+				E1989DA9248B5C33004ACBE7 /* preferences */,
+				E1989DA8248B5BB6004ACBE7 /* services */,
 			);
-			path = Services;
+			path = Backend;
+			sourceTree = "<group>";
+		};
+		E1989DA8248B5BB6004ACBE7 /* services */ = {
+			isa = PBXGroup;
+			children = (
+				E19012F22430729100741EF9 /* APIService.swift */,
+			);
+			path = services;
+			sourceTree = "<group>";
+		};
+		E1989DA9248B5C33004ACBE7 /* preferences */ = {
+			isa = PBXGroup;
+			children = (
+				E1926F43248CEA7800CC08A3 /* Credentials.swift */,
+				E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */,
+			);
+			path = preferences;
+			sourceTree = "<group>";
+		};
+		E1989DAC248B5CE6004ACBE7 /* wrappers */ = {
+			isa = PBXGroup;
+			children = (
+				E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */,
+			);
+			path = wrappers;
 			sourceTree = "<group>";
 		};
 		E1DD630C2428AC7D00DFCA04 /* Frameworks */ = {
@@ -464,10 +508,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E15FA5D624233EB400E9BF58 /* Election.swift in Sources */,
+				E15FA5D624233EB400E9BF58 /* DatabaseElection.swift in Sources */,
 				E164BCDE24235C43002E8B23 /* CardView.swift in Sources */,
 				E15FA5DE24233FF300E9BF58 /* DashboardView.swift in Sources */,
-				E19012F32430729100741EF9 /* NetworkingService.swift in Sources */,
+				E19012F32430729100741EF9 /* APIService.swift in Sources */,
+				E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */,
+				E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */,
+				E1989DAB248B5C52004ACBE7 /* AppUserDefaults.swift in Sources */,
 				E17B642D2427189B00475579 /* LoginView.swift in Sources */,
 				E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */,
 				E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */,
@@ -479,6 +526,7 @@
 				E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */,
 				E18F18792420F770002FED89 /* AppDelegate.swift in Sources */,
 				E16F276B2486366800F754B0 /* UserTextField.swift in Sources */,
+				E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */,
 				E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */,
 				E13215D82424760200B40532 /* CreateElection.swift in Sources */,
 				E18F187B2420F770002FED89 /* SceneDelegate.swift in Sources */,

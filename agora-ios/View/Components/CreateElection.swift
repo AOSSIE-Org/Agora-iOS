@@ -64,10 +64,11 @@ struct Mid_Elections: View{
                     
                     Button(action: {
                         
-                        let config = Realm.Configuration(schemaVersion : 2)
+                        let config = Realm.Configuration(schemaVersion : 3)
                         do{
                             let realm = try Realm(configuration: config)
-                            let newdata = Election()
+                            let newdata = DatabaseElection()
+                            newdata._id = UUID().uuidString
                             newdata.title = self.title
                             newdata.place = self.place
                             newdata.isAllDay = self.isAllDay
