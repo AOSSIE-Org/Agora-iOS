@@ -75,6 +75,9 @@ struct Settings: View {
 struct SettingsTop:View{
     @State var name = Credentials.username
     @State var email = Credentials.email
+    @State var firstName = Credentials.firstName
+    @State var lastName = Credentials.lastName
+    
     var body : some View{
         
         VStack(spacing:0){
@@ -84,7 +87,7 @@ struct SettingsTop:View{
                     Circle()
                         .stroke(LinearGradient(gradient: Gradient(colors: [Color("Color2"), Color("Color1")]), startPoint: .top, endPoint: .bottom), lineWidth: 4)
                         .frame(width:64,height:64)
-                        .background(Text("SS").font(.title).fontWeight(.bold))
+                        .background(Text("\(firstName)\(lastName)").font(.title).fontWeight(.bold))
 
                     Text(self.name + "\n" + self.email)
                     Spacer()

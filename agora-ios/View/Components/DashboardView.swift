@@ -62,7 +62,7 @@ struct Top_Dashboard: View {
 // MARK: Mid:-
 struct Mid_Dashboard: View{
     @State var inputSearch:String = ""
-    @State var electionCountMid:Int = 5
+    @State var electionTotalCount:Int = 0
     
     //Realm
     let config = Realm.Configuration(schemaVersion : 3)
@@ -73,10 +73,10 @@ struct Mid_Dashboard: View{
             SearchBar(text:$inputSearch).frame(width:UIScreen.main.bounds.width - 60,height:40)
             Rectangle().frame(width: 350, height: 5, alignment: .center).foregroundColor(Color(.gray)).opacity(0.7)
             ScrollView.init(.vertical, showsIndicators: false) {
-                StaticCard(headerText: "Total Elections", numberElections:electionCountMid , myColor: "_Purple")
-                StaticCard(headerText: "Upcoming Elections", numberElections: 4,myColor: "Blue")
-                StaticCard(headerText: "Pending Elections", numberElections: 4,myColor: "Pink")
-                StaticCard(headerText: "Finished Elections", numberElections: 4,myColor: "Red")
+                StaticCard(headerText: "Total Elections", numberElections:$electionTotalCount , myColor: "_Purple")
+                StaticCard(headerText: "Upcoming Elections", numberElections: .constant(1),myColor: "Blue")
+                StaticCard(headerText: "Pending Elections", numberElections: .constant(1),myColor: "Pink")
+                StaticCard(headerText: "Finished Elections", numberElections: .constant(1),myColor: "Red")
             }
             
         }.onAppear(){
@@ -87,8 +87,8 @@ struct Mid_Dashboard: View{
                 
                 
                 for _ in result {
-                    self.electionCountMid += 1
-                    print("REALM: Total Records \(self.electionCountMid)")
+                    self.electionTotalCount += 1
+                    print("REALM: Total Records \(self.electionTotalCount)")
                 }
                 
                 
@@ -107,7 +107,7 @@ struct Mid_Dashboard: View{
 
 struct StaticCard: View {
     @State var headerText:String = "Total Elections"
-    @State var numberElections:Int = 5
+    @Binding var numberElections:Int
     @State var myColor:String = "Blue"
     var body:some View{
         HStack {
