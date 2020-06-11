@@ -285,21 +285,20 @@ struct AuthenticateView:View {
                         
                         //button
                         Button(action: {
+                            
                             // Show Activity Indicator
-                            
                             self.activityShow.toggle()
-                            // Login, get auth token and get elections
-                            var apiService = APIService(userXAUTH: "")
                             
-                            apiService.userLogin(username: self.email.lowercased(), password: self.pass, endpoint: .login, complete:
+                            // Login, get auth token and get elections
+                            ElectionManager.apiService.userLogin(username: self.email.lowercased(), password: self.pass, endpoint: .login, complete:
                                 
-                                apiService.header = [
+                                ElectionManager.apiService.header = [
                                     //AUTH Key
                                     "X-Auth-Token": "\(Credentials.token)"]
                             )
                             
-                            
-                            apiService.getElection(endpoint: .electionGetAll, ID: "")
+                            // Get all elections and store in db
+                            ElectionManager.getAllElections {   }
                             
                         }){
                             Text("Sign In").frame(width: UIScreen.main.bounds.width - 30,height: 50)
@@ -315,6 +314,7 @@ struct AuthenticateView:View {
                 }.padding(.bottom,self.height) // Move view according to keyboard
                     .edgesIgnoringSafeArea(.all)
                     .onAppear(){
+                        
                         // MARK: Keyboard
                         // Show Keyboard remove outside safearea height
                         NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main){

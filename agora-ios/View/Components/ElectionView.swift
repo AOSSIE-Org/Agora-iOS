@@ -16,7 +16,6 @@ struct ElectionView: View {
             Top_ElectionView()
            CardView()
         }
-        
     }
 }
 

@@ -28,7 +28,7 @@ struct DashboardView: View {
 
 // MARK: Top:-
 struct Top_Dashboard: View {
-    @State var userName = "Siddharth"
+    @State var userName = Credentials.firstName
     var body : some View{
         
         VStack(spacing:0){
@@ -63,10 +63,14 @@ struct Top_Dashboard: View {
 struct Mid_Dashboard: View{
     @State var inputSearch:String = ""
     @State var electionTotalCount:Int = 0
+    @State var electionActiveCount:Int = 0
+    @State var electionPendingCount:Int = 0
+    @State var electionFinishedCount:Int = 0
+    
     
     //Realm
-    let config = Realm.Configuration(schemaVersion : 3)
-    @ObservedObject var elections = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 3)).objects(DatabaseElection.self))
+    let config = Realm.Configuration(schemaVersion : 4)
+    @ObservedObject var elections = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 4)).objects(DatabaseElection.self))
     
     var body: some View {
         VStack {
@@ -74,31 +78,42 @@ struct Mid_Dashboard: View{
             Rectangle().frame(width: 350, height: 5, alignment: .center).foregroundColor(Color(.gray)).opacity(0.7)
             ScrollView.init(.vertical, showsIndicators: false) {
                 StaticCard(headerText: "Total Elections", numberElections:$electionTotalCount , myColor: "_Purple")
-                StaticCard(headerText: "Upcoming Elections", numberElections: .constant(1),myColor: "Blue")
+                StaticCard(headerText: "Active Elections", numberElections: .constant(1),myColor: "Blue")
                 StaticCard(headerText: "Pending Elections", numberElections: .constant(1),myColor: "Pink")
-                StaticCard(headerText: "Finished Elections", numberElections: .constant(1),myColor: "Red")
+                StaticCard(headerText: "Finished Elections", numberElections: $electionFinishedCount,myColor: "Red")
             }
             
         }.onAppear(){
-            
-            do{
-                let realm = try Realm(configuration: self.config)
-                let  result = realm.objects(DatabaseElection.self)
-                
-                
-                for _ in result {
-                    self.electionTotalCount += 1
+            ElectionManager.getAllElections {
+                do{
+                    let realm = try Realm(configuration: self.config)
+                    let  result = realm.objects(DatabaseElection.self)
+                    
+                    // Update Total Elections StaticCard
+                    self.electionTotalCount = result.count
+                    
+                    // Update Upcoming Elections StaticCard
+                    
+                    
+                    // Update Pending Elections StaticCard
+                    
+                    
+                    // Update Finished Elections StaticCard
+                    self.electionFinishedCount = (realm.objects(DatabaseElection.self).filter("isInvite = true")).count
+                    print((realm.objects(DatabaseElection.self).filter("isCompleted = true")).count)
+                    
                     print("REALM: Total Records \(self.electionTotalCount)")
+                    
+                    
+                    print(result)
+                    
+                    
+                }catch{
+                    print(error.localizedDescription)
                 }
-                
-                
-                
-                print(result)
-                
-                
-            }catch{
-                print(error.localizedDescription)
             }
+
+          
         }
         
     }

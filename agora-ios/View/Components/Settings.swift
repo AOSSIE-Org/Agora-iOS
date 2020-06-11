@@ -11,7 +11,7 @@ import RealmSwift
 
 struct Settings: View {
     @State private var showingAlert = false
-    
+    @State private var showingContact:Bool = false
     var body: some View {
         VStack() {
             SettingsTop()
@@ -20,13 +20,22 @@ struct Settings: View {
             ZStack {
                 Color.black.opacity(0.04)
                 VStack(alignment:.leading,spacing: 20){
-                    Text("Manage Data").fontWeight(.bold).opacity(0.8)
+                    Button(action: {}) {
+                        Text("Manage Data").fontWeight(.bold).foregroundColor(Color.black).opacity(0.8)
+                    }
                     Divider()
-                    Text("Manage Account").fontWeight(.bold).opacity(0.8)
+                    Button(action: {}) {
+                        Text("Manage Account").fontWeight(.bold).foregroundColor(Color.black).opacity(0.8)
+                    }
                     Divider()
-                    Text("Rate Us").fontWeight(.bold).opacity(0.8)
+                    Button(action: {}) {
+                        Text("Rate Us").fontWeight(.bold).foregroundColor(Color.black).opacity(0.8)
+
+                    }
                     Divider()
-                    Text("Contact Us").fontWeight(.bold).opacity(0.8)
+                    Button(action: {self.showingContact.toggle()}) {
+                        Text("Contact Us").fontWeight(.bold).foregroundColor(Color.black).opacity(0.8)
+                    }
                     Divider()
                     Button(action: {
                         self.showingAlert = true;
@@ -39,7 +48,7 @@ struct Settings: View {
                             
                             
                             //Delete all elections
-                            let config = Realm.Configuration(schemaVersion : 3)
+                            let config = Realm.Configuration(schemaVersion : 4)
                             do{
                                 let realm = try Realm(configuration: config)
                                 let result = realm.objects(DatabaseElection.self)
@@ -68,6 +77,10 @@ struct Settings: View {
                 }.padding(.leading,20)
             }
             Spacer()
+        }.sheet(isPresented:$showingContact){
+            VStack{
+                Text("Contact Info Here!")
+            }
         }
     }
 }

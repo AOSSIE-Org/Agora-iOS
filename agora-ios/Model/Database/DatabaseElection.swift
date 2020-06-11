@@ -15,18 +15,39 @@ class DatabaseElection: Object{
     @objc dynamic var _id:String = ""
     @objc dynamic var title:String = ""
     @objc dynamic var place:String = ""
-    @objc dynamic var isAllDay:Bool = false
+    @objc dynamic var electionType:String = ""
+    @objc dynamic var creatorName:String = ""
+    @objc dynamic var creatorEmail:String = ""
+    
     @objc dynamic var start = Date()
     @objc dynamic var end = Date()
-    @objc dynamic var timeZone:String = ""
+    @objc dynamic var realtimeResult:Bool = false
+    @objc dynamic var votingAlgo:String = ""
+    //@objc dynamic var candidates:[String] = []
+    @objc dynamic var ballotVisibility:String = ""
+    @objc dynamic var voterListVisibility:Bool = false
+    @objc dynamic var isInvite:Bool = false
+    
+    @objc dynamic var isCompleted:Bool = false
+    @objc dynamic var isStarted:Bool = false
+    @objc dynamic var createdTime:Date = Date()
+    
+    @objc dynamic var adminLink:String = ""
+    @objc dynamic var inviteCode:String = ""
+    
+   // @objc dynamic var ballot:[Ballot] = []
+    //@objc dynamic var voterList:[VoterList] = []
+    
     @objc dynamic var numberRepeat:String = ""
     @objc dynamic var Reminder:String = ""
     @objc dynamic var eleColor:String = ""
     
     @objc dynamic var electionDescription:String = ""
     
-    @objc dynamic var candidates:String = ""
     
+    
+    @objc dynamic var isAllDay:Bool = false
+    @objc dynamic var timeZone:String = ""
     
    override static func primaryKey() -> String? {
        return "_id"

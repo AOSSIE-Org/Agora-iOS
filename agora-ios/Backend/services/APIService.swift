@@ -159,19 +159,50 @@ public struct APIService{
                 print("Got data for Election: \(i.1["_id"])")
                 
                 // Put in db
-                let config = Realm.Configuration(schemaVersion : 3)
+                let config = Realm.Configuration(schemaVersion : 4)
                 do{
                     let realm = try Realm(configuration: config)
-                    let newData = DatabaseElection()
-                    newData._id = i.1["_id"].stringValue
-                    newData.title = i.1["name"].stringValue
+                    let databaseElection = DatabaseElection()
+                    databaseElection._id = i.1["_id"].stringValue
+                    databaseElection.title = i.1["name"].stringValue
+                    databaseElection.place = i.1["description"].stringValue
+                    databaseElection.electionType = i.1["electionType"].stringValue
+                    databaseElection.creatorName = i.1["creatorName"].stringValue
+                    databaseElection.creatorEmail = i.1["creatorEmail"].stringValue
                     
-                    newData.place = i.1["description"].stringValue
-                    newData.eleColor = "Blue"
-                    newData.candidates = i.1["candidates"].stringValue
+                    //databaseElection.start = i.1["start"].dateValue!
+                  //  databaseElection.end = i.1["end"].dateValue!
+                    databaseElection.realtimeResult = i.1["realtimeResult"].boolValue
+                    databaseElection.votingAlgo = i.1["votingAlgo"].stringValue
+                    //databaseElection.candidates = i.1["candidates"].arrayValue.map{$0.stringValue}
+                    databaseElection.ballotVisibility = i.1["ballotVisibility"].stringValue
+                    databaseElection.voterListVisibility = i.1["voterListVisibility"].boolValue
+                    databaseElection.isInvite = i.1["isInvite"].boolValue
                     
+                    databaseElection.isCompleted = i.1["isCompleted"].boolValue
+                    databaseElection.isStarted = i.1["isStarted"].boolValue
+                   // databaseElection.createdTime = i.1["createdTime"].dateValue!
+                    
+                    databaseElection.adminLink = i.1["adminLink"].stringValue
+                    databaseElection.inviteCode = i.1["inviteCode"].stringValue
+                    
+//                    for ballot in i.1["ballot"].arrayValue {
+//                        let newB = Ballot(voteBallot: ballot["voteBallot"].stringValue, _hash: ballot["hash"].stringValue)
+//                        databaseElection.ballot.append(newB)
+//                    }
+                    
+//                    for voter in i.1["voterList"].arrayValue{
+//                        let newVoter = VoterList(name: voter["name"].stringValue, _hash: voter["hash"].stringValue)
+//                        databaseElection.voterList.append(newVoter)
+//                    }
+                    
+                    
+                    
+                    
+                    databaseElection.eleColor = ["Blue","Red","Pink"].randomElement()!
+                   
                     try realm.write({
-                        realm.add(newData,update: .modified)
+                        realm.add(databaseElection,update: .modified)
                         print("Election details added successfully")
                     })
                     
