@@ -6,6 +6,7 @@
 //  Copyright © 2020 HalfPolygon. All rights reserved.
 //
 import SwiftUI
+import RealmSwift
 import AuthenticationServices
 
 struct LoginView: View {
@@ -296,7 +297,7 @@ struct AuthenticateView:View {
                                     //AUTH Key
                                     "X-Auth-Token": "\(Credentials.token)"]
                             )
-                            
+                         
                             // Get all elections and store in db
                             ElectionManager.getAllElections {   }
                             

@@ -6,7 +6,7 @@
 //  Copyright © 2020 HalfPolygon. All rights reserved.
 //
 
- 
+
 import Foundation
 import Alamofire
 import SwiftyJSON
@@ -19,7 +19,7 @@ public struct APIService{
     let decoder = JSONDecoder()
     let encoder = JSONEncoder()
     
- 
+    
     
     init(userXAUTH:String) {
         header = [
@@ -72,13 +72,13 @@ public struct APIService{
         case userChangePassword
         case userChangeAvatar
         case userLogout
-
+        
         
         
         func path() -> String {
             switch self {
             case .login:
-               return "/api/v1/auth/login"
+                return "/api/v1/auth/login"
             case let .authenticate(provider):
                 return "/api/v1/auth/authenticate/\(provider))"
             case .forgotPasswordSend(userName: let userName):
@@ -139,10 +139,10 @@ public struct APIService{
                 return "/api/v1/user/changeAvatar"
             case .userLogout:
                 return "/api/v1/user/logout"
-            
+                
             }
         }
-
+        
     }
     
     
@@ -150,117 +150,152 @@ public struct APIService{
     public func getElection(endpoint: EndPoint,ID:String) -> Void{
         let queryURL = baseURL!.appendingPathComponent(endpoint.path())
         AF.request(queryURL,
-        method: .get,
-        headers: header).responseData { response in
-            guard let data = response.data else { return }
-            let json = try? JSON(data:data)
-     
-            for i in json!["elections"]{
-                print("Got data for Election: \(i.1["_id"])")
-                
-                // Put in db
-                let config = Realm.Configuration(schemaVersion : 4)
-                do{
-                    let realm = try Realm(configuration: config)
-                    let databaseElection = DatabaseElection()
-                    databaseElection._id = i.1["_id"].stringValue
-                    databaseElection.title = i.1["name"].stringValue
-                    databaseElection.place = i.1["description"].stringValue
-                    databaseElection.electionType = i.1["electionType"].stringValue
-                    databaseElection.creatorName = i.1["creatorName"].stringValue
-                    databaseElection.creatorEmail = i.1["creatorEmail"].stringValue
+                   method: .get,
+                   headers: header).responseData { response in
+                    guard let data = response.data else { return }
+                    let json = try? JSON(data:data)
                     
-                    databaseElection.start = i.1["start"].dateValue!
-                    print(databaseElection.start)
-                   databaseElection.end = i.1["end"].dateValue!
-                    print(databaseElection.start)
-                    
-                    databaseElection.realtimeResult = i.1["realtimeResult"].boolValue
-                    databaseElection.votingAlgo = i.1["votingAlgo"].stringValue
-                    //databaseElection.candidates = i.1["candidates"].arrayValue.map{$0.stringValue}
-                    databaseElection.ballotVisibility = i.1["ballotVisibility"].stringValue
-                    databaseElection.voterListVisibility = i.1["voterListVisibility"].boolValue
-                    databaseElection.isInvite = i.1["isInvite"].boolValue
-                    
-                    databaseElection.isCompleted = i.1["isCompleted"].boolValue
-                    databaseElection.isStarted = i.1["isStarted"].boolValue
-                   // databaseElection.createdTime = i.1["createdTime"].dateValue!
-                    
-                    databaseElection.adminLink = i.1["adminLink"].stringValue
-                    databaseElection.inviteCode = i.1["inviteCode"].stringValue
-                    
-//                    for ballot in i.1["ballot"].arrayValue {
-//                        let newB = Ballot(voteBallot: ballot["voteBallot"].stringValue, _hash: ballot["hash"].stringValue)
-//                        databaseElection.ballot.append(newB)
-//                    }
-                    
-//                    for voter in i.1["voterList"].arrayValue{
-//                        let newVoter = VoterList(name: voter["name"].stringValue, _hash: voter["hash"].stringValue)
-//                        databaseElection.voterList.append(newVoter)
-//                    }
-                    
-                    
-                    
-                    
-                    databaseElection.eleColor = ["Blue","Red","Pink"].randomElement()!
-                   
-                    try realm.write({
-                        realm.add(databaseElection,update: .modified)
-                        print("Election details added successfully")
-                    })
-                    
-                    
-                }catch{
-                    print(error.localizedDescription)
-                }
-            }
+                    for i in json!["elections"]{
+                        print("Got data for Election: \(i.1["_id"])")
+                        
+                        // Put in db
+                        let config = Realm.Configuration(schemaVersion : 4)
+                        do{
+                            let realm = try Realm(configuration: config)
+                            let databaseElection = DatabaseElection()
+                            databaseElection._id = i.1["_id"].stringValue
+                            databaseElection.title = i.1["name"].stringValue
+                            databaseElection.place = i.1["description"].stringValue
+                            databaseElection.electionType = i.1["electionType"].stringValue
+                            databaseElection.creatorName = i.1["creatorName"].stringValue
+                            databaseElection.creatorEmail = i.1["creatorEmail"].stringValue
+                            
+                            databaseElection.start = i.1["start"].dateValue!
+                            
+                            databaseElection.end = i.1["end"].dateValue!
+                            
+                            
+                            databaseElection.realtimeResult = i.1["realtimeResult"].boolValue
+                            databaseElection.votingAlgo = i.1["votingAlgo"].stringValue
+                            //databaseElection.candidates = i.1["candidates"].arrayValue.map{$0.stringValue}
+                            databaseElection.ballotVisibility = i.1["ballotVisibility"].stringValue
+                            databaseElection.voterListVisibility = i.1["voterListVisibility"].boolValue
+                            databaseElection.isInvite = i.1["isInvite"].boolValue
+                            
+                            databaseElection.isCompleted = i.1["isCompleted"].boolValue
+                            databaseElection.isStarted = i.1["isStarted"].boolValue
+                            // databaseElection.createdTime = i.1["createdTime"].dateValue!
+                            
+                            databaseElection.adminLink = i.1["adminLink"].stringValue
+                            databaseElection.inviteCode = i.1["inviteCode"].stringValue
+                            
+                            //                    for ballot in i.1["ballot"].arrayValue {
+                            //                        let newB = Ballot(voteBallot: ballot["voteBallot"].stringValue, _hash: ballot["hash"].stringValue)
+                            //                        databaseElection.ballot.append(newB)
+                            //                    }
+                            
+                            //                    for voter in i.1["voterList"].arrayValue{
+                            //                        let newVoter = VoterList(name: voter["name"].stringValue, _hash: voter["hash"].stringValue)
+                            //                        databaseElection.voterList.append(newVoter)
+                            //                    }
+                            
+                            
+                            
+                            
+                            databaseElection.eleColor = ["Blue","Red","Pink"].randomElement()!
+                            
+                            try realm.write({
+                                realm.add(databaseElection,update: .modified)
+                                print("Election details added successfully")
+                            })
+                            
+                            
+                        }catch{
+                            print(error.localizedDescription)
+                        }
+                    }
         }
     }
     
-   
+    
     
     //MARK:- Authentication
-   
+    
     public func userLogin(username:String,password:String,endpoint:EndPoint, complete: ()
     ){
-           let queryURL = baseURL!.appendingPathComponent(endpoint.path())
-           let parameters: Parameters = [ "identifier" : username, "password" : password,"trustedDevice":"iOS" ]
-           
-           
-           AF.request(queryURL,
-                      method: .post,parameters: parameters,encoding: JSONEncoding.default,headers: nil).responseData { response in
-                       guard let data = response.data else { return }
-                       let json = try? JSON(data:data)
-                       print("Login Successful!")
-                       
+        let queryURL = baseURL!.appendingPathComponent(endpoint.path())
+        let parameters: Parameters = [ "identifier" : username, "password" : password,"trustedDevice":"iOS" ]
+        
+        
+        AF.request(queryURL,
+                   method: .post,parameters: parameters,encoding: JSONEncoding.default,headers: nil).responseData { response in
+                    guard let data = response.data else { return }
+                    let json = try? JSON(data:data)
+                    print("Login Successful!")
+                    
+                    
+                    // Set Realm User
+                   let userConfig = Realm.Configuration(schemaVersion : 4)
+                    
+                    do{
+                        let realm = try Realm(configuration: userConfig)
+                        
+                        let databaseUser = DatabaseUser()
                         // Set values
-                        Credentials.username = json!["username"].stringValue
-                        Credentials.email = json!["email"].stringValue
-                        Credentials.firstName = json!["firstName"].stringValue
-                        Credentials.lastName = json!["lastName"].stringValue
-                        Credentials.avatarURL = json!["avatarURL"].stringValue
-                        Credentials.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
-                        Credentials.token = json!["token"]["token"].stringValue
-                        Credentials.expiresOn = json!["token"]["expiresOn"].dateValue!
-                        Credentials.trustedDevice = json!["trustedDevice"].stringValue
-                        
-                      
-                      
-                       UserDefaults.standard.set(Credentials.token, forKey: "userXAUTH")
-                        
-                        // Perform complete assignment
-                        complete
-                        
-                        // If got userXAUTH login
-                        UserDefaults.standard.set(true, forKey: "status")
-                        NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                        databaseUser.username = json!["username"].stringValue
+                        databaseUser.email = json!["email"].stringValue
+                        databaseUser.firstName = json!["firstName"].stringValue
+                        databaseUser.lastName = json!["lastName"].stringValue
+                        databaseUser.avatarURL = json!["avatarURL"].stringValue
+                        databaseUser.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
+                        databaseUser.token = json!["token"]["token"].stringValue
+                        //databaseUser.expiresOn = json!["token"]["expiresOn"].dateValue!
+                        databaseUser.trustedDevice = json!["trustedDevice"].stringValue
                         
                         
                         
+                        try realm.write({
+                            realm.add(databaseUser,update: .modified)
+                            print("User info. added successfully")
+                        })
                         
-           }
-           
-       }
+                        
+                    }catch{
+                        print(error.localizedDescription)
+                    }
+                    
+                    
+                    
+                    
+                    
+                    // Set values
+                    Credentials.username = json!["username"].stringValue
+                    Credentials.email = json!["email"].stringValue
+                    Credentials.firstName = json!["firstName"].stringValue
+                    Credentials.lastName = json!["lastName"].stringValue
+                    Credentials.avatarURL = json!["avatarURL"].stringValue
+                    Credentials.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
+                    Credentials.token = json!["token"]["token"].stringValue
+                    //Credentials.expiresOn = json!["token"]["expiresOn"].dateValue!
+                    Credentials.trustedDevice = json!["trustedDevice"].stringValue
+                    
+                    
+                    
+                    UserDefaults.standard.set(Credentials.token, forKey: "userXAUTH")
+                    
+                    // Perform complete assignment
+                    complete
+                    
+                    // If got userXAUTH login
+                    UserDefaults.standard.set(true, forKey: "status")
+                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                    
+                    
+                    
+                    
+        }
+        
+    }
     
     func userSignup(){
         

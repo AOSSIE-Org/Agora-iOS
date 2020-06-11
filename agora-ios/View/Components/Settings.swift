@@ -91,6 +91,9 @@ struct SettingsTop:View{
     @State var firstName = Credentials.firstName
     @State var lastName = Credentials.lastName
     
+    @ObservedObject var userResults = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 4)).objects(DatabaseUser.self))
+    
+    
     var body : some View{
         
         VStack(spacing:0){
@@ -100,9 +103,9 @@ struct SettingsTop:View{
                     Circle()
                         .stroke(LinearGradient(gradient: Gradient(colors: [Color("Color2"), Color("Color1")]), startPoint: .top, endPoint: .bottom), lineWidth: 4)
                         .frame(width:64,height:64)
-                        .background(Text("\(firstName)\(lastName)").font(.title).fontWeight(.bold))
+                        .background(Text("\(userResults.results[0].firstName)\(userResults.results[0].lastName)").font(.title).fontWeight(.bold))
 
-                    Text(self.name + "\n" + self.email)
+                    Text(userResults.results[0].username + "\n" + userResults.results[0].email)
                     Spacer()
                 }.padding()
             }.padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)

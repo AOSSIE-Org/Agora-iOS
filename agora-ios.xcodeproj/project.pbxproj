@@ -42,6 +42,7 @@
 		E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */; };
 		E19B260E2491F71E00B97D43 /* ElectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B260D2491F71E00B97D43 /* ElectionManager.swift */; };
 		E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19FF6B624852E5F0087A238 /* CornersShape.swift */; };
+		E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B4FCCE2492774700907329 /* DatabaseUser.swift */; };
 		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
 		E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB7A64248FCC0C008726D8 /* DateJSON.swift */; };
 		E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */; };
@@ -118,6 +119,7 @@
 		E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		E19B260D2491F71E00B97D43 /* ElectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionManager.swift; sourceTree = "<group>"; };
 		E19FF6B624852E5F0087A238 /* CornersShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornersShape.swift; sourceTree = "<group>"; };
+		E1B4FCCE2492774700907329 /* DatabaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUser.swift; sourceTree = "<group>"; };
 		E1DD630E2428AC7E00DFCA04 /* RealmSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = RealmSwift.framework.dSYM; sourceTree = "<group>"; };
 		E1DD630F2428AC7E00DFCA04 /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Realm.framework.dSYM; sourceTree = "<group>"; };
 		E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */,
+				E1B4FCCE2492774700907329 /* DatabaseUser.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				E181E71D2484F7BD00875E3F /* AppleIdButton.swift in Sources */,
 				E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */,
 				E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */,
+				E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */,
 				E18F18792420F770002FED89 /* AppDelegate.swift in Sources */,
 				E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */,
 				E16F276B2486366800F754B0 /* UserTextField.swift in Sources */,
