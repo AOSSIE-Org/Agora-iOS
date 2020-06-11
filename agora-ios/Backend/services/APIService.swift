@@ -170,8 +170,11 @@ public struct APIService{
                     databaseElection.creatorName = i.1["creatorName"].stringValue
                     databaseElection.creatorEmail = i.1["creatorEmail"].stringValue
                     
-                    //databaseElection.start = i.1["start"].dateValue!
-                  //  databaseElection.end = i.1["end"].dateValue!
+                    databaseElection.start = i.1["start"].dateValue!
+                    print(databaseElection.start)
+                   databaseElection.end = i.1["end"].dateValue!
+                    print(databaseElection.start)
+                    
                     databaseElection.realtimeResult = i.1["realtimeResult"].boolValue
                     databaseElection.votingAlgo = i.1["votingAlgo"].stringValue
                     //databaseElection.candidates = i.1["candidates"].arrayValue.map{$0.stringValue}
