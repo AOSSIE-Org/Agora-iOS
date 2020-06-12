@@ -66,8 +66,8 @@ struct Mid_Dashboard: View{
     @State var inputSearch:String = ""
     @State var electionTotalCount:Int = 0
     @State var electionActiveCount:Int = 0
-    @State var electionPendingCount:Int = 0
     @State var electionFinishedCount:Int = 0
+    @State var electionPendingCount:Int = 0
     
     
     //Realm
@@ -82,9 +82,9 @@ struct Mid_Dashboard: View{
             Rectangle().frame(width: 350, height: 5, alignment: .center).foregroundColor(Color(.gray)).opacity(0.7)
             ScrollView.init(.vertical, showsIndicators: false) {
                 StaticCard(headerText: "Total Elections", numberElections:$electionTotalCount , myColor: "_Purple")
-                StaticCard(headerText: "Active Elections", numberElections: .constant(1),myColor: "Blue")
-                StaticCard(headerText: "Pending Elections", numberElections: .constant(1),myColor: "Pink")
-                StaticCard(headerText: "Finished Elections", numberElections: $electionFinishedCount,myColor: "Red")
+                StaticCard(headerText: "Active Elections", numberElections: $electionActiveCount,myColor: "Blue")
+                StaticCard(headerText: "Finished Elections", numberElections: $electionFinishedCount,myColor: "Pink")
+                StaticCard(headerText: "Pending Elections", numberElections: $electionPendingCount,myColor: "Red")
             }
             
         }.onAppear(){
@@ -118,25 +118,32 @@ struct Mid_Dashboard: View{
             ElectionManager.getAllElections {
                 do{
                     let realm = try Realm(configuration: self.config)
-                    let  result = realm.objects(DatabaseElection.self)
+                    let  results = realm.objects(DatabaseElection.self)
                     
                     // Update Total Elections StaticCard
-                    self.electionTotalCount = result.count
-                    
-                    //TODO: Update Upcoming Elections StaticCard
+                    self.electionTotalCount = results.count
                     
                     
-                    //TODO: Update Pending Elections StaticCard
-                    
-                    
-                    // Update Finished Elections StaticCard
-                    self.electionFinishedCount = (realm.objects(DatabaseElection.self).filter("isInvite = true")).count
-                    print((realm.objects(DatabaseElection.self).filter("isCompleted = true")).count)
-                    
+                    let nowDate = Date()
+                    for result in results{
+                        //Update Pending Elections StaticCard
+                        if nowDate < result.start{
+                            self.electionPendingCount += 1
+                        }
+                        // Update Finished Elections StaticCard
+                        if nowDate > result.end{
+                            self.electionFinishedCount += 1
+                        }
+                        else{
+                            //Update Active Elections StaticCard
+                            self.electionActiveCount += 1
+                        }
+                    }
+
                     print("REALM: Total Records \(self.electionTotalCount)")
                     
                     
-                    print(result)
+                    print(results)
                     
                     
                 }catch{
