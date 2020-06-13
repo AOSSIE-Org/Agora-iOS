@@ -296,10 +296,17 @@ struct AuthenticateView:View {
                                 ElectionManager.apiService.header = [
                                     //AUTH Key
                                     "X-Auth-Token": "\(Credentials.token)"]
-                            )
-                         
-                            // Get all elections and store in db
-                            ElectionManager.getAllElections {   }
+                                
+                            ){
+                                // Get all elections and store in db onSuccess
+                                ElectionManager.getAllElections {
+                                    // If got userXAUTH login
+                                    UserDefaults.standard.set(true, forKey: "status")
+                                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                                }
+                            }
+                            
+                            
                             
                         }){
                             Text("Sign In").frame(width: UIScreen.main.bounds.width - 30,height: 50)

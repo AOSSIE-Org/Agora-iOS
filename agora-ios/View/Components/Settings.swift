@@ -46,32 +46,14 @@ struct Settings: View {
                         Alert(title: Text("Log out?"), message: Text("Are you sure you want to log out?"),primaryButton: .default(Text("Yes"), action: {
                             print("Logging out...")
                             
-                            
-                            //Delete all elections
-                            let config = Realm.Configuration(schemaVersion : 4)
-                            do{
-                                let realm = try Realm(configuration: config)
-                                let result = realm.objects(DatabaseElection.self)
+                            ElectionManager.deleteAllElectionsfromdb {
                                 
-                                for i in result{
-                                    
-                                    try! realm.write {
-                                        realm.delete(i)}
+                                UserDefaults.standard.set(false, forKey: "status")
+                                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                                 
+                                UserDefaults.standard.set("", forKey: "userXAUTH")
                             }
-                                
-                            }catch{
-                                print(error.localizedDescription)
-                            }
-                            
-                            
-                            UserDefaults.standard.set(false, forKey: "status")
-                            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                            
-                            UserDefaults.standard.set("", forKey: "userXAUTH")
-                          
-                
-                            
+        
                         }), secondaryButton: .default(Text("Dismiss")))
                     }
                 }.padding(.leading,20)

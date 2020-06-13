@@ -221,7 +221,7 @@ public struct APIService{
     
     //MARK:- Authentication
     
-    public func userLogin(username:String,password:String,endpoint:EndPoint, complete: ()
+    public func userLogin(username:String,password:String,endpoint:EndPoint, complete: () ,onSuccess: @escaping ()->Void
     ){
         let queryURL = baseURL!.appendingPathComponent(endpoint.path())
         let parameters: Parameters = [ "identifier" : username, "password" : password,"trustedDevice":"iOS" ]
@@ -263,11 +263,6 @@ public struct APIService{
                     }catch{
                         print(error.localizedDescription)
                     }
-                    
-                    
-                    
-                    
-                    
                     // Set values
                     Credentials.username = json!["username"].stringValue
                     Credentials.email = json!["email"].stringValue
@@ -286,43 +281,10 @@ public struct APIService{
                     // Perform complete assignment
                     complete
                     
-                    // If got userXAUTH login
-                    UserDefaults.standard.set(true, forKey: "status")
-                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                    
-                    
-                    
-                    
+                    onSuccess()
+         
         }
         
     }
     
-    func userSignup(){
-        
-    }
-    
-    func userResetSend(){
-        
-    }
-    func userResetValidate(){
-        
-    }
-    
-    
-    //MARK:- Election
-    func storeElection(){
-        
-    }
-    
-    func printDatabase(){
-        
-    }
-    
-    func getAllElectionsOfUser() -> Void {
-        // Fetch all elections of the user and refresh db
-    }
-    
-    func fetchElectionData(ID:String) -> Void{
-        
-    }
 }
