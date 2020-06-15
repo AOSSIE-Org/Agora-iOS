@@ -90,7 +90,7 @@ struct Mid_Dashboard: View{
         }.onAppear(){
             
            
-           // TODO: Update UI with User Data
+           //  Update UI with User Data
             
             do{
                 let realm = try Realm(configuration: self.config)

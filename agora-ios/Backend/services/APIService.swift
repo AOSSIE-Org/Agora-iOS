@@ -221,15 +221,21 @@ public struct APIService{
     
     //MARK:- Authentication
     
-    public func userLogin(username:String,password:String,endpoint:EndPoint, complete: () ,onSuccess: @escaping ()->Void
+    public func userLogin(username:String,password:String,endpoint:EndPoint,onFailure: @escaping ()->Void, onSuccess: @escaping ()->Void
     ){
         let queryURL = baseURL!.appendingPathComponent(endpoint.path())
         let parameters: Parameters = [ "identifier" : username, "password" : password,"trustedDevice":"iOS" ]
-        
+       
         
         AF.request(queryURL,
                    method: .post,parameters: parameters,encoding: JSONEncoding.default,headers: nil).responseData { response in
-                    guard let data = response.data else { return }
+                    guard let data = response.data else {
+                        print("Login Failed!")
+                        
+                        onFailure()
+                        return
+                        
+                    }
                     let json = try? JSON(data:data)
                     print("Login Successful!")
                     
@@ -277,10 +283,7 @@ public struct APIService{
                     
                     
                     UserDefaults.standard.set(Credentials.token, forKey: "userXAUTH")
-                    
-                    // Perform complete assignment
-                    complete
-                    
+                    // Success
                     onSuccess()
          
         }
