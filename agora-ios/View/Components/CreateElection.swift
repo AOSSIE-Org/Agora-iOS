@@ -16,7 +16,7 @@ struct CreateElection: View {
             VStack{
                 Mid_Elections().navigationBarTitle("New Election",displayMode: .inline)
             }
-        }.background(with: Color("backgroundColor"))
+        }
     }
 }
 
@@ -64,7 +64,7 @@ struct Mid_Elections: View{
                     
                     Button(action: {
                         
-                        let config = Realm.Configuration(schemaVersion : 3)
+                        let config = Realm.Configuration(schemaVersion : 4)
                         do{
                             let realm = try Realm(configuration: config)
                             let newdata = DatabaseElection()
@@ -78,7 +78,7 @@ struct Mid_Elections: View{
                             newdata.Reminder = self.Reminder
                             newdata.eleColor = self.eleColor
                             newdata.electionDescription = self.electionDescription
-                            newdata.candidates = self.candidates
+                           // newdata.candidates = self.candidates
                             try realm.write({
                                 
                                 realm.add(newdata)
@@ -92,21 +92,9 @@ struct Mid_Elections: View{
                         
                         
                     }, label: { Text("Save").font(.title).foregroundColor(.white)})
-                    
-                    
                 }
             }
-             
-//            HStack {
-//
-//                    DatePicker("Please enter a time", selection: $start, displayedComponents: .hourAndMinute).labelsHidden().frame(width: 200, height: 200, alignment: .center)
-//
-//                DatePicker("Please enter a time", selection: $end, displayedComponents: .hourAndMinute).labelsHidden().frame(width: 200, height: 200, alignment: .center)
-//            }
-            
-            
-            
-            
+
             ScrollView {
                 
                 

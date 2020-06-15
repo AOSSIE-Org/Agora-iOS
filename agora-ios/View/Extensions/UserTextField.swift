@@ -27,7 +27,6 @@ struct UserTextField: View {
             Rectangle().fill(self.userField == "" ? Color.black.opacity(0.08):Color.yellow)
                 .frame(height:3)
         }
-          
     }
 }
 

@@ -6,6 +6,7 @@
 //  Copyright © 2020 HalfPolygon. All rights reserved.
 //
 import SwiftUI
+import RealmSwift
 import AuthenticationServices
 
 struct LoginView: View {
@@ -191,7 +192,6 @@ struct SignUpView: View{
 
 
 
-
 struct AuthenticateView:View {
     
     @Binding var showAuth:Bool
@@ -285,21 +285,33 @@ struct AuthenticateView:View {
                         
                         //button
                         Button(action: {
+                            
                             // Show Activity Indicator
+                            self.activityShow = true
                             
-                            self.activityShow.toggle()
                             // Login, get auth token and get elections
-                            var apiService = APIService(userXAUTH: "")
-                            
-                            apiService.userLogin(username: self.email.lowercased(), password: self.pass, endpoint: .login, complete:
+                            ElectionManager.apiService.userLogin(username: self.email.lowercased(), password: self.pass, endpoint: .login, onFailure: {
+                                self.activityShow = false
+                                self.alert = true
+                            }){
                                 
-                                apiService.header = [
+                                
+                                ElectionManager.apiService.header = [
                                     //AUTH Key
                                     "X-Auth-Token": "\(Credentials.token)"]
-                            )
+                                
+                                self.activityShow = false
+                                
+                                // Get all elections and store in db onSuccess
+                                ElectionManager.getAllElections {
+                                    // If got userXAUTH login
+                                    UserDefaults.standard.set(true, forKey: "status")
+                                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                                }
+                                
+                                
+                            }
                             
-                            
-                            apiService.getElection(endpoint: .electionGetAll, ID: "")
                             
                         }){
                             Text("Sign In").frame(width: UIScreen.main.bounds.width - 30,height: 50)
@@ -315,6 +327,7 @@ struct AuthenticateView:View {
                 }.padding(.bottom,self.height) // Move view according to keyboard
                     .edgesIgnoringSafeArea(.all)
                     .onAppear(){
+                        
                         // MARK: Keyboard
                         // Show Keyboard remove outside safearea height
                         NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main){
@@ -351,7 +364,7 @@ struct AuthenticateView:View {
         }
         .padding()
         .alert(isPresented: $alert) {
-            Alert(title: Text("Error"), message: Text(self.msg), dismissButton: .default(Text("Ok")))
+            Alert(title: Text("Incorrect username and / or password."), message: Text(self.msg), dismissButton: .default(Text("Ok")))
             
         }
         
@@ -362,6 +375,7 @@ struct AuthenticateView:View {
 
 // MARK: Secret Questions
 let userQuestions:[String] = ["What is your Mother's maiden name?","What is the name of your first pet?","What is your nickname?","Which elementary school did you attend","What is your hometown?"]
+
 
 
 

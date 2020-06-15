@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E12816F82490BCC900E03C24 /* Ballot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12816F72490BCC900E03C24 /* Ballot.swift */; };
+		E12816FA2490BE4A00E03C24 /* VoterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12816F92490BE4A00E03C24 /* VoterList.swift */; };
 		E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D12423A0BD00B40532 /* SearchBar.swift */; };
 		E13215D82424760200B40532 /* CreateElection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D72424760200B40532 /* CreateElection.swift */; };
 		E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */; };
@@ -23,7 +25,6 @@
 		E16F276B2486366800F754B0 /* UserTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F276A2486366800F754B0 /* UserTextField.swift */; };
 		E17B642B2427163400475579 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B642A2427163400475579 /* Settings.swift */; };
 		E17B642D2427189B00475579 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B642C2427189B00475579 /* LoginView.swift */; };
-		E17EDB6A242B4FD90082EDE3 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17EDB69242B4FD90082EDE3 /* BackgroundColor.swift */; };
 		E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181E7192484E27100875E3F /* TopCircleShape.swift */; };
 		E181E71D2484F7BD00875E3F /* AppleIdButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181E71C2484F7BD00875E3F /* AppleIdButton.swift */; };
 		E18F18792420F770002FED89 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18F18782420F770002FED89 /* AppDelegate.swift */; };
@@ -39,8 +40,11 @@
 		E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1926F43248CEA7800CC08A3 /* Credentials.swift */; };
 		E1989DAB248B5C52004ACBE7 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */; };
 		E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */; };
+		E19B260E2491F71E00B97D43 /* ElectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B260D2491F71E00B97D43 /* ElectionManager.swift */; };
 		E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19FF6B624852E5F0087A238 /* CornersShape.swift */; };
+		E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B4FCCE2492774700907329 /* DatabaseUser.swift */; };
 		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
+		E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB7A64248FCC0C008726D8 /* DateJSON.swift */; };
 		E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +80,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E12816F72490BCC900E03C24 /* Ballot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ballot.swift; sourceTree = "<group>"; };
+		E12816F92490BE4A00E03C24 /* VoterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoterList.swift; sourceTree = "<group>"; };
 		E13215D12423A0BD00B40532 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		E13215D72424760200B40532 /* CreateElection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateElection.swift; sourceTree = "<group>"; };
 		E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
@@ -91,7 +97,6 @@
 		E16F276A2486366800F754B0 /* UserTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTextField.swift; sourceTree = "<group>"; };
 		E17B642A2427163400475579 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		E17B642C2427189B00475579 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		E17EDB69242B4FD90082EDE3 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		E181E7192484E27100875E3F /* TopCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCircleShape.swift; sourceTree = "<group>"; };
 		E181E71B2484F50300875E3F /* agora-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "agora-ios.entitlements"; sourceTree = "<group>"; };
 		E181E71C2484F7BD00875E3F /* AppleIdButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIdButton.swift; sourceTree = "<group>"; };
@@ -112,7 +117,9 @@
 		E1926F43248CEA7800CC08A3 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
+		E19B260D2491F71E00B97D43 /* ElectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionManager.swift; sourceTree = "<group>"; };
 		E19FF6B624852E5F0087A238 /* CornersShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornersShape.swift; sourceTree = "<group>"; };
+		E1B4FCCE2492774700907329 /* DatabaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUser.swift; sourceTree = "<group>"; };
 		E1DD630E2428AC7E00DFCA04 /* RealmSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = RealmSwift.framework.dSYM; sourceTree = "<group>"; };
 		E1DD630F2428AC7E00DFCA04 /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Realm.framework.dSYM; sourceTree = "<group>"; };
 		E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -122,6 +129,7 @@
 		E1DD63142428AC7E00DFCA04 /* E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap"; sourceTree = "<group>"; };
 		E1DD63152428AC7E00DFCA04 /* 2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap"; sourceTree = "<group>"; };
 		E1E98279242935FD007C461C /* ElectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionEditView.swift; sourceTree = "<group>"; };
+		E1EB7A64248FCC0C008726D8 /* DateJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateJSON.swift; sourceTree = "<group>"; };
 		E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,17 +163,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		E10BDEAB248B81C3000A634F /* network */ = {
+		E10BDEAB248B81C3000A634F /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */,
+				E1B4FCCE2492774700907329 /* DatabaseUser.swift */,
 			);
-			path = network;
+			path = Database;
 			sourceTree = "<group>";
 		};
 		E15FA5CB24233DF000E9BF58 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */,
+				E1EB7A64248FCC0C008726D8 /* DateJSON.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -173,8 +184,9 @@
 		E15FA5CD24233E0800E9BF58 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E10BDEAB248B81C3000A634F /* network */,
-				E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */,
+				E10BDEAB248B81C3000A634F /* Database */,
+				E12816F72490BCC900E03C24 /* Ballot.swift */,
+				E12816F92490BE4A00E03C24 /* VoterList.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,7 +207,6 @@
 				E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */,
 				E164BCDD24235C43002E8B23 /* CardView.swift */,
 				E13215D12423A0BD00B40532 /* SearchBar.swift */,
-				E17EDB69242B4FD90082EDE3 /* BackgroundColor.swift */,
 				E181E7192484E27100875E3F /* TopCircleShape.swift */,
 				E181E71C2484F7BD00875E3F /* AppleIdButton.swift */,
 				E19FF6B624852E5F0087A238 /* CornersShape.swift */,
@@ -297,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				E19012F22430729100741EF9 /* APIService.swift */,
+				E19B260D2491F71E00B97D43 /* ElectionManager.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -508,7 +520,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E12816FA2490BE4A00E03C24 /* VoterList.swift in Sources */,
 				E15FA5D624233EB400E9BF58 /* DatabaseElection.swift in Sources */,
+				E19B260E2491F71E00B97D43 /* ElectionManager.swift in Sources */,
 				E164BCDE24235C43002E8B23 /* CardView.swift in Sources */,
 				E15FA5DE24233FF300E9BF58 /* DashboardView.swift in Sources */,
 				E19012F32430729100741EF9 /* APIService.swift in Sources */,
@@ -518,13 +532,14 @@
 				E17B642D2427189B00475579 /* LoginView.swift in Sources */,
 				E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */,
 				E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */,
-				E17EDB6A242B4FD90082EDE3 /* BackgroundColor.swift in Sources */,
 				E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */,
 				E17B642B2427163400475579 /* Settings.swift in Sources */,
 				E181E71D2484F7BD00875E3F /* AppleIdButton.swift in Sources */,
 				E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */,
 				E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */,
+				E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */,
 				E18F18792420F770002FED89 /* AppDelegate.swift in Sources */,
+				E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */,
 				E16F276B2486366800F754B0 /* UserTextField.swift in Sources */,
 				E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */,
 				E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */,
@@ -532,6 +547,7 @@
 				E18F187B2420F770002FED89 /* SceneDelegate.swift in Sources */,
 				E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */,
 				E15FA5D824233FAA00E9BF58 /* KeyboardFollower.swift in Sources */,
+				E12816F82490BCC900E03C24 /* Ballot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

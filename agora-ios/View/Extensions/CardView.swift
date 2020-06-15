@@ -37,9 +37,9 @@ class BindableResults<Element>: ObservableObject where Element: RealmSwift.Realm
 
 
 struct CardView : View {
-    let config = Realm.Configuration(schemaVersion : 3)
+    let config = Realm.Configuration(schemaVersion : 4)
     
-    @ObservedObject var elections = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 3)).objects(DatabaseElection.self))
+    @ObservedObject var elections = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 4)).objects(DatabaseElection.self))
     
     @State var activateLink: Int? = 0
     
@@ -50,7 +50,7 @@ struct CardView : View {
                 VStack(alignment: .center) {
                     
                     ForEach(self.elections.results, id: \.id) { item in
-                        drawCard(actionDrawCard: self.$activateLink, cardTitle: item.title, place: item.place, isAllDay: item.isAllDay, timeZone: item.timeZone, numberRepeat: item.numberRepeat, Reminder: item.Reminder, eleColor: item.eleColor, detailText: item.electionDescription, candidates: item.candidates)
+                        drawCard(actionDrawCard: self.$activateLink, cardTitle: item.title, place: item.place, isAllDay: item.isAllDay, timeZone: item.timeZone, numberRepeat: item.numberRepeat, Reminder: item.Reminder, eleColor: item.eleColor, detailText: item.electionDescription, candidates: "test")
                     }
                 }
             }

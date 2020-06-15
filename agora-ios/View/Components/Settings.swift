@@ -11,7 +11,7 @@ import RealmSwift
 
 struct Settings: View {
     @State private var showingAlert = false
-    
+    @State private var showingContact:Bool = false
     var body: some View {
         VStack() {
             SettingsTop()
@@ -20,13 +20,22 @@ struct Settings: View {
             ZStack {
                 Color.black.opacity(0.04)
                 VStack(alignment:.leading,spacing: 20){
-                    Text("Manage Data").fontWeight(.bold).opacity(0.8)
+                    Button(action: {}) {
+                        Text("Manage Data").fontWeight(.bold).foregroundColor(Color.black).opacity(0.8)
+                    }
                     Divider()
-                    Text("Manage Account").fontWeight(.bold).opacity(0.8)
+                    Button(action: {}) {
+                        Text("Manage Account").fontWeight(.bold).foregroundColor(Color.black).opacity(0.8)
+                    }
                     Divider()
-                    Text("Rate Us").fontWeight(.bold).opacity(0.8)
+                    Button(action: {}) {
+                        Text("Rate Us").fontWeight(.bold).foregroundColor(Color.black).opacity(0.8)
+
+                    }
                     Divider()
-                    Text("Contact Us").fontWeight(.bold).opacity(0.8)
+                    Button(action: {self.showingContact.toggle()}) {
+                        Text("Contact Us").fontWeight(.bold).foregroundColor(Color.black).opacity(0.8)
+                    }
                     Divider()
                     Button(action: {
                         self.showingAlert = true;
@@ -37,44 +46,36 @@ struct Settings: View {
                         Alert(title: Text("Log out?"), message: Text("Are you sure you want to log out?"),primaryButton: .default(Text("Yes"), action: {
                             print("Logging out...")
                             
-                            
-                            //Delete all elections
-                            let config = Realm.Configuration(schemaVersion : 3)
-                            do{
-                                let realm = try Realm(configuration: config)
-                                let result = realm.objects(DatabaseElection.self)
+                            ElectionManager.deleteAllElectionsfromdb {
                                 
-                                for i in result{
-                                    
-                                    try! realm.write {
-                                        realm.delete(i)}
+                                UserDefaults.standard.set(false, forKey: "status")
+                                NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                                 
+                                UserDefaults.standard.set("", forKey: "userXAUTH")
                             }
-                                
-                            }catch{
-                                print(error.localizedDescription)
-                            }
-                            
-                            
-                            UserDefaults.standard.set(false, forKey: "status")
-                            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
-                            
-                            UserDefaults.standard.set("", forKey: "userXAUTH")
-                          
-                
-                            
+        
                         }), secondaryButton: .default(Text("Dismiss")))
                     }
                 }.padding(.leading,20)
             }
             Spacer()
+        }.sheet(isPresented:$showingContact){
+            VStack{
+                Text("Contact Info Here!")
+            }
         }
     }
 }
 
 struct SettingsTop:View{
-    @State var name = "Name"
-    @State var email = "xyz@gmail.com"
+    @State var name = Credentials.username
+    @State var email = Credentials.email
+    @State var firstName = Credentials.firstName
+    @State var lastName = Credentials.lastName
+    
+    @ObservedObject var userResults = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 4)).objects(DatabaseUser.self))
+    
+    
     var body : some View{
         
         VStack(spacing:0){
@@ -84,9 +85,9 @@ struct SettingsTop:View{
                     Circle()
                         .stroke(LinearGradient(gradient: Gradient(colors: [Color("Color2"), Color("Color1")]), startPoint: .top, endPoint: .bottom), lineWidth: 4)
                         .frame(width:64,height:64)
-                        .background(Text("SS").font(.title).fontWeight(.bold))
+                        .background(Text("\(userResults.results[0].firstName)\(userResults.results[0].lastName)").font(.title).fontWeight(.bold))
 
-                    Text(self.name + "\n" + self.email)
+                    Text(userResults.results[0].username + "\n" + userResults.results[0].email)
                     Spacer()
                 }.padding()
             }.padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
