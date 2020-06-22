@@ -18,13 +18,12 @@ class ElectionManager:ObservableObject{
     
    // MARK: API
     static func getAllElections(complete: () -> Void) -> Void {
-        ElectionManager.apiService.getElection(endpoint: .electionGetAll, ID: "")
+        ElectionManager.apiService.getElection(endpoint: .electionGetAll, ID: ""){}
         complete()
     }
     
     //MARK: Database
     static func deleteAllElectionsfromdb(complete: ()->Void){
-        
         //Delete all elections
         let config = Realm.Configuration(schemaVersion : 4)
         do{
@@ -34,17 +33,12 @@ class ElectionManager:ObservableObject{
             for i in result{
                 
                 try! realm.write {
-                    realm.delete(i)}
-                
+                    realm.delete(i)
+                }
             }
-            
         }catch{
             print(error.localizedDescription)
         }
-        
         complete()
     }
-    
-    
-    
 }
