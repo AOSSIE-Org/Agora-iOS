@@ -37,11 +37,15 @@
 		E19012F32430729100741EF9 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19012F22430729100741EF9 /* APIService.swift */; };
 		E19012F6243074B600741EF9 /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E19012F5243074B600741EF9 /* SwiftyJSON */; };
 		E19012F9243075D100741EF9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E19012F8243075D100741EF9 /* Alamofire */; };
+		E191557A2498CD7C00AC78D9 /* UserLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19155792498CD7C00AC78D9 /* UserLoginManager.swift */; };
 		E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1926F43248CEA7800CC08A3 /* Credentials.swift */; };
 		E1989DAB248B5C52004ACBE7 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */; };
 		E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */; };
 		E19B260E2491F71E00B97D43 /* ElectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B260D2491F71E00B97D43 /* ElectionManager.swift */; };
 		E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19FF6B624852E5F0087A238 /* CornersShape.swift */; };
+		E1AA77982498A5E90067A231 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = E1AA77972498A5E90067A231 /* FacebookCore */; };
+		E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E1AA77992498A5E90067A231 /* FacebookLogin */; };
+		E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AA779B2498AF980067A231 /* FacebookButton.swift */; };
 		E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B4FCCE2492774700907329 /* DatabaseUser.swift */; };
 		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
 		E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB7A64248FCC0C008726D8 /* DateJSON.swift */; };
@@ -100,7 +104,7 @@
 		E181E7192484E27100875E3F /* TopCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCircleShape.swift; sourceTree = "<group>"; };
 		E181E71B2484F50300875E3F /* agora-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "agora-ios.entitlements"; sourceTree = "<group>"; };
 		E181E71C2484F7BD00875E3F /* AppleIdButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIdButton.swift; sourceTree = "<group>"; };
-		E18F18752420F770002FED89 /* agora-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "agora-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E18F18752420F770002FED89 /* Agora-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agora-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18F18782420F770002FED89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E18F187A2420F770002FED89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E18F187E2420F774002FED89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,11 +118,13 @@
 		E18F189A2420F774002FED89 /* agora_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = agora_iosUITests.swift; sourceTree = "<group>"; };
 		E18F189C2420F774002FED89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E19012F22430729100741EF9 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		E19155792498CD7C00AC78D9 /* UserLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginManager.swift; sourceTree = "<group>"; };
 		E1926F43248CEA7800CC08A3 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		E19B260D2491F71E00B97D43 /* ElectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionManager.swift; sourceTree = "<group>"; };
 		E19FF6B624852E5F0087A238 /* CornersShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornersShape.swift; sourceTree = "<group>"; };
+		E1AA779B2498AF980067A231 /* FacebookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		E1B4FCCE2492774700907329 /* DatabaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUser.swift; sourceTree = "<group>"; };
 		E1DD630E2428AC7E00DFCA04 /* RealmSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = RealmSwift.framework.dSYM; sourceTree = "<group>"; };
 		E1DD630F2428AC7E00DFCA04 /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Realm.framework.dSYM; sourceTree = "<group>"; };
@@ -139,9 +145,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E16E5E48246EEDB00040A9CF /* RealmSwift.framework in Frameworks */,
+				E1AA77982498A5E90067A231 /* FacebookCore in Frameworks */,
 				E16E5E4A246EEDB00040A9CF /* Realm.framework in Frameworks */,
 				E16E5E4B246EFBB70040A9CF /* KVKCalendar.framework in Frameworks */,
 				E19012F6243074B600741EF9 /* SwiftyJSON in Frameworks */,
+				E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */,
 				E19012F9243075D100741EF9 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,6 +220,7 @@
 				E19FF6B624852E5F0087A238 /* CornersShape.swift */,
 				E16F276A2486366800F754B0 /* UserTextField.swift */,
 				E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */,
+				E1AA779B2498AF980067A231 /* FacebookButton.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -243,7 +252,7 @@
 		E18F18762420F770002FED89 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E18F18752420F770002FED89 /* agora-ios.app */,
+				E18F18752420F770002FED89 /* Agora-iOS.app */,
 				E18F188B2420F774002FED89 /* agora-iosTests.xctest */,
 				E18F18962420F774002FED89 /* agora-iosUITests.xctest */,
 			);
@@ -309,6 +318,7 @@
 			children = (
 				E19012F22430729100741EF9 /* APIService.swift */,
 				E19B260D2491F71E00B97D43 /* ElectionManager.swift */,
+				E19155792498CD7C00AC78D9 /* UserLoginManager.swift */,
 			);
 			path = services;
 			sourceTree = "<group>";
@@ -378,9 +388,11 @@
 			packageProductDependencies = (
 				E19012F5243074B600741EF9 /* SwiftyJSON */,
 				E19012F8243075D100741EF9 /* Alamofire */,
+				E1AA77972498A5E90067A231 /* FacebookCore */,
+				E1AA77992498A5E90067A231 /* FacebookLogin */,
 			);
 			productName = "agora-ios";
-			productReference = E18F18752420F770002FED89 /* agora-ios.app */;
+			productReference = E18F18752420F770002FED89 /* Agora-iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E18F188A2420F774002FED89 /* agora-iosTests */ = {
@@ -454,6 +466,7 @@
 			packageReferences = (
 				E19012F4243074B600741EF9 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				E19012F7243075D100741EF9 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E1AA77962498A5E90067A231 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = E18F18762420F770002FED89 /* Products */;
 			projectDirPath = "";
@@ -540,12 +553,14 @@
 				E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */,
 				E18F18792420F770002FED89 /* AppDelegate.swift in Sources */,
 				E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */,
+				E191557A2498CD7C00AC78D9 /* UserLoginManager.swift in Sources */,
 				E16F276B2486366800F754B0 /* UserTextField.swift in Sources */,
 				E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */,
 				E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */,
 				E13215D82424760200B40532 /* CreateElection.swift in Sources */,
 				E18F187B2420F770002FED89 /* SceneDelegate.swift in Sources */,
 				E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */,
+				E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */,
 				E15FA5D824233FAA00E9BF58 /* KeyboardFollower.swift in Sources */,
 				E12816F82490BCC900E03C24 /* Ballot.swift in Sources */,
 			);
@@ -726,8 +741,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.halfpolygon.agora-ios";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "aossie.agora-ios";
+				PRODUCT_NAME = "Agora-iOS";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -751,8 +766,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.halfpolygon.agora-ios";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "aossie.agora-ios";
+				PRODUCT_NAME = "Agora-iOS";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -900,6 +915,14 @@
 				minimumVersion = 5.0.5;
 			};
 		};
+		E1AA77962498A5E90067A231 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -912,6 +935,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E19012F7243075D100741EF9 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		E1AA77972498A5E90067A231 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1AA77962498A5E90067A231 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		E1AA77992498A5E90067A231 /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E1AA77962498A5E90067A231 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

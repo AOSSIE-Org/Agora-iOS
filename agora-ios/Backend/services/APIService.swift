@@ -12,14 +12,11 @@ import Alamofire
 import SwiftyJSON
 import RealmSwift
 
-public struct APIService{
-    var header:HTTPHeaders
+class APIService{
+    var header:HTTPHeaders = ["X-Auth-Token": ""]
     let baseURL = URL(string:"https://agora-rest-api.herokuapp.com")
     var apiKey:String?
-    let decoder = JSONDecoder()
-    let encoder = JSONEncoder()
-    
-    
+
     
     init(userXAUTH:String) {
         header = [
@@ -80,7 +77,7 @@ public struct APIService{
             case .login:
                 return "/api/v1/auth/login"
             case let .authenticate(provider):
-                return "/api/v1/auth/authenticate/\(provider))"
+                return "/api/v1/auth/authenticate/\(provider)"
             case .forgotPasswordSend(userName: let userName):
                 return "/api/v1/auth/forgotPassword/send/\(userName)"
             case .forgotPasswordReset(token: let token):
@@ -147,7 +144,7 @@ public struct APIService{
     
     
     
-    public func getElection(endpoint: EndPoint,ID:String) -> Void{
+    public func getElection(endpoint: EndPoint,ID:String, completion: @escaping ()->Void) -> Void{
         let queryURL = baseURL!.appendingPathComponent(endpoint.path())
         AF.request(queryURL,
                    method: .get,
@@ -155,7 +152,15 @@ public struct APIService{
                     guard let data = response.data else { return }
                     let json = try? JSON(data:data)
                     
+                     
+                    if json!["elections"].arrayValue.isEmpty{
+                        print("No Elections")
+                        completion()
+                        return
+                    }
+                    
                     for i in json!["elections"]{
+                        
                         print("Got data for Election: \(i.1["_id"])")
                         
                         // Put in db
@@ -207,6 +212,8 @@ public struct APIService{
                             try realm.write({
                                 realm.add(databaseElection,update: .modified)
                                 print("Election details added successfully")
+                                
+                               completion()
                             })
                             
                             
@@ -240,54 +247,106 @@ public struct APIService{
                     print("Login Successful!")
                     
                     
-                    // Set Realm User
-                   let userConfig = Realm.Configuration(schemaVersion : 4)
-                    
-                    do{
-                        let realm = try Realm(configuration: userConfig)
+                    self.writeToDatabase(json: json){
                         
-                        let databaseUser = DatabaseUser()
-                        // Set values
-                        databaseUser.username = json!["username"].stringValue
-                        databaseUser.email = json!["email"].stringValue
-                        databaseUser.firstName = json!["firstName"].stringValue
-                        databaseUser.lastName = json!["lastName"].stringValue
-                        databaseUser.avatarURL = json!["avatarURL"].stringValue
-                        databaseUser.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
-                        databaseUser.token = json!["token"]["token"].stringValue
-                        //databaseUser.expiresOn = json!["token"]["expiresOn"].dateValue!
-                        databaseUser.trustedDevice = json!["trustedDevice"].stringValue
-                        
-                        
-                        
-                        try realm.write({
-                            realm.add(databaseUser,update: .modified)
-                            print("User info. added successfully")
-                        })
-                        
-                        
-                    }catch{
-                        print(error.localizedDescription)
+                        UserDefaults.standard.set(Credentials.token, forKey: "userXAUTH")
+                        // Success
+                        onSuccess()
                     }
-                    // Set values
-                    Credentials.username = json!["username"].stringValue
-                    Credentials.email = json!["email"].stringValue
-                    Credentials.firstName = json!["firstName"].stringValue
-                    Credentials.lastName = json!["lastName"].stringValue
-                    Credentials.avatarURL = json!["avatarURL"].stringValue
-                    Credentials.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
-                    Credentials.token = json!["token"]["token"].stringValue
-                    //Credentials.expiresOn = json!["token"]["expiresOn"].dateValue!
-                    Credentials.trustedDevice = json!["trustedDevice"].stringValue
-                    
-                    
-                    
-                    UserDefaults.standard.set(Credentials.token, forKey: "userXAUTH")
-                    // Success
-                    onSuccess()
-         
         }
         
+    }
+    
+    private func writeToDatabase(json:JSON?,complete:()->Void){
+        // Set Realm User
+        let userConfig = Realm.Configuration(schemaVersion : 4)
+         
+         do{
+             let realm = try Realm(configuration: userConfig)
+             
+             let databaseUser = DatabaseUser()
+             // Set values
+             databaseUser.username = json!["username"].stringValue
+             databaseUser.email = json!["email"].stringValue
+             databaseUser.firstName = json!["firstName"].stringValue
+             databaseUser.lastName = json!["lastName"].stringValue
+             databaseUser.avatarURL = json!["avatarURL"].stringValue
+             databaseUser.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
+             databaseUser.token = json!["token"]["token"].stringValue
+             //databaseUser.expiresOn = json!["token"]["expiresOn"].dateValue!
+             databaseUser.trustedDevice = json!["trustedDevice"].stringValue
+             
+             try realm.write({
+                 realm.add(databaseUser,update: .modified)
+                 print("User info. added successfully")
+             })
+             
+             
+         }catch{
+             print(error.localizedDescription)
+         }
+         // Set values
+         Credentials.username = json!["username"].stringValue
+         Credentials.email = json!["email"].stringValue
+         Credentials.firstName = json!["firstName"].stringValue
+         Credentials.lastName = json!["lastName"].stringValue
+         Credentials.avatarURL = json!["avatarURL"].stringValue
+         Credentials.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
+         Credentials.token = json!["token"]["token"].stringValue
+         //Credentials.expiresOn = json!["token"]["expiresOn"].dateValue!
+         Credentials.trustedDevice = json!["trustedDevice"].stringValue
+        
+        complete()
+      
+    }
+    
+    public func userLoginSocial(endpoint:EndPoint, completion:@escaping ()->Void){
+        
+         let queryURL = baseURL!.appendingPathComponent(endpoint.path())
+        // Get from UserDefaults
+         let fbAccessToken = UserDefaults.standard.string(forKey: "fbAccessToken")
+        
+        
+        
+        AF.request(queryURL,method: .get ,headers: ["Access-Token":fbAccessToken!]).responseData{ response in
+            guard let data = response.data
+                else {
+                print("Failed to get access userXAUTH")
+                return }
+            
+            let json = try? JSON(data:data)
+            
+            print("Got userXAUTH Successfully!")
+                let token = json!["token"].stringValue
+                       Credentials.token = token
+            
+            self.header = ["X-Auth-Token":token]
+            
+                       UserDefaults.standard.set(json!["token"].stringValue, forKey: "userXAUTH")
+            completion()
+ 
+        }
+        
+    }
+    
+    public func getUserInfo(completion:@escaping ()->Void){
+        let queryURL = baseURL!.appendingPathComponent(EndPoint.userGet.path())
+        
+        AF.request(queryURL,method: .get,headers: header ).responseData{
+            response in
+            guard let data = response.data else {
+                print("Failed to get User Info.")
+                return
+            }
+            
+            let json = try? JSON(data:data)
+            self.writeToDatabase(json: json) {
+               // self.getElection(endpoint: .electionGetAll, ID: "")
+                print("email:\(Credentials.email)")
+                completion()
+            }
+            
+        }
     }
     
 }

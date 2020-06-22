@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E18F18742420F770002FED89"
-               BuildableName = "agora-ios.app"
+               BuildableName = "Agora-iOS.app"
                BlueprintName = "agora-ios"
                ReferencedContainer = "container:agora-ios.xcodeproj">
             </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E18F18742420F770002FED89"
-            BuildableName = "agora-ios.app"
+            BuildableName = "Agora-iOS.app"
             BlueprintName = "agora-ios"
             ReferencedContainer = "container:agora-ios.xcodeproj">
          </BuildableReference>
@@ -82,7 +82,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E18F18742420F770002FED89"
-            BuildableName = "agora-ios.app"
+            BuildableName = "Agora-iOS.app"
             BlueprintName = "agora-ios"
             ReferencedContainer = "container:agora-ios.xcodeproj">
          </BuildableReference>

@@ -5,7 +5,10 @@
 3. [Download Carthage](https://github.com/Carthage/Carthage)
 4. Run `carthage bootstrap --platform iOS --cache-builds` to install tools and dependencies.
 
-
+## For Facebook Login
+1. Right-click info.plist, and choose Open As Source Code.
+2. In <array><string> in the key [CFBundleURLSchemes], replace [APP_ID] with your App ID.
+3. In <string> in the key FacebookAppID, replace [APP_ID] with your App ID.
 
 
 ## Readme

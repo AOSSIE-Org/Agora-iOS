@@ -12,6 +12,7 @@ import RealmSwift
 struct Settings: View {
     @State private var showingAlert = false
     @State private var showingContact:Bool = false
+    @ObservedObject var fbManager = UserLoginManager()
     var body: some View {
         VStack() {
             SettingsTop()
@@ -49,6 +50,7 @@ struct Settings: View {
                             ElectionManager.deleteAllElectionsfromdb {
                                 
                                 UserDefaults.standard.set(false, forKey: "status")
+                                self.fbManager.loginManager.logOut()
                                 NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
                                 
                                 UserDefaults.standard.set("", forKey: "userXAUTH")
