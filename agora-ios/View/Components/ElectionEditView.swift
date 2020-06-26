@@ -23,7 +23,6 @@ struct ElectionEditView: View {
                         
                         try realm.write({
                             i.title = "New Title!"
-                           // i.candidates.append("New Candidate")
                             realm.add(i)
                         })
                     }

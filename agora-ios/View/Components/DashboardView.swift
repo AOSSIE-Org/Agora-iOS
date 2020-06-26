@@ -104,7 +104,6 @@ struct Mid_Dashboard: View{
                 Credentials.avatarURL = result[0].avatarURL
                 Credentials.twoFactorAuthentication = result[0].twoFactorAuthentication
                 Credentials.token = result[0].token
-                //Credentials.expiresOn = result[0].expiresOn
                 Credentials.trustedDevice = result[0].trustedDevice
                 
                 print("Credentials Updated")
@@ -115,7 +114,7 @@ struct Mid_Dashboard: View{
             }
             
             
-            ElectionManager.getAllElections {
+            DatabaseElectionManager.getAllElections {
                 do{
                     let realm = try Realm(configuration: self.config)
                     let  results = realm.objects(DatabaseElection.self)
@@ -184,7 +183,6 @@ struct StaticCard: View {
                 
             }.padding()
                 .padding(.top, 15)
-                //UIScreen.main.bounds.width / 2 - 20
                 .frame(width:UIScreen.main.bounds.width - 20,height:120)
                 .background(Color(myColor))
                 .cornerRadius(10)

@@ -119,21 +119,6 @@ struct drawCard:View {
                 .multilineTextAlignment(.leading)
                 .animation(.spring())
                 .lineLimit(.none)
-            
-            //            if(show){Button(action: {}){
-            //                Text("Continue")
-            //                    .foregroundColor(Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
-            //                    .fontWeight(.bold)
-            //                    .font(.title)
-            //                    .cornerRadius(0)
-            //                    .onTapGesture {
-            //                        //perform some tasks if needed before opening Destination view
-            //                        self.actionDrawCard = 1
-            //                }
-            //                }
-            //
-            //            }
-            
             Spacer()
             
             Button(action: {
@@ -142,15 +127,9 @@ struct drawCard:View {
                 HStack {
                     Spacer()
                     Image(systemName: show ? "arrowtriangle.down.fill" : "arrowtriangle.down")
-//                        .foregroundColor(Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
                         .foregroundColor(Color(.white))
                         .font(Font.title.weight(.semibold))
                         .imageScale(.small)
-                    //                    Text(show ? "Collapse" : "Details") // true:false
-                    //                        .foregroundColor(Color(hue: 0.498, saturation: 0.609, brightness: 1.0))
-                    //                        .fontWeight(.bold)
-                    //                        .font(.title)
-                    //                        .cornerRadius(0)
                 }
             }
             .padding(.bottom, show ? 20 : 15)
@@ -168,7 +147,7 @@ struct drawCard:View {
 }
 
 
-//preview
+
 #if DEBUG
 struct CardView_Previews : PreviewProvider {
     static var previews: some View {

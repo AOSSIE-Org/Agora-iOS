@@ -11,7 +11,7 @@ import SwiftUI
 struct UserTextField: View {
     var fieldName:String
     var secure:Bool = false
-    
+    var defaultText:String
     @Binding var userField:String
     
     var body: some View {
@@ -20,7 +20,7 @@ struct UserTextField: View {
                 .fontWeight(.bold)
                 .padding(.top,20)
             if secure == false{
-                TextField("",text: self.$userField)
+                TextField(defaultText,text: self.$userField)
             }else{
                 SecureField("",text: self.$userField)
             }
@@ -32,6 +32,6 @@ struct UserTextField: View {
 
 struct UserTextField_Previews: PreviewProvider {
     static var previews: some View {
-        UserTextField(fieldName: "Email", userField: .constant("Test"))
+        UserTextField(fieldName: "Email", defaultText: "email", userField: .constant("Test"))
     }
 }

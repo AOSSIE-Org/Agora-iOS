@@ -78,7 +78,6 @@ struct Mid_Elections: View{
                             newdata.Reminder = self.Reminder
                             newdata.eleColor = self.eleColor
                             newdata.electionDescription = self.electionDescription
-                           // newdata.candidates = self.candidates
                             try realm.write({
                                 
                                 realm.add(newdata)
@@ -208,7 +207,6 @@ struct Mid_Elections: View{
     
 }
 
-// MARK:-
 struct toggleButton:View {
     @Binding var givenStateObject:Bool
     var outputString:String
