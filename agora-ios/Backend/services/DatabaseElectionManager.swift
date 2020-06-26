@@ -1,5 +1,5 @@
 //
-//  ElectionManager.swift
+//  DatabaseElectionManager.swift
 //  agora-ios
 //
 //  Created by Siddharth sen on 6/11/20.
@@ -11,14 +11,14 @@ import SwiftUI
 import RealmSwift
 
 
-class ElectionManager:ObservableObject{
+class DatabaseElectionManager:ObservableObject{
     
-    static var apiService = APIService(userXAUTH: Credentials.token)
+    static var apiService = APIService()
     
     
    // MARK: API
     static func getAllElections(complete: () -> Void) -> Void {
-        ElectionManager.apiService.getElection(endpoint: .electionGetAll, ID: ""){}
+        DatabaseElectionManager.apiService.getElection(endpoint: .electionGetAll, ID: "", userXAuth: UserDefaults.standard.string(forKey: "userXAUTH")!){}
         complete()
     }
     
@@ -41,4 +41,22 @@ class ElectionManager:ObservableObject{
         }
         complete()
     }
+    
+
+    static func deleteAllUserDataFromDB(){
+           let config = Realm.Configuration(schemaVersion : 4)
+           do{
+               let realm = try Realm(configuration: config)
+               let user = realm.objects(DatabaseUser.self)
+             
+                   try! realm.write {
+                       realm.delete(user)
+                   }
+               
+           }catch{
+               print(error.localizedDescription)
+           }
+           
+       }
+    
 }

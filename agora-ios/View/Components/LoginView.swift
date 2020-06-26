@@ -21,10 +21,7 @@ struct LoginView: View {
                 Navigation()
             }
             else{
-                
                 NavigationView{
-                    // ScrollView based on height
-                    
                     VStack(spacing:0) {
                         
                         VStack(spacing:0) {
@@ -96,7 +93,6 @@ struct FirstPage: View{
             
             NavigationLink(destination: AuthenticateView(showAuth: self.$showAuth), isActive: $showAuth){
                 Button(action: {
-                    //                            self.ID = ID
                     self.showAuth.toggle()
                 }
                     
@@ -114,7 +110,9 @@ struct FirstPage: View{
         }.padding(.bottom)
             .alert(isPresented: $alert) {
                 Alert(title: Text("Error"), message: Text(self.msg), dismissButton: .default(Text("Ok")))
-                
+        }
+        .onAppear(){
+            DatabaseElectionManager.deleteAllUserDataFromDB()
         }
         
     }
@@ -133,6 +131,12 @@ struct SignUpView: View{
     @State var userSelectedQuestion:String = ""
     @State var userAnswer:String = ""
     
+    @State var activityShow:Bool = false
+
+    @State var showQuestions:Bool = false
+    @State var answerDefaultText:String = "Your Answer"
+    @State private var alertItem: AlertItem?
+    
     var body: some View{
         ZStack(alignment:.topLeading){
             GeometryReader{geo in
@@ -143,31 +147,73 @@ struct SignUpView: View{
                         .font(.title)
                         .fontWeight(.bold)
                     
-                    UserTextField(fieldName: "User Name", userField: self.$userName)
+                    UserTextField(fieldName: "User Name", defaultText: "Enter UserName", userField: self.$userName)
                     HStack {
-                        UserTextField(fieldName: "First Name", userField: self.$firstName).frame(width: geo.size.width/2)
-                        UserTextField(fieldName: "Last Name", userField: self.$lastName).frame(width: geo.size.width/2)
+                        UserTextField(fieldName: "First Name", defaultText: "Enter your first name", userField: self.$firstName).frame(width: geo.size.width/2)
+                        UserTextField(fieldName: "Last Name", defaultText: "Enter your last name", userField: self.$lastName).frame(width: geo.size.width/2)
                     }
                     HStack {
-                        UserTextField(fieldName: "Secret Answer", userField: self.$userAnswer)
-                        Text("Secret Question").foregroundColor(.blue)
-                            .contextMenu {
-                                ForEach(userQuestions, id: \.self){question in
-                                    Button(action: {self.userSelectedQuestion = question}) {
-                                        Text(question)}}}
+                        Button(action: {
+                            withAnimation(.default){
+                                self.showQuestions.toggle()
+                            }
+                        }){
+                            HStack {
+                                Text("Secret Question")
+                                Image(systemName: "chevron.down")
+                                    .rotationEffect(.init(degrees: self.showQuestions ? 180 : 0))
+                            }
+                        }
                     }
-                    UserTextField(fieldName: "Password", secure:true, userField: self.$email)
+                    if self.showQuestions{
+                        ForEach(userQuestions, id: \.self){question in
+                            Button(action: {
+                                self.userSelectedQuestion = question
+                                self.answerDefaultText = question
+                                withAnimation(.default){self.showQuestions = false}
+                            }){
+                                Text(question)
+                            }
+                        }
+                    }
                     
                     
-                    UserTextField(fieldName: "Email", userField: self.$email)
-                    Button(action: {}) {
+                    UserTextField(fieldName: "Secret Answer", defaultText: self.answerDefaultText, userField: self.$userAnswer)
+                    
+                       
+                    if !self.showQuestions {
+                        UserTextField(fieldName: "Password", secure:true, defaultText: "", userField: self.$pass)
+                        
+                        
+                        UserTextField(fieldName: "Email", defaultText: "Enter your email Address", userField: self.$email)
+                    }
+                   
+                    Button(action: {
+                        //Loading
+                        self.activityShow = true
+                        
+                        // Perform Signup call
+                        DatabaseElectionManager.apiService.userSignup(username: self.userName, password: self.pass, email: self.email, firstName: self.firstName, lastName: self.lastName, question: self.userSelectedQuestion, questionAnswer: self.userAnswer, endpoint: .signup, onFailure: {
+                            print("Failed!")
+                            self.activityShow = false
+                            self.alertItem = AlertItem(title: Text("Sign up failed!"), message: nil, dismissButton: .cancel(Text("Ok")))
+                            
+                        }) {
+                            self.activityShow = false
+                            self.alertItem = AlertItem(title: Text("Signup Successful!"), message: Text("A message has been sent to your email. Please follow the link provided in the email to activate your account"), dismissButton: .cancel(Text("Ok")))
+                        }
+                        
+                    }) {
                         Text("Sign up").foregroundColor(.black).frame(width: geo.size.width,height: 50).foregroundColor(.white)
                             .background(Color.yellow)
                             .cornerRadius(20)
                         
                     }
                     
-                }.padding()
+                }.padding().alert(item: self.$alertItem) { alertItem in
+                    Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
+                }
+                
                 
             }
             
@@ -179,6 +225,10 @@ struct SignUpView: View{
                 Image(systemName: "chevron.left").font(.title)
                 
             }.foregroundColor(.orange)
+            
+            if self.activityShow == true{
+                ActivityIndicator()
+            }
             
         }
         .padding()
@@ -204,6 +254,7 @@ struct AuthenticateView:View {
     
     // Facebook
     @ObservedObject var fbManager = UserLoginManager()
+    @ObservedObject var appleView = AppleViewModel()
     
     var body: some View{
         
@@ -275,7 +326,7 @@ struct AuthenticateView:View {
                         //MARK: Social Login Buttons
                         
                         // AppleID
-                        Button (action: {}) {
+                        Button (action: {self.appleView.getRequest()}) {
                             AppleIdButton().background(Color.primary).clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous)).padding(7).frame(width: geo.size.width * 0.80, height: geo.size.height * 0.10)
                         }
                         // Facebook
@@ -287,16 +338,16 @@ struct AuthenticateView:View {
                                 self.activityShow = true
                                 DispatchQueue.global().async {
                                     /// Concurrently execute a task using the global concurrent queue. Also known as the background queue.
-                                    ElectionManager.apiService.userLoginSocial(endpoint: .authenticate(provider: "facebook")){
+                                    DatabaseElectionManager.apiService.userLoginSocial(endpoint: .authenticate(provider: "facebook")){
                                          semaphore.signal()
                                      }
                                     _ = semaphore.wait(timeout: .distantFuture)
-                                     ElectionManager.apiService.getUserInfo(){
+                                    DatabaseElectionManager.apiService.getUserInfo(userXAuth: UserDefaults.standard.string(forKey: "userXAUTH")!){
                                          semaphore.signal()
                                      }
                                      
                                     _ = semaphore.wait(timeout: .distantFuture)
-                                    ElectionManager.apiService.getElection(endpoint: .electionGetAll, ID: ""){
+                                    DatabaseElectionManager.apiService.getElection(endpoint: .electionGetAll, ID: "", userXAuth: UserDefaults.standard.string(forKey: "userXAUTH")!){
                                         semaphore.signal()
                                     }
                                     _ = semaphore.wait(timeout: .distantFuture)
@@ -306,7 +357,7 @@ struct AuthenticateView:View {
                                 }
                             }
                            
-                            
+                           
                         }) {
                             FacebookButton().background(Color.primary).clipShape(RoundedRectangle(cornerRadius: 8, style: .continuous)).padding(7).frame(width: geo.size.width * 0.80, height: geo.size.height * 0.10)
                         }
@@ -320,20 +371,15 @@ struct AuthenticateView:View {
                             self.activityShow = true
                             
                             // Login, get auth token and get elections
-                            ElectionManager.apiService.userLogin(username: self.email.lowercased(), password: self.pass, endpoint: .login, onFailure: {
+                            DatabaseElectionManager.apiService.userLogin(username: self.email, password: self.pass, endpoint: .login, onFailure: {
                                 self.activityShow = false
                                 self.alert = true
                             }){
                                 
-                                
-                                ElectionManager.apiService.header = [
-                                    //AUTH Key
-                                    "X-Auth-Token": "\(UserDefaults.standard.string(forKey:"userXAUTH"))"]
-                                
                                 self.activityShow = false
                                 
                                 // Get all elections and store in db onSuccess
-                                ElectionManager.getAllElections {
+                                DatabaseElectionManager.getAllElections {
                                     // If got userXAUTH login
                                     UserDefaults.standard.set(true, forKey: "status")
                                     NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
@@ -406,7 +452,12 @@ struct AuthenticateView:View {
 // MARK: Secret Questions
 let userQuestions:[String] = ["What is your Mother's maiden name?","What is the name of your first pet?","What is your nickname?","Which elementary school did you attend","What is your hometown?"]
 
-
+struct AlertItem: Identifiable {
+    var id = UUID()
+    var title: Text
+    var message: Text?
+    var dismissButton: Alert.Button?
+}
 
 
 struct LoginView_Previews: PreviewProvider {

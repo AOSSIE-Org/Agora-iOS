@@ -89,7 +89,7 @@ xcuserdata/
 *.hmap
 *.ipa
 *.xcuserstate 
-
+*.orig
 
 
 # End of https://www.gitignore.io/api/swift

@@ -13,7 +13,6 @@
 		E13215D82424760200B40532 /* CreateElection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D72424760200B40532 /* CreateElection.swift */; };
 		E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */; };
 		E15FA5D624233EB400E9BF58 /* DatabaseElection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */; };
-		E15FA5D824233FAA00E9BF58 /* KeyboardFollower.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */; };
 		E15FA5DE24233FF300E9BF58 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5DD24233FF300E9BF58 /* DashboardView.swift */; };
 		E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5DF2423400300E9BF58 /* ElectionView.swift */; };
 		E164BCDE24235C43002E8B23 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164BCDD24235C43002E8B23 /* CardView.swift */; };
@@ -41,7 +40,7 @@
 		E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1926F43248CEA7800CC08A3 /* Credentials.swift */; };
 		E1989DAB248B5C52004ACBE7 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */; };
 		E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */; };
-		E19B260E2491F71E00B97D43 /* ElectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B260D2491F71E00B97D43 /* ElectionManager.swift */; };
+		E19B260E2491F71E00B97D43 /* DatabaseElectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B260D2491F71E00B97D43 /* DatabaseElectionManager.swift */; };
 		E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19FF6B624852E5F0087A238 /* CornersShape.swift */; };
 		E1AA77982498A5E90067A231 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = E1AA77972498A5E90067A231 /* FacebookCore */; };
 		E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E1AA77992498A5E90067A231 /* FacebookLogin */; };
@@ -90,7 +89,6 @@
 		E13215D72424760200B40532 /* CreateElection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateElection.swift; sourceTree = "<group>"; };
 		E15FA5D124233E7200E9BF58 /* ButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonModifier.swift; sourceTree = "<group>"; };
 		E15FA5D524233EB400E9BF58 /* DatabaseElection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseElection.swift; sourceTree = "<group>"; };
-		E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardFollower.swift; sourceTree = "<group>"; };
 		E15FA5DD24233FF300E9BF58 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		E15FA5DF2423400300E9BF58 /* ElectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionView.swift; sourceTree = "<group>"; };
 		E164BCDD24235C43002E8B23 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -104,7 +102,7 @@
 		E181E7192484E27100875E3F /* TopCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCircleShape.swift; sourceTree = "<group>"; };
 		E181E71B2484F50300875E3F /* agora-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "agora-ios.entitlements"; sourceTree = "<group>"; };
 		E181E71C2484F7BD00875E3F /* AppleIdButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIdButton.swift; sourceTree = "<group>"; };
-		E18F18752420F770002FED89 /* Agora-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Agora-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E18F18752420F770002FED89 /* Agora-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Agora-iOS.app"; path = "agora-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18F18782420F770002FED89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E18F187A2420F770002FED89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E18F187E2420F774002FED89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,7 +120,7 @@
 		E1926F43248CEA7800CC08A3 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
-		E19B260D2491F71E00B97D43 /* ElectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionManager.swift; sourceTree = "<group>"; };
+		E19B260D2491F71E00B97D43 /* DatabaseElectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseElectionManager.swift; sourceTree = "<group>"; };
 		E19FF6B624852E5F0087A238 /* CornersShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornersShape.swift; sourceTree = "<group>"; };
 		E1AA779B2498AF980067A231 /* FacebookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		E1B4FCCE2492774700907329 /* DatabaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUser.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 		E15FA5CB24233DF000E9BF58 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E15FA5D724233FAA00E9BF58 /* KeyboardFollower.swift */,
 				E1EB7A64248FCC0C008726D8 /* DateJSON.swift */,
 			);
 			path = Utils;
@@ -216,7 +213,7 @@
 				E164BCDD24235C43002E8B23 /* CardView.swift */,
 				E13215D12423A0BD00B40532 /* SearchBar.swift */,
 				E181E7192484E27100875E3F /* TopCircleShape.swift */,
-				E181E71C2484F7BD00875E3F /* AppleIdButton.swift */,
+				E19AF57C249F3A9B005C6BD6 /* AppleSignin */,
 				E19FF6B624852E5F0087A238 /* CornersShape.swift */,
 				E16F276A2486366800F754B0 /* UserTextField.swift */,
 				E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */,
@@ -317,7 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				E19012F22430729100741EF9 /* APIService.swift */,
-				E19B260D2491F71E00B97D43 /* ElectionManager.swift */,
+				E19B260D2491F71E00B97D43 /* DatabaseElectionManager.swift */,
 				E19155792498CD7C00AC78D9 /* UserLoginManager.swift */,
 			);
 			path = services;
@@ -338,6 +335,14 @@
 				E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */,
 			);
 			path = wrappers;
+			sourceTree = "<group>";
+		};
+		E19AF57C249F3A9B005C6BD6 /* AppleSignin */ = {
+			isa = PBXGroup;
+			children = (
+				E181E71C2484F7BD00875E3F /* AppleIdButton.swift */,
+			);
+			path = AppleSignin;
 			sourceTree = "<group>";
 		};
 		E1DD630C2428AC7D00DFCA04 /* Frameworks */ = {
@@ -535,7 +540,7 @@
 			files = (
 				E12816FA2490BE4A00E03C24 /* VoterList.swift in Sources */,
 				E15FA5D624233EB400E9BF58 /* DatabaseElection.swift in Sources */,
-				E19B260E2491F71E00B97D43 /* ElectionManager.swift in Sources */,
+				E19B260E2491F71E00B97D43 /* DatabaseElectionManager.swift in Sources */,
 				E164BCDE24235C43002E8B23 /* CardView.swift in Sources */,
 				E15FA5DE24233FF300E9BF58 /* DashboardView.swift in Sources */,
 				E19012F32430729100741EF9 /* APIService.swift in Sources */,
@@ -561,7 +566,6 @@
 				E18F187B2420F770002FED89 /* SceneDelegate.swift in Sources */,
 				E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */,
 				E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */,
-				E15FA5D824233FAA00E9BF58 /* KeyboardFollower.swift in Sources */,
 				E12816F82490BCC900E03C24 /* Ballot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -742,7 +746,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "aossie.agora-ios";
-				PRODUCT_NAME = "Agora-iOS";
+				PRODUCT_NAME = "agora-ios";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -767,7 +771,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "aossie.agora-ios";
-				PRODUCT_NAME = "Agora-iOS";
+				PRODUCT_NAME = "agora-ios";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

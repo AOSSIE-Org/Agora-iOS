@@ -23,7 +23,7 @@ class DatabaseElection: Object{
     @objc dynamic var end = Date()
     @objc dynamic var realtimeResult:Bool = false
     @objc dynamic var votingAlgo:String = ""
-    //@objc dynamic var candidates:[String] = []
+   
     @objc dynamic var ballotVisibility:String = ""
     @objc dynamic var voterListVisibility:Bool = false
     @objc dynamic var isInvite:Bool = false
@@ -35,8 +35,7 @@ class DatabaseElection: Object{
     @objc dynamic var adminLink:String = ""
     @objc dynamic var inviteCode:String = ""
     
-   // @objc dynamic var ballot:[Ballot] = []
-    //@objc dynamic var voterList:[VoterList] = []
+
     
     @objc dynamic var numberRepeat:String = ""
     @objc dynamic var Reminder:String = ""

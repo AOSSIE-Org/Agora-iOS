@@ -27,11 +27,6 @@ struct Navigation: View {
             Image(systemName: "gear").resizable()
             Text("Settings")
             }).tag(2)
-            ElectionEditView().tabItem({
-            Image(systemName: "gear").resizable()
-            Text("DEBUG")
-            }).tag(2)
-            
         }.edgesIgnoringSafeArea(.top)
     }
 }

@@ -13,16 +13,10 @@ import SwiftyJSON
 import RealmSwift
 
 class APIService{
-    var header:HTTPHeaders = ["X-Auth-Token": ""]
+    
     let baseURL = URL(string:"https://agora-rest-api.herokuapp.com")
     var apiKey:String?
 
-    
-    init(userXAUTH:String) {
-        header = [
-            //AUTH Key
-            "X-Auth-Token": "\(userXAUTH)"]
-    }
     
     public enum APIError:Error{
         case noResponse
@@ -144,7 +138,99 @@ class APIService{
     
     
     
-    public func getElection(endpoint: EndPoint,ID:String, completion: @escaping ()->Void) -> Void{
+    
+    
+    
+    
+    //MARK:- Authentication
+    public func userLogin(username:String,password:String,endpoint:EndPoint,onFailure: @escaping ()->Void, onSuccess: @escaping ()->Void
+    ){
+        print(username,password)
+        let queryURL = baseURL!.appendingPathComponent(endpoint.path())
+        let parameters: Parameters = [ "identifier" : username, "password" : password,"trustedDevice":"iOS" ]
+       
+        
+        AF.request(queryURL,
+                   method: .post,parameters: parameters,encoding: JSONEncoding.default,headers: nil).responseData { response in
+                    guard let data = response.data else {
+                        print("Login Failed!")
+                        
+                        onFailure()
+                        return
+                        
+                    }
+                    let json = try? JSON(data:data)
+                    print("Login Successful!")
+                    
+                    UserDefaults.standard.set(json!["token"]["token"].stringValue, forKey: "userXAUTH")
+                    self.writeToDatabase(json: json){
+                        // Success
+                        onSuccess()
+                    }
+        }
+        
+    }
+    public func userSignup(username:String,password:String,email:String,firstName:String,lastName:String,question:String, questionAnswer:String,endpoint:EndPoint,onFailure: @escaping ()->Void, onSuccess: @escaping ()->Void
+      ){
+          let queryURL = baseURL!.appendingPathComponent(endpoint.path())
+        let parameters: Parameters = [ "identifier" : username, "password" : password, "email":email,"firstName":firstName,"lastName":lastName,"securityQuestion":["crypto": "nil","question":question,"answer":questionAnswer] ]
+         
+          
+          AF.request(queryURL,
+                     method: .post,parameters: parameters,encoding: JSONEncoding.default,headers: nil).responseData { response in
+                      guard let data = response.data else {
+                          print("Signup Failed!")
+                          onFailure()
+                          return
+                          
+                      }
+                      let json = try? JSON(data:data)
+                        if(json?["status"].stringValue != "Bad request"){
+                         print(data)
+                          // Success
+                          onSuccess()
+                            
+                        }else{
+                            print("Signup Failed!")
+                             print(json)
+                            onFailure()
+                            return
+                        }
+          }
+      }
+    public func userLoginSocial(endpoint:EndPoint, completion:@escaping ()->Void){
+        
+        let queryURL = baseURL!.appendingPathComponent(endpoint.path())
+        // Get from UserDefaults
+        let fbAccessToken = UserDefaults.standard.string(forKey: "fbAccessToken")
+        
+        
+        
+        AF.request(queryURL,method: .get ,headers: ["Access-Token":fbAccessToken!]).responseData{ response in
+            guard let data = response.data
+                else {
+                    print("Failed to get access userXAUTH")
+                    return }
+            
+            let json = try? JSON(data:data)
+            
+            print("Got userXAUTH Successfully!")
+            let token = json!["token"].stringValue
+            Credentials.token = token
+            
+            
+            
+            UserDefaults.standard.set(json!["token"].stringValue, forKey: "userXAUTH")
+            completion()
+            
+        }
+        
+    }
+    
+    
+    //MARK: Data
+    public func getElection(endpoint: EndPoint,ID:String,userXAuth:String, completion: @escaping ()->Void) -> Void{
+        var header:HTTPHeaders = ["X-Auth-Token": userXAuth]
         let queryURL = baseURL!.appendingPathComponent(endpoint.path())
         AF.request(queryURL,
                    method: .get,
@@ -152,7 +238,7 @@ class APIService{
                     guard let data = response.data else { return }
                     let json = try? JSON(data:data)
                     
-                     
+
                     if json!["elections"].arrayValue.isEmpty{
                         print("No Elections")
                         completion()
@@ -182,28 +268,15 @@ class APIService{
                             
                             databaseElection.realtimeResult = i.1["realtimeResult"].boolValue
                             databaseElection.votingAlgo = i.1["votingAlgo"].stringValue
-                            //databaseElection.candidates = i.1["candidates"].arrayValue.map{$0.stringValue}
                             databaseElection.ballotVisibility = i.1["ballotVisibility"].stringValue
                             databaseElection.voterListVisibility = i.1["voterListVisibility"].boolValue
                             databaseElection.isInvite = i.1["isInvite"].boolValue
                             
                             databaseElection.isCompleted = i.1["isCompleted"].boolValue
                             databaseElection.isStarted = i.1["isStarted"].boolValue
-                            // databaseElection.createdTime = i.1["createdTime"].dateValue!
                             
                             databaseElection.adminLink = i.1["adminLink"].stringValue
                             databaseElection.inviteCode = i.1["inviteCode"].stringValue
-                            
-                            //                    for ballot in i.1["ballot"].arrayValue {
-                            //                        let newB = Ballot(voteBallot: ballot["voteBallot"].stringValue, _hash: ballot["hash"].stringValue)
-                            //                        databaseElection.ballot.append(newB)
-                            //                    }
-                            
-                            //                    for voter in i.1["voterList"].arrayValue{
-                            //                        let newVoter = VoterList(name: voter["name"].stringValue, _hash: voter["hash"].stringValue)
-                            //                        databaseElection.voterList.append(newVoter)
-                            //                    }
-                            
                             
                             
                             
@@ -213,7 +286,7 @@ class APIService{
                                 realm.add(databaseElection,update: .modified)
                                 print("Election details added successfully")
                                 
-                               completion()
+                                completion()
                             })
                             
                             
@@ -223,40 +296,6 @@ class APIService{
                     }
         }
     }
-    
-    
-    
-    //MARK:- Authentication
-    
-    public func userLogin(username:String,password:String,endpoint:EndPoint,onFailure: @escaping ()->Void, onSuccess: @escaping ()->Void
-    ){
-        let queryURL = baseURL!.appendingPathComponent(endpoint.path())
-        let parameters: Parameters = [ "identifier" : username, "password" : password,"trustedDevice":"iOS" ]
-       
-        
-        AF.request(queryURL,
-                   method: .post,parameters: parameters,encoding: JSONEncoding.default,headers: nil).responseData { response in
-                    guard let data = response.data else {
-                        print("Login Failed!")
-                        
-                        onFailure()
-                        return
-                        
-                    }
-                    let json = try? JSON(data:data)
-                    print("Login Successful!")
-                    
-                    
-                    self.writeToDatabase(json: json){
-                        
-                        UserDefaults.standard.set(Credentials.token, forKey: "userXAUTH")
-                        // Success
-                        onSuccess()
-                    }
-        }
-        
-    }
-    
     private func writeToDatabase(json:JSON?,complete:()->Void){
         // Set Realm User
         let userConfig = Realm.Configuration(schemaVersion : 4)
@@ -293,45 +332,14 @@ class APIService{
          Credentials.avatarURL = json!["avatarURL"].stringValue
          Credentials.twoFactorAuthentication = json!["twoFactorAuthentication"].boolValue
          Credentials.token = json!["token"]["token"].stringValue
-         //Credentials.expiresOn = json!["token"]["expiresOn"].dateValue!
          Credentials.trustedDevice = json!["trustedDevice"].stringValue
         
         complete()
       
     }
-    
-    public func userLoginSocial(endpoint:EndPoint, completion:@escaping ()->Void){
-        
-         let queryURL = baseURL!.appendingPathComponent(endpoint.path())
-        // Get from UserDefaults
-         let fbAccessToken = UserDefaults.standard.string(forKey: "fbAccessToken")
-        
-        
-        
-        AF.request(queryURL,method: .get ,headers: ["Access-Token":fbAccessToken!]).responseData{ response in
-            guard let data = response.data
-                else {
-                print("Failed to get access userXAUTH")
-                return }
-            
-            let json = try? JSON(data:data)
-            
-            print("Got userXAUTH Successfully!")
-                let token = json!["token"].stringValue
-                       Credentials.token = token
-            
-            self.header = ["X-Auth-Token":token]
-            
-                       UserDefaults.standard.set(json!["token"].stringValue, forKey: "userXAUTH")
-            completion()
- 
-        }
-        
-    }
-    
-    public func getUserInfo(completion:@escaping ()->Void){
+    public func getUserInfo(userXAuth:String,completion:@escaping ()->Void){
         let queryURL = baseURL!.appendingPathComponent(EndPoint.userGet.path())
-        
+        var header:HTTPHeaders = ["X-Auth-Token": userXAuth]
         AF.request(queryURL,method: .get,headers: header ).responseData{
             response in
             guard let data = response.data else {
@@ -341,12 +349,42 @@ class APIService{
             
             let json = try? JSON(data:data)
             self.writeToDatabase(json: json) {
-               // self.getElection(endpoint: .electionGetAll, ID: "")
                 print("email:\(Credentials.email)")
                 completion()
             }
             
         }
+    }
+    
+    //MARK: Update
+    public func updateUserPassword(newPassword:String,userXAuth:String,onSuccess:@escaping ()->Void){
+        let queryURL = baseURL!.appendingPathComponent(EndPoint.userChangePassword.path())
+       var header:HTTPHeaders = ["X-Auth-Token": userXAuth]
+       
+        
+        
+        AF.request(queryURL,method: .post,parameters: ["password" : newPassword],encoding: JSONEncoding.default,headers: ["X-Auth-Token":userXAuth]).responseData{ response in
+            
+            guard let data = response.data else {
+                print("Password Change Failed!")
+                return
+            }
+            
+            let json = try? JSON(data:data)
+            if(json != nil){
+                print("Password Change Successful! : \(json!["message"])")
+                
+                // Success
+                onSuccess()
+                
+            }else{
+                print("Password Change Failed!")
+            }
+            
+        }
+    }
+    public func updateAvatar(){
+        
     }
     
 }
