@@ -1,3 +1,5 @@
+![Swift](https://github.com/AOSSIE-Org/Agora-iOS/workflows/Swift/badge.svg?branch=gsoc-2020)
+
 ## Getting Started
 
 1. [Download](https://developer.apple.com/xcode/download/) the Xcode 11 release.
