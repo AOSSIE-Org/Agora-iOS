@@ -9,12 +9,15 @@
 import Foundation
 
 // MARK: - Ballot
-class Ballot:NSObject {
-    internal init(voteBallot: String, _hash: String) {
+struct Ballot {
+    internal init(voteBallot: String, hash: String) {
         self.voteBallot = voteBallot
-        self._hash = _hash
+        
     }
     
     let voteBallot:String
-    let _hash:String
+    let hash:String = "0"
 }
+
+let ballotOptions:[String] = ["Ballots are secret","Ballots visible to you","Ballots visible to everyone"]
+

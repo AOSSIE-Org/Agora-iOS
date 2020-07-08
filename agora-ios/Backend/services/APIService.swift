@@ -359,7 +359,6 @@ class APIService{
     //MARK: Update
     public func updateUserPassword(newPassword:String,userXAuth:String,onSuccess:@escaping ()->Void){
         let queryURL = baseURL!.appendingPathComponent(EndPoint.userChangePassword.path())
-       var header:HTTPHeaders = ["X-Auth-Token": userXAuth]
        
         
         
@@ -385,6 +384,30 @@ class APIService{
     }
     public func updateAvatar(){
         
+    }
+    
+    public func createNewElection(for election:Election, userXAuth:String, onSuccess:@escaping ()->Void){
+        let queryURL = baseURL!.appendingPathComponent(EndPoint.electionCreate.path())
+        
+        AF.request(queryURL,method: .post,parameters: election.toJSON().dictionaryObject,encoding: JSONEncoding.default,headers: ["X-Auth-Token":userXAuth]).responseData{ response in
+            
+            guard let data = response.data else {
+                print("Failed to fetch data!")
+                return
+            }
+            
+            let json = try? JSON(data:data)
+            if(json != nil){
+                print("New election added successfully! : \(json!["message"])")
+                
+                // Success
+                onSuccess()
+                
+            }else{
+                print("Failed to add new election!")
+            }
+            
+        }
     }
     
 }

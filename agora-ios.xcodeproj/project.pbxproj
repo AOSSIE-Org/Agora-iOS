@@ -38,6 +38,7 @@
 		E19012F9243075D100741EF9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E19012F8243075D100741EF9 /* Alamofire */; };
 		E191557A2498CD7C00AC78D9 /* UserLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19155792498CD7C00AC78D9 /* UserLoginManager.swift */; };
 		E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1926F43248CEA7800CC08A3 /* Credentials.swift */; };
+		E1984D7524A761B60099F970 /* Election.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1984D7424A761B60099F970 /* Election.swift */; };
 		E1989DAB248B5C52004ACBE7 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */; };
 		E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */; };
 		E19B260E2491F71E00B97D43 /* DatabaseElectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B260D2491F71E00B97D43 /* DatabaseElectionManager.swift */; };
@@ -47,7 +48,7 @@
 		E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AA779B2498AF980067A231 /* FacebookButton.swift */; };
 		E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B4FCCE2492774700907329 /* DatabaseUser.swift */; };
 		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
-		E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB7A64248FCC0C008726D8 /* DateJSON.swift */; };
+		E1EB7A65248FCC0C008726D8 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB7A64248FCC0C008726D8 /* DateFormat.swift */; };
 		E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,7 @@
 		E19012F22430729100741EF9 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		E19155792498CD7C00AC78D9 /* UserLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginManager.swift; sourceTree = "<group>"; };
 		E1926F43248CEA7800CC08A3 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		E1984D7424A761B60099F970 /* Election.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Election.swift; sourceTree = "<group>"; };
 		E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
 		E19B260D2491F71E00B97D43 /* DatabaseElectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseElectionManager.swift; sourceTree = "<group>"; };
@@ -133,7 +135,7 @@
 		E1DD63142428AC7E00DFCA04 /* E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "E9FFEB42-C0D4-37BC-9016-9904B4EBFC38.bcsymbolmap"; sourceTree = "<group>"; };
 		E1DD63152428AC7E00DFCA04 /* 2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap"; sourceTree = "<group>"; };
 		E1E98279242935FD007C461C /* ElectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionEditView.swift; sourceTree = "<group>"; };
-		E1EB7A64248FCC0C008726D8 /* DateJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateJSON.swift; sourceTree = "<group>"; };
+		E1EB7A64248FCC0C008726D8 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
 		E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -181,7 +183,7 @@
 		E15FA5CB24233DF000E9BF58 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E1EB7A64248FCC0C008726D8 /* DateJSON.swift */,
+				E1EB7A64248FCC0C008726D8 /* DateFormat.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -192,6 +194,7 @@
 				E10BDEAB248B81C3000A634F /* Database */,
 				E12816F72490BCC900E03C24 /* Ballot.swift */,
 				E12816F92490BE4A00E03C24 /* VoterList.swift */,
+				E1984D7424A761B60099F970 /* Election.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -557,13 +560,14 @@
 				E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */,
 				E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */,
 				E18F18792420F770002FED89 /* AppDelegate.swift in Sources */,
-				E1EB7A65248FCC0C008726D8 /* DateJSON.swift in Sources */,
+				E1EB7A65248FCC0C008726D8 /* DateFormat.swift in Sources */,
 				E191557A2498CD7C00AC78D9 /* UserLoginManager.swift in Sources */,
 				E16F276B2486366800F754B0 /* UserTextField.swift in Sources */,
 				E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */,
 				E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */,
 				E13215D82424760200B40532 /* CreateElection.swift in Sources */,
 				E18F187B2420F770002FED89 /* SceneDelegate.swift in Sources */,
+				E1984D7524A761B60099F970 /* Election.swift in Sources */,
 				E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */,
 				E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */,
 				E12816F82490BCC900E03C24 /* Ballot.swift in Sources */,
