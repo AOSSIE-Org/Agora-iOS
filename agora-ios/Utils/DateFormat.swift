@@ -1,5 +1,5 @@
 //
-//  DateJSON.swift
+//  DateFormat.swift
 //  agora-ios
 //
 //  Created by Siddharth sen on 6/9/20.
@@ -23,8 +23,18 @@ extension JSON {
     private static let jsonDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0) as TimeZone
         return dateFormatter
     }()
+}
+
+extension Date{
+     func asString() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // set locale to reliable US_POSIX
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0) as TimeZone
+        return dateFormatter.string(from: self)
+    }
 }
