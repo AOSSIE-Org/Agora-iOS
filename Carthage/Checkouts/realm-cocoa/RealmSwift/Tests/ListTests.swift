@@ -19,14 +19,6 @@
 import XCTest
 import RealmSwift
 
-#if !swift(>=4.1)
-extension Sequence {
-    func compactMap<ElementOfResult>(_ transform: (Self.Element) throws -> ElementOfResult?) rethrows -> [ElementOfResult] {
-        return try flatMap(transform)
-    }
-}
-#endif
-
 class ListTests: TestCase {
     var str1: SwiftStringObject?
     var str2: SwiftStringObject?
@@ -204,8 +196,8 @@ class ListTests: TestCase {
         assertEqual(str2, array[0])
         assertEqual(str1, array[1])
 
-        assertThrows(_ = array.insert(str2, at: 200))
-        assertThrows(_ = array.insert(str2, at: -200))
+        assertThrows(array.insert(str2, at: 200))
+        assertThrows(array.insert(str2, at: -200))
     }
 
     func testRemoveAtIndex() {
@@ -677,7 +669,7 @@ class ListRetrievedTests: ListTests {
 }
 
 /// Ensure the range replaceable collection methods behave correctly when emulated for Swift 4 and later.
-class ListRRCMethodsTests: XCTestCase {
+class ListRRCMethodsTests: TestCase {
     private func compare(array: [Int], with list: List<SwiftIntObject>) {
         guard array.count == list.count else {
             XCTFail("Array and list have different sizes (\(array.count) and \(list.count), respectively).")
@@ -714,7 +706,9 @@ class ListRRCMethodsTests: XCTestCase {
     }
 
     func testSubscript() {
+        list[0] = SwiftIntObject(value: [5])
         list[1..<4] = createListObject([10, 11, 12]).intArray[0..<2]
+        array[0] = 5
         array[1..<4] = [10, 11]
         compare(array: array, with: list)
     }
@@ -741,6 +735,11 @@ class ListRRCMethodsTests: XCTestCase {
         list.removeFirst(3)
         array.removeFirst(3)
         compare(array: array, with: list)
+    }
+
+    func testRemoveFirstInvalid() {
+        assertThrows(list.removeFirst(-1))
+        assertThrows(list.removeFirst(100))
     }
 
     func testRemoveLastFew() {

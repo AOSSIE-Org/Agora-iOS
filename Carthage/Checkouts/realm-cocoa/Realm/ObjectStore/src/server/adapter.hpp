@@ -61,6 +61,7 @@ public:
             case InstructionType::AddProperties:    return "ADD_PROPERTIES";
         }
         REALM_COMPILER_HINT_UNREACHABLE();
+        return {};
     }
 
     util::Optional<util::AppendBuffer<char>> current(std::string realm_path);

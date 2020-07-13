@@ -2,6 +2,9 @@
 
 # Release notes
 **Contents**<br>
+[2.11.0](#2110)<br>
+[2.10.2](#2102)<br>
+[2.10.1](#2101)<br>
 [2.10.0](#2100)<br>
 [2.9.2](#292)<br>
 [2.9.1](#291)<br>
@@ -27,6 +30,63 @@
 [2.0.1](#201)<br>
 [Older versions](#older-versions)<br>
 [Even Older versions](#even-older-versions)<br>
+
+## 2.11.1
+
+### Improvements
+* Breaking into debugger is supported on iOS (#1817)
+* `google-build-using-namespace` clang-tidy warning is suppressed (#1799)
+
+### Fixes
+* Clang on Windows is no longer assumed to implement MSVC's traditional preprocessor (#1806)
+* `ObjectStorage` now behaves properly in `const` contexts (#1820)
+* `GENERATE_COPY(a, b)` now compiles properly (#1809, #1815)
+* Some more cleanups in the benchmarking support
+
+
+## 2.11.0
+
+### Improvements
+* JUnit reporter output now contains more details in case of failure (#1347, #1719)
+* Added SonarQube Test Data reporter (#1738)
+  * It is in a separate header, just like the TAP, Automake, and TeamCity reporters
+* `range` generator now allows floating point numbers (#1776)
+* Reworked part of internals to increase throughput
+
+
+### Fixes
+* The single header version should contain full benchmarking support (#1800)
+* `[.foo]` is now properly parsed as `[.][foo]` when used on the command line (#1798)
+* Fixed compilation of benchmarking on platforms where `steady_clock::period` is not `std::nano` (#1794)
+
+
+
+## 2.10.2
+
+### Improvements
+* Catch2 will now compile on platform where `INFINITY` is double (#1782)
+
+
+### Fixes
+* Warning suppressed during listener registration will no longer leak
+
+
+
+## 2.10.1
+
+### Improvements
+* Catch2 now guards itself against `min` and `max` macros from `windows.h` (#1772)
+* Templated tests will now compile with ICC (#1748)
+* `WithinULP` matcher now uses scientific notation for stringification (#1760)
+
+
+### Fixes
+* Templated tests no longer trigger `-Wunused-templates` (#1762)
+* Suppressed clang-analyzer false positive in context getter (#1230, #1735)
+
+
+### Miscellaneous
+* CMake no longer prohibits in-tree build when Catch2 is used as a subproject (#1773, #1774)
 
 
 

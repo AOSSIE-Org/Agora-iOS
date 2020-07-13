@@ -41,7 +41,7 @@ namespace Catch {
         TestSpec testSpec();
 
     private:
-        void visitChar( char c );
+        bool visitChar( char c );
         void startNewMode( Mode mode );
         bool processNoneChar( char c );
         void processNameChar( char c );
@@ -51,30 +51,22 @@ namespace Catch {
         bool isControlChar( char c ) const;
         void saveLastMode();
         void revertBackToLastMode();
-        
-        template<typename T>
-        void addPattern() {
-            std::string token = m_patternName;
-            for( std::size_t i = 0; i < m_escapeChars.size(); ++i )
-                token = token.substr( 0, m_escapeChars[i] - i ) + token.substr( m_escapeChars[i] -i +1 );
-            m_escapeChars.clear();
-            if( startsWith( token, "exclude:" ) ) {
-                m_exclusion = true;
-                token = token.substr( 8 );
-            }
-            if( !token.empty() ) {
-                TestSpec::PatternPtr pattern = std::make_shared<T>( token, m_substring );
-                if( m_exclusion )
-                    pattern = std::make_shared<TestSpec::ExcludedPattern>( pattern );
-                m_currentFilter.m_patterns.push_back( pattern );
-            }
-            m_substring.clear();
-            m_patternName.clear();
-            m_exclusion = false;
-            m_mode = None;
+        void addFilter();
+        bool separate();
+
+        // Handles common preprocessing of the pattern for name/tag patterns
+        std::string preprocessPattern();
+        // Adds the current pattern as a test name
+        void addNamePattern();
+        // Adds the current pattern as a tag
+        void addTagPattern();
+
+        inline void addCharToPattern(char c) {
+            m_substring += c;
+            m_patternName += c;
+            m_realPatternPos++;
         }
 
-        void addFilter();
     };
     TestSpec parseTestSpec( std::string const& arg );
 

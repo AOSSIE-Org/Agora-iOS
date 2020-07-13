@@ -45,7 +45,11 @@ public struct HeaderScrollStyle {
     public var titleDays: [String] = []
     public var heightHeaderWeek: CGFloat = 70
     public var heightTitleDate: CGFloat = 30
-    public var backgroundColor: UIColor = UIColor(red: 246 / 255, green: 246 / 255, blue: 246 / 255, alpha: 1)
+    
+    @available(*, deprecated, renamed: "colorBackground")
+    public var backgroundColor: UIColor = gainsboro.withAlphaComponent(0.4)
+    public var colorBackground: UIColor = gainsboro.withAlphaComponent(0.4)
+    
     public var isHiddenTitleDate: Bool = false
     public var isHiddenCornerTitleDate: Bool = true
     public lazy var formatterTitle: DateFormatter = formatFull
@@ -60,6 +64,8 @@ public struct HeaderScrollStyle {
     public var colorSelectDate: UIColor = .white
     public var colorWeekendDate: UIColor = .gray
     public var isScrollEnabled: Bool = true
+    public var colorWeekdayBackground: UIColor = .clear
+    public var colorWeekendBackground: UIColor = .clear
 }
 
 public struct TimelineStyle {
@@ -68,6 +74,7 @@ public struct TimelineStyle {
     public var offsetEvent: CGFloat = 1
     public var startHour: Int = 0
     public var heightLine: CGFloat = 0.5
+    public var widthLine: CGFloat = 0.5
     public var offsetLineLeft: CGFloat = 10
     public var offsetLineRight: CGFloat = 10
     public var backgroundColor: UIColor = .white
@@ -88,6 +95,8 @@ public struct TimelineStyle {
     public var movingMinutesColor: UIColor = .systemBlue
     public var shadowColumnColor: UIColor = .systemTeal
     public var shadowColumnAlpha: CGFloat = 0.1
+    public var eventCorners: UIRectCorner = .allCorners
+    public var eventCornersRadius: CGSize = CGSize(width: 5, height: 5)
 }
 
 public struct WeekStyle {
@@ -99,7 +108,12 @@ public struct WeekStyle {
     public var colorBackgroundSelectDate: UIColor = .black
     public var colorSelectDate: UIColor = .white
     public var colorWeekendDate: UIColor = .gray
+    
+    @available(*, deprecated, renamed: "colorWeekendBackground")
     public var colorBackgroundWeekendDate: UIColor = gainsboro.withAlphaComponent(0.4)
+    
+    public var colorWeekendBackground: UIColor = .clear
+    public var colorWeekdayBackground: UIColor = .clear
     public var selectCalendarType: CalendarType = .day
     public var showVerticalDayDivider: Bool = true
 }
@@ -194,10 +208,10 @@ extension Style {
         
         var newStyle = self
         if #available(iOS 13.0, *) {
-            let colorBackgroundWeekendDate = UIColor.useForStyle(dark: .systemGray6, white: gainsboro.withAlphaComponent(0.2))
+            let colorBackgroundWeekend = UIColor.useForStyle(dark: .systemGray6, white: gainsboro.withAlphaComponent(0.2))
             
             // header
-            newStyle.headerScroll.backgroundColor = UIColor.useForStyle(dark: .black, white: UIColor(red: 246 / 255, green: 246 / 255, blue: 246 / 255, alpha: 1))
+            newStyle.headerScroll.colorBackground = UIColor.useForStyle(dark: .black, white: UIColor(red: 246 / 255, green: 246 / 255, blue: 246 / 255, alpha: 1))
             newStyle.headerScroll.colorTitleDate = UIColor.useForStyle(dark: .white, white: .black)
             newStyle.headerScroll.colorTitleCornerDate = .systemRed
             newStyle.headerScroll.colorDate = UIColor.useForStyle(dark: .systemGray, white: .black)
@@ -223,7 +237,7 @@ extension Style {
             newStyle.week.colorBackgroundCurrentDate = .systemRed
             newStyle.week.colorSelectDate = .white
             newStyle.week.colorWeekendDate = .systemGray2
-            newStyle.week.colorBackgroundWeekendDate = colorBackgroundWeekendDate
+            newStyle.week.colorWeekendBackground = colorBackgroundWeekend
             
             // month
             newStyle.month.colorDate = UIColor.useForStyle(dark: .systemGray, white: .black)
@@ -236,7 +250,7 @@ extension Style {
             newStyle.month.colorMoreTitle = UIColor.useForStyle(dark: .systemGray3, white: .gray)
             newStyle.month.colorEventTitle = UIColor.useForStyle(dark: .systemGray, white: .black)
             newStyle.month.colorSeporator = UIColor.useForStyle(dark: .systemGray, white: gainsboro.withAlphaComponent(0.9))
-            newStyle.month.colorBackgroundWeekendDate = colorBackgroundWeekendDate
+            newStyle.month.colorBackgroundWeekendDate = colorBackgroundWeekend
             newStyle.month.colorBackgroundDate = UIColor.useForStyle(dark: .black, white: .white)
             
             // year
@@ -245,7 +259,7 @@ extension Style {
             newStyle.year.colorBackgroundSelectDate = UIColor.useForStyle(dark: .systemGray, white: .black)
             newStyle.year.colorSelectDate = .white
             newStyle.year.colorWeekendDate = .systemGray2
-            newStyle.year.colorBackgroundWeekendDate = colorBackgroundWeekendDate
+            newStyle.year.colorBackgroundWeekendDate = colorBackgroundWeekend
             newStyle.year.colorTitle = UIColor.useForStyle(dark: .systemGray, white: .black)
             newStyle.year.colorBackgroundHeader = UIColor.useForStyle(dark: .black, white: gainsboro.withAlphaComponent(0.4))
             newStyle.year.colorTitleHeader = UIColor.useForStyle(dark: .white, white: .black)

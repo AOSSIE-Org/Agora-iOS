@@ -43,6 +43,8 @@
 #include <realm/parser/query_builder.hpp>
 #include <realm/util/optional.hpp>
 
+#include <condition_variable>
+
 using namespace realm;
 using namespace std::string_literals;
 
@@ -136,8 +138,7 @@ void populate_realm(Realm::Config& config, std::vector<TypeA> a={}, std::vector<
         const auto& id_prop = *object_schema.property_for_name("id");
         TableRef table = ObjectStore::table_for_object_type(r->read_group(), "link_target");
         for (auto& current : c) {
-            size_t row_idx = sync::create_object(r->read_group(), *table);
-            table->set_int(id_prop.table_column, row_idx, current.number);
+            table->create_object().set<int64_t>(id_prop.column_key, current.number);
         }
     }
     {
@@ -145,11 +146,11 @@ void populate_realm(Realm::Config& config, std::vector<TypeA> a={}, std::vector<
             const auto& object_schema = *r->schema().find("link_target");
             const auto& id_prop = *object_schema.property_for_name("id");
             TableRef table = ObjectStore::table_for_object_type(r->read_group(), "link_target");
-            size_t row_ndx = table->find_first_int(id_prop.table_column, link_id);
-            if (row_ndx == realm::not_found) {
+            auto obj_key = table->find_first_int(id_prop.column_key, link_id);
+            if (!obj_key) {
                 throw std::runtime_error(util::format("Invalid test schema, cannot find 'link_target' with id %1", link_id));
             }
-            return row_ndx;
+            return obj_key;
         };
         const auto& object_schema = *r->schema().find("object_a");
         const auto& number_prop = *object_schema.property_for_name("number");
@@ -158,12 +159,12 @@ void populate_realm(Realm::Config& config, std::vector<TypeA> a={}, std::vector<
         const auto& link_prop = *object_schema.property_for_name("link");
         TableRef table = ObjectStore::table_for_object_type(r->read_group(), "object_a");
         for (auto& current : a) {
-            size_t row_idx = sync::create_object(r->read_group(), *table);
-            table->set_int(number_prop.table_column, row_idx, current.number);
-            table->set_int(second_number_prop.table_column, row_idx, current.second_number);
-            table->set_string(string_prop.table_column, row_idx, current.string);
+            auto obj = table->create_object();
+            obj.set<int64_t>(number_prop.column_key, current.number);
+            obj.set<int64_t>(second_number_prop.column_key, current.second_number);
+            obj.set(string_prop.column_key, current.string);
             if (current.link_id != realm::npos) {
-                table->set_link(link_prop.table_column, row_idx, find_row_ndx_for_link(current.link_id));
+                obj.set(link_prop.column_key, find_row_ndx_for_link(current.link_id));
             }
         }
     }
@@ -174,10 +175,10 @@ void populate_realm(Realm::Config& config, std::vector<TypeA> a={}, std::vector<
         const auto& second_string_prop = *object_schema.property_for_name("second_string");
         TableRef table = ObjectStore::table_for_object_type(r->read_group(), "object_b");
         for (auto& current : b) {
-            size_t row_idx = sync::create_object(r->read_group(), *table);
-            table->set_int(number_prop.table_column, row_idx, current.number);
-            table->set_string(string_prop.table_column, row_idx, current.string);
-            table->set_string(second_string_prop.table_column, row_idx, current.second_string);
+            auto obj = table->create_object();
+            obj.set<int64_t>(number_prop.column_key, current.number);
+            obj.set(string_prop.column_key, current.string);
+            obj.set(second_string_prop.column_key, current.second_string);
         }
     }
     r->commit_transaction();
@@ -200,6 +201,19 @@ auto results_for_query(std::string const& query_string, Realm::Config const& con
     DescriptorOrdering ordering;
     query_builder::apply_ordering(ordering, table, parser_result.ordering);
     return Results(std::move(realm), std::move(query), std::move(ordering));
+}
+
+auto results_for_query(std::string const& query_string, SharedRealm& realm, std::string const& object_type)
+{
+    auto table = ObjectStore::table_for_object_type(realm->read_group(), object_type);
+    Query query = table->where();
+    auto parser_result = realm::parser::parse(query_string);
+    query_builder::NoArguments no_args;
+    query_builder::apply_predicate(query, parser_result.predicate, no_args);
+
+    DescriptorOrdering ordering;
+    query_builder::apply_ordering(ordering, table, parser_result.ordering);
+    return Results(realm, std::move(query), std::move(ordering));
 }
 
 partial_sync::Subscription subscribe_and_wait(Results results, partial_sync::SubscriptionOptions options, std::function<void(Results, std::exception_ptr)> check)
@@ -327,20 +341,24 @@ bool verify_results(SharedRealm realm, std::vector<TypeA> a_results, std::vector
         const auto& link_prop = *os_a.property_for_name("link");
 
         for (auto& a : a_results) {
-            size_t a_ndx = table_a->find_first_int(number_prop.table_column, a.number);
-            if (a_ndx == realm::not_found ||
-                table_a->get_int(second_number_prop.table_column, a_ndx) != int64_t(a.second_number) ||
-                table_a->get_string(string_prop.table_column, a_ndx) != a.string) {
+            ObjKey a_key = table_a->find_first_int(number_prop.column_key, a.number);
+            Obj a_obj;
+            if (a_key) {
+                a_obj = table_a->get_object(a_key);
+            }
+            if (!a_key ||
+                a_obj.get<Int>(second_number_prop.column_key) != int64_t(a.second_number) ||
+                a_obj.get<String>(string_prop.column_key) != a.string) {
                 return false;
             }
             const auto& c_id_prop = *os_c.property_for_name("id");
-            if (table_a->is_null_link(link_prop.table_column, a_ndx)) {
+            auto link_key = a_obj.get<ObjKey>(link_prop.column_key);
+            if (!link_key) {
                 if (a.link_id != realm::npos) {
                     return false;
                 }
             } else {
-                if (table_c->get_int(c_id_prop.table_column, table_a->get_link(link_prop.table_column, a_ndx))
-                    != int64_t(a.link_id)) {
+                if (table_c->get_object(link_key).get<Int>(c_id_prop.column_key) != int64_t(a.link_id)) {
                     return false;
                 }
             }
@@ -355,10 +373,14 @@ bool verify_results(SharedRealm realm, std::vector<TypeA> a_results, std::vector
         const auto& second_string_prop = *os_b.property_for_name("second_string");
 
         for (auto& b : b_results) {
-            size_t b_ndx = table_b->find_first_int(number_prop.table_column, b.number);
-            if (b_ndx == realm::not_found ||
-                table_b->get_string(string_prop.table_column, b_ndx) != b.string ||
-                table_b->get_string(second_string_prop.table_column, b_ndx) != b.second_string) {
+            ObjKey b_key = table_b->find_first_int(number_prop.column_key, b.number);
+            Obj b_obj;
+            if (b_key) {
+                b_obj = table_b->get_object(b_key);
+            }
+            if (!b_key ||
+                b_obj.get<String>(string_prop.column_key) != b.string ||
+                b_obj.get<String>(second_string_prop.column_key) != b.second_string) {
                 return false;
             }
         }
@@ -369,7 +391,7 @@ bool verify_results(SharedRealm realm, std::vector<TypeA> a_results, std::vector
         }
         const auto& id_prop = *os_c.property_for_name("id");
         for (auto& c : c_results) {
-            if (table_c->find_first_int(id_prop.table_column, c.number) == realm::not_found) {
+            if (!table_c->find_first_int(id_prop.column_key, c.number)) {
                 return false;
             }
         }
@@ -423,7 +445,7 @@ TEST_CASE("Query-based Sync", "[sync]") {
         auto realm = Realm::get_shared_realm(partial_config);
         auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_b");
         bool ascending = true;
-        Results partial_conditions(realm, *table);
+        Results partial_conditions(realm, table);
         partial_conditions = partial_conditions.sort({{"number", ascending}}).distinct({"string"});
         partial_sync::Subscription subscription = subscribe_and_wait(partial_conditions, util::none, [](Results results, std::exception_ptr) {
                 REQUIRE(results.size() == 2);
@@ -434,7 +456,7 @@ TEST_CASE("Query-based Sync", "[sync]") {
         auto partial_table = ObjectStore::table_for_object_type(partial_realm->read_group(), "object_b");
         REQUIRE(partial_table);
         REQUIRE(partial_table->size() == 2);
-        Results partial_results(partial_realm, *partial_table);
+        Results partial_results(partial_realm, partial_table);
         REQUIRE(partial_results.size() == 2);
         REQUIRE(results_contains(partial_results, {3, "meela", "orange"}));
         REQUIRE(results_contains(partial_results, {4, "jyaku", "kiwi"}));
@@ -444,7 +466,7 @@ TEST_CASE("Query-based Sync", "[sync]") {
         auto realm = Realm::get_shared_realm(partial_config);
         auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_b");
         bool ascending = false;
-        Results partial_conditions(realm, *table);
+        Results partial_conditions(realm, table);
         partial_conditions = partial_conditions.sort({{"number", ascending}}).distinct({"string"});
         subscribe_and_wait(partial_conditions, util::none, [](Results results, std::exception_ptr) {
             REQUIRE(results.size() == 2);
@@ -455,7 +477,7 @@ TEST_CASE("Query-based Sync", "[sync]") {
         auto partial_table = ObjectStore::table_for_object_type(partial_realm->read_group(), "object_b");
         REQUIRE(partial_table);
         REQUIRE(partial_table->size() == 2);
-        Results partial_results(partial_realm, *partial_table);
+        Results partial_results(partial_realm, partial_table);
         REQUIRE(partial_results.size() == 2);
         REQUIRE(results_contains(partial_results, {6, "meela", "kiwi"}));
         REQUIRE(results_contains(partial_results, {7, "jyaku", "orange"}));
@@ -650,7 +672,6 @@ TEST_CASE("Query-based Sync", "[sync]") {
     SECTION("named query can be unsubscribed while in creating state without holding a strong reference to the subscription") {
         // Hold the write lock on the Realm so that the subscription can't actually be created
         auto config2 = partial_config;
-        config2.cache = false;
         auto realm = Realm::get_shared_realm(config2);
         realm->begin_transaction();
         {
@@ -677,9 +698,9 @@ TEST_CASE("Query-based Sync", "[sync]") {
 
         auto realm = Realm::get_shared_realm(partial_config);
         auto table = ObjectStore::table_for_object_type(realm->read_group(), partial_sync::result_sets_type_name);
-        ObjectSchema object_schema(realm->read_group(), partial_sync::result_sets_type_name);
-        size_t row = table->find_first(table->get_column_index("name"), StringData("query"));
-        Object subscription_object(realm, object_schema, table->get(row));
+        ObjectSchema object_schema(realm->read_group(), partial_sync::result_sets_type_name, TableKey());
+        auto row = table->find_first(table->get_column_key("name"), StringData("query"));
+        Object subscription_object(realm, object_schema, table->get_object(row));
 
         partial_sync::unsubscribe(std::move(subscription_object));
         EventLoop::main().run_until([&] { return subscription.state() != partial_sync::SubscriptionState::Complete; });
@@ -699,7 +720,7 @@ TEST_CASE("Query-based Sync", "[sync]") {
             auto realm = results.get_realm();
             auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
             realm->begin_transaction();
-            Results(realm, *table).clear();
+            Results(realm, table).clear();
             realm->commit_transaction();
 
             std::atomic<bool> upload_done(false);
@@ -723,7 +744,6 @@ TEST_CASE("Query-based Sync", "[sync]") {
         {
             Realm::Config async_partial_config(partial_config);
             async_partial_config.schema = {};
-            async_partial_config.cache = false;
 
             auto async_realm = Realm::get_shared_realm(async_partial_config);
             std::atomic<bool> download_done(false);
@@ -785,7 +805,7 @@ TEST_CASE("Query-based Sync", "[sync]") {
         // Also create the same subscription on the UI thread to force the subscription notifications to run.
         // This could potentially trigger the Pending state twice if this isn't prevented by the notification
         // handling.
-        auto realm = Realm::get_shared_realm(partial_config);
+        auto realm = results.get_realm();
         realm->begin_transaction();
         partial_sync::subscribe_blocking(results, "sub"s);
         realm->commit_transaction();
@@ -822,9 +842,9 @@ TEST_CASE("Query-based Sync", "[sync]") {
 
         EventLoop::main().run_until([&] { return subscription_created; });
 
-        auto realm = Realm::get_shared_realm(partial_config);
-        realm->begin_transaction();
         Results subs = results_for_query("name = 'sub'", partial_config, partial_sync::result_sets_type_name);
+        auto realm = subs.get_realm();
+        realm->begin_transaction();
         subs.clear();
         realm->commit_transaction();
 
@@ -921,7 +941,7 @@ TEST_CASE("Query-based Sync link behaviour", "[sync]") {
         TableRef table_c = ObjectStore::table_for_object_type(realm->read_group(), "link_target");
         const auto& link_prop = *os_a.property_for_name("link");
         partial_sync::SubscriptionOptions options;
-        options.inclusions = IncludeDescriptor(*table_c, {{LinkPathPart(link_prop.table_column, table_a)}});
+        options.inclusions = IncludeDescriptor(table_c, {{LinkPathPart(link_prop.column_key, table_a)}});
         auto subscription = subscribe_and_wait("TRUEPREDICATE", partial_config, "link_target", options, [&c_objects](Results results, std::exception_ptr) {
             // all a objects that have a valid link, no b objects, all c objects
             REQUIRE(verify_results(results.get_realm(),
@@ -930,10 +950,7 @@ TEST_CASE("Query-based Sync link behaviour", "[sync]") {
     }
     SECTION("link targets bring in backlinked parents if requested via verbose string property names") {
         auto realm = Realm::get_shared_realm(config);
-        const ObjectSchema os_a = *realm->schema().find("object_a");
         const ObjectSchema os_c = *realm->schema().find("link_target");
-        TableRef table_a = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        TableRef table_c = ObjectStore::table_for_object_type(realm->read_group(), "link_target");
         partial_sync::SubscriptionOptions options;
         std::vector<StringData> keypaths = { "@links.class_object_a.link" };
         parser::KeyPathMapping mapping;
@@ -946,10 +963,7 @@ TEST_CASE("Query-based Sync link behaviour", "[sync]") {
     }
     SECTION("link targets bring in backlinked parents if requested via user defined string property names") {
         auto realm = Realm::get_shared_realm(config);
-        const ObjectSchema os_a = *realm->schema().find("object_a");
         const ObjectSchema os_c = *realm->schema().find("link_target");
-        TableRef table_a = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        TableRef table_c = ObjectStore::table_for_object_type(realm->read_group(), "link_target");
         partial_sync::SubscriptionOptions options;
         std::vector<StringData> keypaths = { "parents" };
         parser::KeyPathMapping mapping;
@@ -963,10 +977,7 @@ TEST_CASE("Query-based Sync link behaviour", "[sync]") {
     }
     SECTION("inclusion generation for unaliased link targets are not found and will throw") {
         auto realm = Realm::get_shared_realm(config);
-        const ObjectSchema os_a = *realm->schema().find("object_a");
         const ObjectSchema os_c = *realm->schema().find("link_target");
-        TableRef table_a = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        TableRef table_c = ObjectStore::table_for_object_type(realm->read_group(), "link_target");
         partial_sync::SubscriptionOptions options;
         std::vector<StringData> keypaths = { "parents" };
         parser::KeyPathMapping mapping;
@@ -976,10 +987,7 @@ TEST_CASE("Query-based Sync link behaviour", "[sync]") {
     }
     SECTION("inclusion generation for link targets which are not a link will throw") {
         auto realm = Realm::get_shared_realm(config);
-        const ObjectSchema os_a = *realm->schema().find("object_a");
         const ObjectSchema os_c = *realm->schema().find("link_target");
-        TableRef table_a = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        TableRef table_c = ObjectStore::table_for_object_type(realm->read_group(), "link_target");
         partial_sync::SubscriptionOptions options;
         std::vector<StringData> keypaths = { "id" };
         parser::KeyPathMapping mapping;
@@ -989,10 +997,7 @@ TEST_CASE("Query-based Sync link behaviour", "[sync]") {
     }
     SECTION("inclusion generation for link targets which do not exist will throw") {
         auto realm = Realm::get_shared_realm(config);
-        const ObjectSchema os_a = *realm->schema().find("object_a");
         const ObjectSchema os_c = *realm->schema().find("link_target");
-        TableRef table_a = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        TableRef table_c = ObjectStore::table_for_object_type(realm->read_group(), "link_target");
         partial_sync::SubscriptionOptions options;
         std::vector<StringData> keypaths = { "a_property_which_does_not_exist" };
         parser::KeyPathMapping mapping;
@@ -1011,7 +1016,7 @@ TEST_CASE("Query-based Sync error checking", "[sync]") {
             config.schema = partial_sync_schema();
             auto realm = Realm::get_shared_realm(config);
             auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-            CHECK_THROWS(subscribe_and_wait(Results(realm, *table), util::none, [](Results, std::exception_ptr) { }));
+            CHECK_THROWS(subscribe_and_wait(Results(realm, table), util::none, [](Results, std::exception_ptr) { }));
         }
 
         SECTION("synced, non-partial Realm") {
@@ -1020,7 +1025,7 @@ TEST_CASE("Query-based Sync error checking", "[sync]") {
             config.schema = partial_sync_schema();
             auto realm = Realm::get_shared_realm(config);
             auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-            CHECK_THROWS(subscribe_and_wait(Results(realm, *table), util::none, [](Results, std::exception_ptr) { }));
+            CHECK_THROWS(subscribe_and_wait(Results(realm, table), util::none, [](Results, std::exception_ptr) { }));
         }
     }
 
@@ -1034,7 +1039,7 @@ TEST_CASE("Query-based Sync error checking", "[sync]") {
         populate_realm(config,
             {{1, 10, "partial"}, {2, 2, "partial"}, {3, 8, "sync"}},
             {{3, "meela", "orange"}, {4, "jyaku", "kiwi"}, {5, "meela", "cherry"}, {6, "meela", "kiwi"}, {7, "jyaku", "orange"}},
-            {{0}});
+            {{0}, {2}});
 
         SECTION("reusing the same name for different queries should raise an error") {
             subscribe_and_wait("number > 0", partial_config, "object_a", "query"s, [](Results results, std::exception_ptr error) {
@@ -1071,7 +1076,7 @@ TEST_CASE("Query-based Sync error checking", "[sync]") {
             // Ensure that the placeholder object in `link_target` is available.
             subscribe_and_wait("TRUEPREDICATE", partial_config, "link_target", util::none, [](Results results, std::exception_ptr error) {
                 REQUIRE(!error);
-                REQUIRE(results.size() == 1);
+                REQUIRE(results.size() == 2);
             });
 
             auto r = Realm::get_shared_realm(partial_config);
@@ -1080,8 +1085,12 @@ TEST_CASE("Query-based Sync error checking", "[sync]") {
             auto target_table = ObjectStore::table_for_object_type(r->read_group(), "link_target");
 
             // Attempt to subscribe to a `links_to` query.
-            Query q = source_table->where().links_to(object_schema->property_for_name("link")->table_column,
-                                                     target_table->get(0));
+            ObjKeys keys;
+            for (auto& o : *target_table) {
+                keys.push_back(o.get_key());
+            }
+
+            Query q = source_table->where().links_to(object_schema->property_for_name("link")->column_key, keys);
             CHECK_THROWS(partial_sync::subscribe(Results(r, q), {util::none}));
         }
     }
@@ -1103,30 +1112,29 @@ TEST_CASE("Creating/Updating subscriptions synchronously", "[sync]") {
 
     auto realm = Realm::get_shared_realm(partial_config);
     auto subscription_table = ObjectStore::table_for_object_type(realm->read_group(), "__ResultSets");
-    Results subscriptions(realm, *subscription_table);
+    Results subscriptions(realm, subscription_table);
 
     // Wait for the server-created subscriptions to be downloaded
     EventLoop::main().run_until([&] { return subscriptions.size() == 5; });
 
-    size_t query_ndx = subscription_table->get_column_index(partial_sync::property_query);
-    size_t name_ndx = subscription_table->get_column_index(partial_sync::property_name);
-    size_t created_at_ndx = subscription_table->get_column_index(partial_sync::property_created_at);
-    size_t updated_at_ndx = subscription_table->get_column_index(partial_sync::property_updated_at);
-    size_t time_to_live_ndx = subscription_table->get_column_index(partial_sync::property_time_to_live);
-    size_t expires_at_ndx = subscription_table->get_column_index(partial_sync::property_expires_at);
+    ColKey query_ndx = subscription_table->get_column_key(partial_sync::property_query);
+    ColKey name_ndx = subscription_table->get_column_key(partial_sync::property_name);
+    ColKey created_at_ndx = subscription_table->get_column_key(partial_sync::property_created_at);
+    ColKey updated_at_ndx = subscription_table->get_column_key(partial_sync::property_updated_at);
+    ColKey time_to_live_ndx = subscription_table->get_column_key(partial_sync::property_time_to_live);
+    ColKey expires_at_ndx = subscription_table->get_column_key(partial_sync::property_expires_at);
 
     SECTION("Create new unnamed subscription") {
         realm->begin_transaction();
         auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        Results user_query(realm, *table);
-        partial_sync::subscribe_blocking(user_query, none);
+        Results user_query(realm, table);
+        Obj sub = partial_sync::subscribe_blocking(user_query, none);
         realm->commit_transaction();
 
         CHECK(subscriptions.size() == 6);
-        auto sub = subscriptions.get(5);
-        CHECK(sub.get_string(name_ndx) == "[object_a] TRUEPREDICATE"); // Name of subscription
-        CHECK(sub.get_int(3) == static_cast<int64_t>(partial_sync::SubscriptionState::Pending));
-        CHECK(sub.get_timestamp(created_at_ndx) == sub.get_timestamp(updated_at_ndx));
+        CHECK(sub.get<String>(name_ndx) == "[object_a] TRUEPREDICATE"); // Name of subscription
+        CHECK(sub.get<Int>(partial_sync::property_status) == static_cast<int64_t>(partial_sync::SubscriptionState::Pending));
+        CHECK(sub.get<Timestamp>(created_at_ndx) == sub.get<Timestamp>(updated_at_ndx));
         CHECK(sub.is_null(time_to_live_ndx) == true);
         CHECK(sub.is_null(expires_at_ndx) == true);
     }
@@ -1134,18 +1142,18 @@ TEST_CASE("Creating/Updating subscriptions synchronously", "[sync]") {
     SECTION("Create a new subscription with time-to-live")  {
         realm->begin_transaction();
         auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        Results user_query(realm, *table);
+        Results user_query(realm, table);
         Timestamp current_time = now();
-        partial_sync::subscribe_blocking(user_query, "ttl-test"s, util::Optional<int64_t>(10000));
+
+        Obj sub = partial_sync::subscribe_blocking(user_query, "ttl-test"s, util::Optional<int64_t>(10000));
         realm->commit_transaction();
 
         CHECK(subscriptions.size() == 6);
-        auto sub = subscriptions.get(5);
-        CHECK(sub.get_string(name_ndx) == "ttl-test");
-        CHECK(sub.get_timestamp(created_at_ndx) == sub.get_timestamp(updated_at_ndx));
-        CHECK(sub.get_int(time_to_live_ndx) == 10000);
-        CHECK(sub.get_timestamp(expires_at_ndx) < add_seconds(current_time, 11));
-        CHECK(add_seconds(current_time, 9) < sub.get_timestamp(expires_at_ndx));
+        CHECK(sub.get<String>(name_ndx) == "ttl-test");
+        CHECK(sub.get<Timestamp>(created_at_ndx) == sub.get<Timestamp>(updated_at_ndx));
+        CHECK(sub.get<util::Optional<Int>>(time_to_live_ndx) == 10000);
+        CHECK(sub.get<Timestamp>(expires_at_ndx) < add_seconds(current_time, 11));
+        CHECK(add_seconds(current_time, 9) < sub.get<Timestamp>(expires_at_ndx));
     }
 
     SECTION("Create existing subscription returns old row") {
@@ -1154,86 +1162,258 @@ TEST_CASE("Creating/Updating subscriptions synchronously", "[sync]") {
         });
 
         CHECK(subscriptions.size() == 6);
-        RowExpr old_sub = subscriptions.get(5);
-        Timestamp old_updated = old_sub.get_timestamp(updated_at_ndx);
-        Timestamp old_expires_at = old_sub.get_timestamp(expires_at_ndx);
+        Obj old_sub = subscriptions.get(0);
+        Timestamp old_updated = old_sub.get<Timestamp>(updated_at_ndx);
+        Timestamp old_expires_at = old_sub.get<Timestamp>(expires_at_ndx);
 
         realm->begin_transaction();
         auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        Results user_query(realm, *table);
-        RowExpr new_sub = partial_sync::subscribe_blocking(user_query, "sub"s);
+        Results user_query(realm, table);
+        Obj new_sub = partial_sync::subscribe_blocking(user_query, "sub"s);
         realm->commit_transaction();
 
         CHECK(subscriptions.size() == 6);
-        CHECK(old_sub.get_index() == new_sub.get_index());
-        CHECK(old_updated < new_sub.get_timestamp(updated_at_ndx));
-        CHECK(old_expires_at == new_sub.get_timestamp(expires_at_ndx));
+        CHECK(old_sub.get_key() == new_sub.get_key());
+        CHECK(old_updated < new_sub.get<Timestamp>(updated_at_ndx));
+        CHECK(old_expires_at == new_sub.get<Timestamp>(expires_at_ndx));
     }
 
     SECTION("Returning existing row updates expires_at") {
         realm->begin_transaction();
         auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        Results user_query(realm, *table);
-        RowExpr old_sub = partial_sync::subscribe_blocking(user_query, "sub"s, util::Optional<int64_t>(1000));
-        Timestamp old_updated = old_sub.get_timestamp(updated_at_ndx);
-        Timestamp old_expires_at = old_sub.get_timestamp(expires_at_ndx);
-        RowExpr new_sub = partial_sync::subscribe_blocking(user_query, "sub"s, util::Optional<int64_t>(1000));
-        CHECK(old_sub.get_index() == new_sub.get_index());
-        CHECK(old_updated < new_sub.get_timestamp(updated_at_ndx));
-        CHECK(old_expires_at < new_sub.get_timestamp(expires_at_ndx));
+        Results user_query(realm, table);
+        Obj old_sub = partial_sync::subscribe_blocking(user_query, "sub"s, util::Optional<int64_t>(1000));
+        Timestamp old_updated = old_sub.get<Timestamp>(updated_at_ndx);
+        Timestamp old_expires_at = old_sub.get<Timestamp>(expires_at_ndx);
+        Obj new_sub = partial_sync::subscribe_blocking(user_query, "sub"s, util::Optional<int64_t>(1000));
+        CHECK(old_sub.get_key() == new_sub.get_key());
+        CHECK(old_updated < new_sub.get<Timestamp>(updated_at_ndx));
+        CHECK(old_expires_at < new_sub.get<Timestamp>(expires_at_ndx));
     }
 
     SECTION("Create subscription outside write transaction throws") {
         auto table = ObjectStore::table_for_object_type(realm->read_group(), "object_a");
-        Results user_query(realm, *table);
+        Results user_query(realm, table);
         CHECK_THROWS(partial_sync::subscribe_blocking(user_query, none));
     }
 
     SECTION("Update subscription") {
         realm->begin_transaction();
-        auto user_query = results_for_query("number > 0", partial_config, "object_a");
-        RowExpr old_sub = partial_sync::subscribe_blocking(user_query, "update-test"s, util::Optional<int64_t>(1000));
+        auto user_query = results_for_query("number > 0", realm, "object_a");
+        Obj old_sub = partial_sync::subscribe_blocking(user_query, "update-test"s, util::Optional<int64_t>(1000));
         CHECK(subscriptions.size() == 6);
-        CHECK(old_sub.get_string(query_ndx) == "number > 0");
-        Timestamp old_created_at = old_sub.get_timestamp(created_at_ndx);
-        Timestamp old_updated_at = old_sub.get_timestamp(updated_at_ndx);
-        Timestamp old_expires_at = old_sub.get_timestamp(expires_at_ndx);
-        int64_t old_ttl = old_sub.get_int(time_to_live_ndx);
+        CHECK(old_sub.get<String>(query_ndx) == "number > 0");
+        Timestamp old_created_at = old_sub.get<Timestamp>(created_at_ndx);
+        Timestamp old_updated_at = old_sub.get<Timestamp>(updated_at_ndx);
+        Timestamp old_expires_at = old_sub.get<Timestamp>(expires_at_ndx);
+        int64_t old_ttl = *old_sub.get<util::Optional<Int>>(time_to_live_ndx);
 
-        user_query = results_for_query("number > 10", partial_config, "object_a");
-        RowExpr new_sub = partial_sync::subscribe_blocking(user_query, "update-test"s, util::Optional<int64_t>(5000), true);
+        user_query = results_for_query("number > 10", realm, "object_a");
+        Obj new_sub = partial_sync::subscribe_blocking(user_query, "update-test"s, util::Optional<int64_t>(5000), true);
         CHECK(subscriptions.size() == 6);
-        CHECK(new_sub.get_string(query_ndx) == "number > 10");
-        CHECK(old_created_at == new_sub.get_timestamp(created_at_ndx));
-        CHECK(old_updated_at < new_sub.get_timestamp(updated_at_ndx));
-        CHECK(old_expires_at < new_sub.get_timestamp(expires_at_ndx));
+        CHECK(new_sub.get<String>(query_ndx) == "number > 10");
+        CHECK(old_created_at == new_sub.get<Timestamp>(created_at_ndx));
+        CHECK(old_updated_at < new_sub.get<Timestamp>(updated_at_ndx));
+        CHECK(old_expires_at < new_sub.get<Timestamp>(expires_at_ndx));
         CHECK(old_ttl == 1000);
-        CHECK(new_sub.get_int(time_to_live_ndx) == 5000);
+        CHECK(*new_sub.get<util::Optional<Int>>(time_to_live_ndx) == 5000);
     }
 
     SECTION("Update subscription with query on different type throws") {
         realm->begin_transaction();
-        auto user_query1 = results_for_query("number > 0", partial_config, "object_a");
+        auto user_query1 = results_for_query("number > 0", realm, "object_a");
         partial_sync::subscribe_blocking(user_query1, "update-wrong-typetest"s);
-        auto user_query2 = results_for_query("number > 0", partial_config, "object_b");
+        auto user_query2 = results_for_query("number > 0", realm, "object_b");
         CHECK_THROWS(partial_sync::subscribe_blocking(user_query2, "update-wrong-typetest"s, none, true));
     }
 
     SECTION("Creating/Updating new subscription cleans up expired subscriptions") {
         realm->begin_transaction();
-        auto user_query1 = results_for_query("number > 0", partial_config, "object_a");
+        auto user_query1 = results_for_query("number > 0", realm, "object_a");
         partial_sync::subscribe_blocking(user_query1, none, util::Optional<int64_t>(0));
         realm->commit_transaction();
 
         CHECK(subscriptions.size() == 6);
-        CHECK(subscriptions.get(5).get_string(name_ndx) == "[object_a] number > 0");
+        CHECK(subscriptions.get(0).get<String>(name_ndx) == "[object_a] number > 0");
 
         realm->begin_transaction();
-        auto user_query2 = results_for_query("number > 0", partial_config, "object_b");
+        auto user_query2 = results_for_query("number > 0", realm, "object_b");
         partial_sync::subscribe_blocking(user_query2, none, util::Optional<int64_t>(0));
         realm->commit_transaction();
 
         CHECK(subscriptions.size() == 6);
-        CHECK(subscriptions.get(5).get_string(name_ndx) == "[object_b] number > 0");
+        CHECK(subscriptions.get(0).get<String>(name_ndx) == "[object_b] number > 0");
     }
+}
+
+TEST_CASE("Query-based sync schema initialization", "[sync]") {
+    if (!EventLoop::has_implementation())
+        return;
+    TestSyncManager init_sync_manager;
+
+    auto assert_schema = [](Realm& realm) {
+        auto& group = realm.read_group();
+        auto table = group.get_table("class___ResultSets");
+        REQUIRE(table);
+        CHECK(table->get_column_key("name"));
+        CHECK(table->get_column_key("query"));
+        CHECK(table->get_column_key("error_message"));
+        CHECK(table->get_column_key("status"));
+        CHECK(table->get_column_key("query_parse_counter"));
+        CHECK(table->get_column_key("matches_property"));
+        CHECK(table->get_column_key("created_at"));
+        CHECK(table->get_column_key("updated_at"));
+        CHECK(table->get_column_key("expires_at"));
+        CHECK(table->get_column_key("time_to_live"));
+    };
+
+    // Deliberately doesn't have all of the properties, to better mimick what the bindings do
+    ObjectSchema result_sets_schema{
+        "__ResultSets", {
+            {"name", PropertyType::String},
+            {"query", PropertyType::String},
+            {"error_message", PropertyType::String},
+            {"status", PropertyType::Int},
+            {"created_at", PropertyType::Date},
+            {"updated_at", PropertyType::Date},
+            {"time_to_live", PropertyType::Int|PropertyType::Nullable},
+            {"expires_at", PropertyType::Date|PropertyType::Nullable},
+        }
+    };
+    ObjectSchema other_schema{
+        "MyClass", {
+            {"value", PropertyType::Int},
+        }
+    };
+
+    SyncServer server;
+    SyncTestFile config(server, "test", true);
+
+    SECTION("open new Realm with schema defined") {
+        SECTION("including __ResultSets type") {
+            config.schema = Schema{result_sets_schema, other_schema};
+            assert_schema(*Realm::get_shared_realm(config));
+        }
+
+        SECTION("not including __ResultSets type") {
+            config.schema = Schema{other_schema};
+            assert_schema(*Realm::get_shared_realm(config));
+        }
+    }
+
+    SECTION("open existing local Realm with schema defined") {
+        Realm::get_shared_realm(config);
+
+        SECTION("including __ResultSets type") {
+            config.schema = Schema{result_sets_schema, other_schema};
+            assert_schema(*Realm::get_shared_realm(config));
+        }
+
+        SECTION("not including __ResultSets type") {
+            config.schema = Schema{other_schema};
+            assert_schema(*Realm::get_shared_realm(config));
+        }
+    }
+
+    auto wait_for = [](auto&& fn) {
+        std::condition_variable cv;
+        std::mutex wait_mutex;
+        bool wait_flag(false);
+        fn([&](auto) {
+            std::unique_lock<std::mutex> lock(wait_mutex);
+            wait_flag = true;
+            cv.notify_one();
+        });
+        std::unique_lock<std::mutex> lock(wait_mutex);
+        cv.wait(lock, [&]() { return wait_flag == true; });
+    };
+
+    auto initialize_local_realm = [&](auto&& fn) {
+
+        std::unique_ptr<Replication> history = sync::make_client_replication(config.path);
+        DBRef db = DB::create(*history);
+        {
+            ReadTransaction rt(db);
+            REQUIRE(!rt.get_table("class___ResultSets"));
+        }
+        // Download the Realm so that the server creates the __ResultSets table
+        auto session = SyncManager::shared().get_session(config.path, *config.sync_config);
+        wait_for([&](auto&& completion) { session->wait_for_download_completion(completion); });
+
+        {
+            WriteTransaction wt(db);
+            auto table = wt.get_table("class___ResultSets");
+            REQUIRE(table);
+
+            // The server doesn't add the permissions subscriptions until we create one
+            // Fortunately it doesn't need to be a valid one, so we can just create an empty tow
+            REQUIRE(table->size() == 0);
+            auto obj = table->create_object();
+
+            auto version = wt.commit();
+
+            SyncSession::OnlyForTesting::nonsync_transact_notify(*session, version);
+        }
+
+        // Sync the newly created subscription
+        wait_for([&](auto&& completion) { session->wait_for_upload_completion(completion); });
+        wait_for([&](auto&& completion) { session->wait_for_download_completion(completion); });
+
+        // Should now have a full set of auto-created subscriptions
+        {
+            ReadTransaction rt(db);
+            auto table = rt.get_table("class___ResultSets");
+            REQUIRE(table);
+            REQUIRE(table->size() == 6);
+        }
+
+        fn(db);
+    };
+
+    SECTION("open existing local Realm which has an older schema with schema defined") {
+        initialize_local_realm([](auto& db) {
+            WriteTransaction wt(db);
+            wt.get_table("class___ResultSets")->add_column(type_String, "name");
+            wt.commit();
+        });
+
+         SECTION("including __ResultSets type") {
+             config.schema = Schema{result_sets_schema, other_schema};
+             assert_schema(*Realm::get_shared_realm(config));
+         }
+
+         SECTION("not including __ResultSets type") {
+             config.schema = Schema{other_schema};
+             assert_schema(*Realm::get_shared_realm(config));
+         }
+    }
+
+     SECTION("open non-ObjectStore existing local Realm with schema defined") {
+         initialize_local_realm([](auto&) { });
+
+         SECTION("including __ResultSets type") {
+             config.schema = Schema{result_sets_schema, other_schema};
+             assert_schema(*Realm::get_shared_realm(config));
+         }
+
+         SECTION("not including __ResultSets type") {
+             config.schema = Schema{other_schema};
+             assert_schema(*Realm::get_shared_realm(config));
+         }
+     }
+
+     SECTION("open existing local Realm which has an older schema with dynamic schema") {
+         initialize_local_realm([](auto& db) {
+             WriteTransaction wt(db);
+             wt.get_table("class___ResultSets")->add_column(type_String, "name");
+             wt.commit();
+         });
+
+         assert_schema(*Realm::get_shared_realm(config));
+     }
+
+     SECTION("open non-ObjectStore existing local Realm with dynamic schema") {
+         initialize_local_realm([](auto&) { });
+         assert_schema(*Realm::get_shared_realm(config));
+     }
 }
