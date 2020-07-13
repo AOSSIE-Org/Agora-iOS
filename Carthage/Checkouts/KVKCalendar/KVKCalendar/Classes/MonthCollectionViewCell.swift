@@ -120,7 +120,7 @@ final class MonthCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var item: MonthDayStyle? = nil {
+    var item: DayStyle? = nil {
         didSet {
             guard let value = item else { return }
             
@@ -205,7 +205,7 @@ final class MonthCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private func populateCell(cellStyle: MonthDayStyle, label: UILabel, view: UIView) {
+    private func populateCell(cellStyle: DayStyle, label: UILabel, view: UIView) {
         let date = cellStyle.day.date
         let weekend = cellStyle.day.type == .saturday || cellStyle.day.type == .sunday
 
@@ -251,9 +251,9 @@ final class MonthCollectionViewCell: UICollectionViewCell {
         }
 
         guard selectDate.day == date?.day && selectDate.month == date?.month else {
-            if date?.day == nowDate.day {
-                label.textColor = cellStyle.style?.textColor ?? monthStyle.colorDate
-                label.backgroundColor = cellStyle.style?.dotBackgroundColor ?? .clear
+            if date?.day == nowDate.day, cellStyle.style == nil {
+                label.textColor = monthStyle.colorDate
+                label.backgroundColor = .clear
             }
             return
         }

@@ -101,14 +101,17 @@ FP step(FP start, FP direction, uint64_t steps) {
     return start;
 }
 
-namespace {
+// Performs equivalent check of std::fabs(lhs - rhs) <= margin
+// But without the subtraction to allow for INFINITY in comparison
+bool marginComparison(double lhs, double rhs, double margin) {
+    return (lhs + margin >= rhs) && (rhs + margin >= lhs);
+}
 
-    // Performs equivalent check of std::fabs(lhs - rhs) <= margin
-    // But without the subtraction to allow for INFINITY in comparison
-    bool marginComparison(double lhs, double rhs, double margin) {
-        return (lhs + margin >= rhs) && (rhs + margin >= lhs);
-    }
-
+template <typename FloatingPoint>
+void write(std::ostream& out, FloatingPoint num) {
+    out << std::scientific
+        << std::setprecision(std::numeric_limits<FloatingPoint>::max_digits10 - 1)
+        << num;
 }
 
 } // end anonymous namespace
@@ -142,7 +145,7 @@ namespace Floating {
     WithinUlpsMatcher::WithinUlpsMatcher(double target, uint64_t ulps, FloatingPointKind baseType)
         :m_target{ target }, m_ulps{ ulps }, m_type{ baseType } {
         CATCH_ENFORCE(m_type == FloatingPointKind::Double
-                   || m_ulps < std::numeric_limits<uint32_t>::max(),
+                   || m_ulps < (std::numeric_limits<uint32_t>::max)(),
             "Provided ULP is impossibly large for a float comparison.");
     }
 
@@ -170,27 +173,29 @@ namespace Floating {
     std::string WithinUlpsMatcher::describe() const {
         std::stringstream ret;
 
-        ret << "is within " << m_ulps << " ULPs of " << ::Catch::Detail::stringify(m_target);
+        ret << "is within " << m_ulps << " ULPs of ";
 
         if (m_type == FloatingPointKind::Float) {
+            write(ret, static_cast<float>(m_target));
             ret << 'f';
+        } else {
+            write(ret, m_target);
         }
 
         ret << " ([";
-        ret << std::fixed << std::setprecision(std::numeric_limits<double>::max_digits10);
         if (m_type == FloatingPointKind::Double) {
-            ret << step(m_target, static_cast<double>(-INFINITY), m_ulps)
-                << ", "
-                << step(m_target, static_cast<double>(INFINITY), m_ulps);
+            write(ret, step(m_target, static_cast<double>(-INFINITY), m_ulps));
+            ret << ", ";
+            write(ret, step(m_target, static_cast<double>( INFINITY), m_ulps));
         } else {
-            ret << step<float>(static_cast<float>(m_target), -INFINITY, m_ulps)
-                << ", "
-                << step<float>(static_cast<float>(m_target), INFINITY, m_ulps);
+            // We have to cast INFINITY to float because of MinGW, see #1782
+            write(ret, step(static_cast<float>(m_target), static_cast<float>(-INFINITY), m_ulps));
+            ret << ", ";
+            write(ret, step(static_cast<float>(m_target), static_cast<float>( INFINITY), m_ulps));
         }
         ret << "])";
 
         return ret.str();
-        //return "is within " + Catch::to_string(m_ulps) + " ULPs of " + ::Catch::Detail::stringify(m_target) + ((m_type == FloatingPointKind::Float)? "f" : "");
     }
 
     WithinRelMatcher::WithinRelMatcher(double target, double epsilon):
@@ -201,7 +206,7 @@ namespace Floating {
     }
 
     bool WithinRelMatcher::match(double const& matchee) const {
-        const auto relMargin = m_epsilon * std::max(std::fabs(matchee), std::fabs(m_target));
+        const auto relMargin = m_epsilon * (std::max)(std::fabs(matchee), std::fabs(m_target));
         return marginComparison(matchee, m_target,
                                 std::isinf(relMargin)? 0 : relMargin);
     }

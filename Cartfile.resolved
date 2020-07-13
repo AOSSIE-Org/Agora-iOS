@@ -1,2 +1,2 @@
-github "kvyatkovskys/KVKCalendar" "0.3.0"
-github "realm/realm-cocoa" "v4.4.1"
+github "kvyatkovskys/KVKCalendar" "0.3.3"
+github "realm/realm-cocoa" "v5.2.0"

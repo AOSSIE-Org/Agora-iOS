@@ -16,10 +16,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////
 
-#include "shared_realm.hpp"
+#include "impl/realm_coordinator.hpp"
 #include "test_utils.hpp"
 
 #include <realm/util/file.hpp>
+#include <realm/string_data.hpp>
 
 namespace realm {
 
@@ -27,7 +28,7 @@ bool create_dummy_realm(std::string path) {
     Realm::Config config;
     config.path = path;
     try {
-        Realm::make_shared_realm(config);
+        _impl::RealmCoordinator::get_coordinator(path)->get_realm(config, none);
         REQUIRE_REALM_EXISTS(path);
         return true;
     } catch (std::exception&) {

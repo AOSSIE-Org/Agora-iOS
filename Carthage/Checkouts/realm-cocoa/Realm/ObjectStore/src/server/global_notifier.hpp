@@ -19,15 +19,14 @@
 #ifndef REALM_OBJECT_STORE_GLOBAL_NOTIFIER_HPP
 #define REALM_OBJECT_STORE_GLOBAL_NOTIFIER_HPP
 
+#include "object_changeset.hpp"
 #include "impl/collection_notifier.hpp"
 #include "shared_realm.hpp"
 #include "sync/sync_config.hpp"
 
 namespace realm {
+struct GlobalKey;
 class SyncUser;
-namespace sync {
-struct ObjectID;
-}
 
 /// Used to listen for changes across all, or a subset of all Realms on a
 /// particular sync server.
@@ -79,7 +78,7 @@ public:
     // The actual changes made, keyed on object name.
     // This will be empty if the Realm already existed before the
     // GlobalNotifier was started.
-    std::unordered_map<std::string, CollectionChangeSet> const& get_changes() const;
+    std::unordered_map<std::string, ObjectChangeSet> const& get_changes() const;
 
     ~ChangeNotification();
 
@@ -94,20 +93,20 @@ public:
 private:
     ChangeNotification(std::shared_ptr<GlobalNotifier::Impl> notifier,
                        std::string virtual_path,
-                       sync::ObjectID realm_id,
+                       GlobalKey realm_id,
                        Realm::Config config,
                        VersionID old_version, VersionID new_version);
     ChangeNotification(std::shared_ptr<GlobalNotifier::Impl> notifier,
                        std::string virtual_path,
-                       sync::ObjectID realm_id);
-    sync::ObjectID m_realm_id;
+                       GlobalKey realm_id);
+    GlobalKey m_realm_id;
     Realm::Config m_config;
     VersionID m_old_version;
     VersionID m_new_version;
     std::shared_ptr<GlobalNotifier::Impl> m_notifier;
     mutable std::shared_ptr<Realm> m_old_realm;
     mutable std::shared_ptr<Realm> m_new_realm;
-    mutable std::unordered_map<std::string, CollectionChangeSet> m_changes;
+    mutable std::unordered_map<std::string, ObjectChangeSet> m_changes;
     mutable bool m_have_calculated_changes = false;
 
     ChangeNotification() = default;

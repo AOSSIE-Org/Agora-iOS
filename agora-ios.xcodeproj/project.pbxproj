@@ -17,10 +17,6 @@
 		E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5DF2423400300E9BF58 /* ElectionView.swift */; };
 		E164BCDE24235C43002E8B23 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164BCDD24235C43002E8B23 /* CardView.swift */; };
 		E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164BCDF24236FD7002E8B23 /* Navigation.swift */; };
-		E16E5E48246EEDB00040A9CF /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E45246EEDB00040A9CF /* RealmSwift.framework */; };
-		E16E5E4A246EEDB00040A9CF /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E47246EEDB00040A9CF /* Realm.framework */; };
-		E16E5E4B246EFBB70040A9CF /* KVKCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; };
-		E16E5E4C246EFBB70040A9CF /* KVKCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E16F276B2486366800F754B0 /* UserTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F276A2486366800F754B0 /* UserTextField.swift */; };
 		E17B642B2427163400475579 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B642A2427163400475579 /* Settings.swift */; };
 		E17B642D2427189B00475579 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B642C2427189B00475579 /* LoginView.swift */; };
@@ -47,6 +43,10 @@
 		E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E1AA77992498A5E90067A231 /* FacebookLogin */; };
 		E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AA779B2498AF980067A231 /* FacebookButton.swift */; };
 		E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B4FCCE2492774700907329 /* DatabaseUser.swift */; };
+		E1C8E4A124B6ECE500AACDA8 /* KVKCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; };
+		E1C8E4A224B6ECE500AACDA8 /* KVKCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E1C8E4A324B6ECE500AACDA8 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */; };
+		E1C8E4A524B6ECE600AACDA8 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD63132428AC7E00DFCA04 /* Realm.framework */; };
 		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
 		E1EB7A65248FCC0C008726D8 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB7A64248FCC0C008726D8 /* DateFormat.swift */; };
 		E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */; };
@@ -70,13 +70,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E16E5E4D246EFBB70040A9CF /* Embed Frameworks */ = {
+		E1C8E4A724B6ECE600AACDA8 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E16E5E4C246EFBB70040A9CF /* KVKCalendar.framework in Embed Frameworks */,
+				E1C8E4A224B6ECE500AACDA8 /* KVKCalendar.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -103,7 +103,7 @@
 		E181E7192484E27100875E3F /* TopCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCircleShape.swift; sourceTree = "<group>"; };
 		E181E71B2484F50300875E3F /* agora-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "agora-ios.entitlements"; sourceTree = "<group>"; };
 		E181E71C2484F7BD00875E3F /* AppleIdButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIdButton.swift; sourceTree = "<group>"; };
-		E18F18752420F770002FED89 /* Agora-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "Agora-iOS.app"; path = "agora-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E18F18752420F770002FED89 /* agora-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "agora-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18F18782420F770002FED89 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E18F187A2420F770002FED89 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E18F187E2420F774002FED89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -144,11 +144,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E16E5E48246EEDB00040A9CF /* RealmSwift.framework in Frameworks */,
 				E1AA77982498A5E90067A231 /* FacebookCore in Frameworks */,
-				E16E5E4A246EEDB00040A9CF /* Realm.framework in Frameworks */,
-				E16E5E4B246EFBB70040A9CF /* KVKCalendar.framework in Frameworks */,
 				E19012F6243074B600741EF9 /* SwiftyJSON in Frameworks */,
+				E1C8E4A324B6ECE500AACDA8 /* RealmSwift.framework in Frameworks */,
+				E1C8E4A124B6ECE500AACDA8 /* KVKCalendar.framework in Frameworks */,
+				E1C8E4A524B6ECE600AACDA8 /* Realm.framework in Frameworks */,
 				E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */,
 				E19012F9243075D100741EF9 /* Alamofire in Frameworks */,
 			);
@@ -252,7 +252,7 @@
 		E18F18762420F770002FED89 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E18F18752420F770002FED89 /* Agora-iOS.app */,
+				E18F18752420F770002FED89 /* agora-ios.app */,
 				E18F188B2420F774002FED89 /* agora-iosTests.xctest */,
 				E18F18962420F774002FED89 /* agora-iosUITests.xctest */,
 			);
@@ -386,7 +386,7 @@
 				E18F18722420F770002FED89 /* Frameworks */,
 				E18F18732420F770002FED89 /* Resources */,
 				E18D86782466D52600959C40 /* ShellScript */,
-				E16E5E4D246EFBB70040A9CF /* Embed Frameworks */,
+				E1C8E4A724B6ECE600AACDA8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -400,7 +400,7 @@
 				E1AA77992498A5E90067A231 /* FacebookLogin */,
 			);
 			productName = "agora-ios";
-			productReference = E18F18752420F770002FED89 /* Agora-iOS.app */;
+			productReference = E18F18752420F770002FED89 /* agora-ios.app */;
 			productType = "com.apple.product-type.application";
 		};
 		E18F188A2420F774002FED89 /* agora-iosTests */ = {
