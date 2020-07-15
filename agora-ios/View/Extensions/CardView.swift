@@ -28,6 +28,7 @@ class BindableResults<Element>: ObservableObject where Element: RealmSwift.Realm
         }
     }
     
+
     deinit {
         token.invalidate()
     }

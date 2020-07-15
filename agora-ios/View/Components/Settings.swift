@@ -109,7 +109,7 @@ struct SettingsTop:View{
                     Spacer()
                 }.padding()
             }.padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
-        }.edgesIgnoringSafeArea(.top).padding(.leading,20)
+        }.padding(.leading,20)
     }
 }
 

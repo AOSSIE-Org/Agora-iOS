@@ -19,15 +19,11 @@ struct Navigation: View {
                 Image(systemName: "calendar").resizable()
                 Text("All")
                 }).tag(1)
-                CreateElection().tabItem({
-                Image(systemName: "pencil").resizable()
-                Text("Create")
-                }).tag(2)
             Settings().tabItem({
             Image(systemName: "gear").resizable()
             Text("Settings")
             }).tag(2)
-        }.edgesIgnoringSafeArea(.top)
+        }
     }
 }
 

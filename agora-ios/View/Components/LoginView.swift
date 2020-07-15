@@ -18,7 +18,9 @@ struct LoginView: View {
         return VStack{
             if status == true{
                 
-                Navigation()
+               
+                    Navigation()
+                
             }
             else{
                 NavigationView{
@@ -44,7 +46,7 @@ struct LoginView: View {
                             .padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
                             .padding(.bottom,UIApplication.shared.windows.first?.safeAreaInsets.bottom)
                         
-                    }.edgesIgnoringSafeArea(.top)
+                    }
                 }
             }
         }.onAppear{
@@ -401,7 +403,7 @@ struct AuthenticateView:View {
                     }
                     
                 }.padding(.bottom,self.height) // Move view according to keyboard
-                    .edgesIgnoringSafeArea(.all)
+                    
                     .onAppear(){
                         
                         // MARK: Keyboard
