@@ -10,13 +10,14 @@ import SwiftUI
 import RealmSwift
 
 struct CreateElection: View {
+     @Binding var showCreateElectionView:Bool
     var body: some View {
         ZStack {
            
             VStack{
-                Mid_Elections().navigationBarTitle("New Election",displayMode: .inline)
+                Mid_Elections(showCreateElectionView: self.$showCreateElectionView).navigationBarTitle("New Election",displayMode: .inline)
             }
-        }
+        }.navigationBarHidden(true)
     }
 }
 
@@ -44,7 +45,8 @@ struct Mid_Elections: View{
     
     //Algorithm
     @State var selectedAlgo:String = "Select Algorithm"
-   
+    // Navigation
+    @Binding var showCreateElectionView:Bool
     var body: some View {
         // For Date formatting
            let formatter1 = DateFormatter()
@@ -57,6 +59,10 @@ struct Mid_Elections: View{
                         
                         HStack(spacing:10) {
                                 
+                                Button(action: { self.showCreateElectionView.toggle() }
+                                ){
+                                    Image(systemName: "chevron.left").font(.title)
+                                }.foregroundColor(.white)
                                Spacer()
                                     
                                
@@ -66,7 +72,7 @@ struct Mid_Elections: View{
                                     
                                 }, label: { Text("Save").font(.callout).foregroundColor(.white)})
                                 
-                        }.background(LinearGradient(gradient: Gradient(colors: [Color("Color2_2"), Color("Color2")]), startPoint: .bottom, endPoint: .top).frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height / 7 , alignment: .center).edgesIgnoringSafeArea(.top))
+                        }.background(LinearGradient(gradient: Gradient(colors: [Color("Color2_2"), Color("Color2")]), startPoint: .bottom, endPoint: .top).frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height / 7 , alignment: .center))
                         Text("Add Elections")
                                                .foregroundColor(.white)
                                                .fontWeight(.regular)
@@ -332,7 +338,7 @@ struct AlgoCardView : View{
             .background(Color.white)
             .cornerRadius(10)
         }
-        .background(Color.black.opacity(0.4).edgesIgnoringSafeArea(.all))
+        .background(Color.black.opacity(0.4))
     }
 }
 
@@ -340,7 +346,7 @@ struct AlgoCardView : View{
 
 struct CreateElection_Previews: PreviewProvider {
     static var previews: some View {
-        CreateElection()
+        CreateElection(showCreateElectionView: .constant(false))
     }
 }
 

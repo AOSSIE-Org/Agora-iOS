@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E117947D24B02CC80093C86F /* CalendarDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E117947C24B02CC80093C86F /* CalendarDisplayView.swift */; };
+		E117947F24B068FF0093C86F /* CalendarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E117947E24B068FF0093C86F /* CalendarContentView.swift */; };
 		E12816F82490BCC900E03C24 /* Ballot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12816F72490BCC900E03C24 /* Ballot.swift */; };
 		E12816FA2490BE4A00E03C24 /* VoterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12816F92490BE4A00E03C24 /* VoterList.swift */; };
 		E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D12423A0BD00B40532 /* SearchBar.swift */; };
@@ -34,6 +36,7 @@
 		E19012F9243075D100741EF9 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E19012F8243075D100741EF9 /* Alamofire */; };
 		E191557A2498CD7C00AC78D9 /* UserLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19155792498CD7C00AC78D9 /* UserLoginManager.swift */; };
 		E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1926F43248CEA7800CC08A3 /* Credentials.swift */; };
+		E192DB2224B846FA00D1E5EC /* TabBarAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192DB2124B846FA00D1E5EC /* TabBarAccessor.swift */; };
 		E1984D7524A761B60099F970 /* Election.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1984D7424A761B60099F970 /* Election.swift */; };
 		E1989DAB248B5C52004ACBE7 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */; };
 		E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */; };
@@ -43,6 +46,7 @@
 		E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E1AA77992498A5E90067A231 /* FacebookLogin */; };
 		E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AA779B2498AF980067A231 /* FacebookButton.swift */; };
 		E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B4FCCE2492774700907329 /* DatabaseUser.swift */; };
+		E1D3B7BA24BA14810077D82C /* CardShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3B7B924BA14810077D82C /* CardShimmer.swift */; };
 		E1C8E4A124B6ECE500AACDA8 /* KVKCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; };
 		E1C8E4A224B6ECE500AACDA8 /* KVKCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1C8E4A324B6ECE500AACDA8 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */; };
@@ -84,6 +88,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E117947C24B02CC80093C86F /* CalendarDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDisplayView.swift; sourceTree = "<group>"; };
+		E117947E24B068FF0093C86F /* CalendarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarContentView.swift; sourceTree = "<group>"; };
 		E12816F72490BCC900E03C24 /* Ballot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ballot.swift; sourceTree = "<group>"; };
 		E12816F92490BE4A00E03C24 /* VoterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoterList.swift; sourceTree = "<group>"; };
 		E13215D12423A0BD00B40532 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 		E19012F22430729100741EF9 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		E19155792498CD7C00AC78D9 /* UserLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLoginManager.swift; sourceTree = "<group>"; };
 		E1926F43248CEA7800CC08A3 /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
+		E192DB2124B846FA00D1E5EC /* TabBarAccessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarAccessor.swift; sourceTree = "<group>"; };
 		E1984D7424A761B60099F970 /* Election.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Election.swift; sourceTree = "<group>"; };
 		E1989DAA248B5C52004ACBE7 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		E1989DAD248B5D16004ACBE7 /* UserDefaultsWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsWrapper.swift; sourceTree = "<group>"; };
@@ -126,6 +133,7 @@
 		E19FF6B624852E5F0087A238 /* CornersShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornersShape.swift; sourceTree = "<group>"; };
 		E1AA779B2498AF980067A231 /* FacebookButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookButton.swift; sourceTree = "<group>"; };
 		E1B4FCCE2492774700907329 /* DatabaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUser.swift; sourceTree = "<group>"; };
+		E1D3B7B924BA14810077D82C /* CardShimmer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardShimmer.swift; sourceTree = "<group>"; };
 		E1DD630E2428AC7E00DFCA04 /* RealmSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = RealmSwift.framework.dSYM; sourceTree = "<group>"; };
 		E1DD630F2428AC7E00DFCA04 /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; path = Realm.framework.dSYM; sourceTree = "<group>"; };
 		E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
@@ -180,10 +188,20 @@
 			path = Database;
 			sourceTree = "<group>";
 		};
+		E117947B24B02CAE0093C86F /* KVKCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				E117947C24B02CC80093C86F /* CalendarDisplayView.swift */,
+				E117947E24B068FF0093C86F /* CalendarContentView.swift */,
+			);
+			path = KVKCalendar;
+			sourceTree = "<group>";
+		};
 		E15FA5CB24233DF000E9BF58 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				E1EB7A64248FCC0C008726D8 /* DateFormat.swift */,
+				E192DB2124B846FA00D1E5EC /* TabBarAccessor.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -221,6 +239,7 @@
 				E16F276A2486366800F754B0 /* UserTextField.swift */,
 				E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */,
 				E1AA779B2498AF980067A231 /* FacebookButton.swift */,
+				E1D3B7B924BA14810077D82C /* CardShimmer.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -228,6 +247,7 @@
 		E15FA5D024233E3E00E9BF58 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E117947B24B02CAE0093C86F /* KVKCalendar */,
 				E17B642C2427189B00475579 /* LoginView.swift */,
 				E15FA5DD24233FF300E9BF58 /* DashboardView.swift */,
 				E15FA5DF2423400300E9BF58 /* ElectionView.swift */,
@@ -545,16 +565,19 @@
 				E15FA5D624233EB400E9BF58 /* DatabaseElection.swift in Sources */,
 				E19B260E2491F71E00B97D43 /* DatabaseElectionManager.swift in Sources */,
 				E164BCDE24235C43002E8B23 /* CardView.swift in Sources */,
+				E117947F24B068FF0093C86F /* CalendarContentView.swift in Sources */,
 				E15FA5DE24233FF300E9BF58 /* DashboardView.swift in Sources */,
 				E19012F32430729100741EF9 /* APIService.swift in Sources */,
 				E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */,
 				E1989DAE248B5D16004ACBE7 /* UserDefaultsWrapper.swift in Sources */,
+				E117947D24B02CC80093C86F /* CalendarDisplayView.swift in Sources */,
 				E1989DAB248B5C52004ACBE7 /* AppUserDefaults.swift in Sources */,
 				E17B642D2427189B00475579 /* LoginView.swift in Sources */,
 				E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */,
 				E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */,
 				E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */,
 				E17B642B2427163400475579 /* Settings.swift in Sources */,
+				E192DB2224B846FA00D1E5EC /* TabBarAccessor.swift in Sources */,
 				E181E71D2484F7BD00875E3F /* AppleIdButton.swift in Sources */,
 				E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */,
 				E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */,
@@ -563,6 +586,7 @@
 				E1EB7A65248FCC0C008726D8 /* DateFormat.swift in Sources */,
 				E191557A2498CD7C00AC78D9 /* UserLoginManager.swift in Sources */,
 				E16F276B2486366800F754B0 /* UserTextField.swift in Sources */,
+				E1D3B7BA24BA14810077D82C /* CardShimmer.swift in Sources */,
 				E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */,
 				E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */,
 				E13215D82424760200B40532 /* CreateElection.swift in Sources */,

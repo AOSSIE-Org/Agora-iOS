@@ -12,9 +12,9 @@ import SwiftUI
 
 struct ElectionView: View {
     var body: some View {
-        VStack {
-            Top_ElectionView()
-           CardView()
+        VStack(spacing:0) {
+            //Top_ElectionView()
+            CalendarContentView()
         }
     }
 }
@@ -51,7 +51,7 @@ struct Top_ElectionView: View {
           
             }
             
-        }.edgesIgnoringSafeArea(.top)
+        }
         
     }
 }
