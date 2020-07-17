@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1130"
-   version = "1.3">
+   version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -27,6 +27,24 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#Find the UDID of the booted simulator&#10;#And use PlistBuddy to change the flag to true or false&#10;#Set the variable useHardwareKeyboard with the desired result&#10;#Relaunch the simulator&#10;useHardwareKeyboard=false&#10;export UDID=$(xcrun simctl list devices | grep &quot;(Booted)&quot; | grep -E -o -i &quot;([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})&quot;)&#10;/usr/libexec/PlistBuddy -c &quot;Set :DevicePreferences:$UDID:ConnectHardwareKeyboard ${useHardwareKeyboard}&quot; ~/Library/Preferences/com.apple.iphonesimulator.plist&#10;xcrun simctl shutdown $UDID&#10;xcrun simctl boot $UDID&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "E18F18742420F770002FED89"
+                     BuildableName = "agora-ios.app"
+                     BlueprintName = "agora-ios"
+                     ReferencedContainer = "container:agora-ios.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <Testables>
          <TestableReference
             skipped = "NO">

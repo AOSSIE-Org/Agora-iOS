@@ -46,13 +46,15 @@
 		E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E1AA77992498A5E90067A231 /* FacebookLogin */; };
 		E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AA779B2498AF980067A231 /* FacebookButton.swift */; };
 		E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B4FCCE2492774700907329 /* DatabaseUser.swift */; };
-		E1D3B7BA24BA14810077D82C /* CardShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3B7B924BA14810077D82C /* CardShimmer.swift */; };
 		E1C8E4A124B6ECE500AACDA8 /* KVKCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; };
 		E1C8E4A224B6ECE500AACDA8 /* KVKCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1C8E4A324B6ECE500AACDA8 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */; };
 		E1C8E4A524B6ECE600AACDA8 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD63132428AC7E00DFCA04 /* Realm.framework */; };
+		E1D3B7BA24BA14810077D82C /* CardShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3B7B924BA14810077D82C /* CardShimmer.swift */; };
 		E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E98279242935FD007C461C /* ElectionEditView.swift */; };
 		E1EB7A65248FCC0C008726D8 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1EB7A64248FCC0C008726D8 /* DateFormat.swift */; };
+		E1ED14F224BEDE5C00467DF2 /* EventUpdateOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED14F124BEDE5C00467DF2 /* EventUpdateOverlay.swift */; };
+		E1ED14F424BEE21E00467DF2 /* Badge.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED14F324BEE21E00467DF2 /* Badge.swift */; };
 		E1FAEDF2248E4CEB003DED66 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
@@ -144,6 +146,8 @@
 		E1DD63152428AC7E00DFCA04 /* 2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap */ = {isa = PBXFileReference; lastKnownFileType = text; path = "2B17A500-B4E3-3999-895C-3051D637D9A1.bcsymbolmap"; sourceTree = "<group>"; };
 		E1E98279242935FD007C461C /* ElectionEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionEditView.swift; sourceTree = "<group>"; };
 		E1EB7A64248FCC0C008726D8 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
+		E1ED14F124BEDE5C00467DF2 /* EventUpdateOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventUpdateOverlay.swift; sourceTree = "<group>"; };
+		E1ED14F324BEE21E00467DF2 /* Badge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Badge.swift; sourceTree = "<group>"; };
 		E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +244,8 @@
 				E1FAEDF1248E4CEB003DED66 /* ActivityIndicator.swift */,
 				E1AA779B2498AF980067A231 /* FacebookButton.swift */,
 				E1D3B7B924BA14810077D82C /* CardShimmer.swift */,
+				E1ED14F124BEDE5C00467DF2 /* EventUpdateOverlay.swift */,
+				E1ED14F324BEE21E00467DF2 /* Badge.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -586,7 +592,9 @@
 				E1EB7A65248FCC0C008726D8 /* DateFormat.swift in Sources */,
 				E191557A2498CD7C00AC78D9 /* UserLoginManager.swift in Sources */,
 				E16F276B2486366800F754B0 /* UserTextField.swift in Sources */,
+				E1ED14F424BEE21E00467DF2 /* Badge.swift in Sources */,
 				E1D3B7BA24BA14810077D82C /* CardShimmer.swift in Sources */,
+				E1ED14F224BEDE5C00467DF2 /* EventUpdateOverlay.swift in Sources */,
 				E1926F44248CEA7800CC08A3 /* Credentials.swift in Sources */,
 				E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */,
 				E13215D82424760200B40532 /* CreateElection.swift in Sources */,
