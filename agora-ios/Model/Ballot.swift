@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: - Ballot
-struct Ballot {
+struct Ballot: Encodable {
     internal init(voteBallot: String, hash: String) {
         self.voteBallot = voteBallot
         

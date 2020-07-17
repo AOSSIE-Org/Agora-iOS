@@ -389,7 +389,15 @@ class APIService{
     public func createNewElection(for election:Election, userXAuth:String, onSuccess:@escaping ()->Void){
         let queryURL = baseURL!.appendingPathComponent(EndPoint.electionCreate.path())
         
-        AF.request(queryURL,method: .post,parameters: election.toJSON().dictionaryObject,encoding: JSONEncoding.default,headers: ["X-Auth-Token":userXAuth]).responseData{ response in
+        let jsonEncoder = JSONEncoder()
+        let jsonData = try! jsonEncoder.encode(election)
+        let json = try? JSON(data: jsonData)
+        guard let jsonDict = json?.dictionaryObject else {
+            return
+        }
+        print(jsonDict)
+        
+        AF.request(queryURL,method: .post,parameters: jsonDict,encoding: JSONEncoding.default,headers: ["X-Auth-Token":userXAuth]).responseData{ response in
             
             guard let data = response.data else {
                 print("Failed to fetch data!")

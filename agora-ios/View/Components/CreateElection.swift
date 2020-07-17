@@ -42,6 +42,8 @@ struct Mid_Elections: View{
     @State var showBallotOptions:Bool = false
     @State var showAlgoCard:Bool = false
     @State var candidate:String = ""
+    @State var activityShow:Bool = false
+    @State var eventUpdateOverlayShow:Bool = false
     
     //Algorithm
     @State var selectedAlgo:String = "Select Algorithm"
@@ -56,7 +58,6 @@ struct Mid_Elections: View{
             ZStack {
                 VStack {
                     ZStack {
-                        
                         HStack(spacing:10) {
                                 
                                 Button(action: { self.showCreateElectionView.toggle() }
@@ -67,12 +68,37 @@ struct Mid_Elections: View{
                                     
                                
                                 Button(action: {
-                                    
-                                    //TODO: Upload to server
-                                    
+                                    self.activityShow.toggle()
+                                    // Upload to server
+                                    let ballot = Ballot(voteBallot: "0", hash: "0")
+                                    let election = Election(name: self.name, description: self.description, electionType: self.electionType, candidates: self.candidates, ballotVisibility: self.ballotVisibility, voterListVisibility: self.voterListVisibility, isInvite: self.isInvite, startingDate: self.startingDate.asString(), endingDate: self.endingDate.asString(), isRealTime: self.isRealTime, votingAlgo: self.selectedAlgo, noVacancies: self.noVacancies, ballot: [ballot])
+
+
+                                    print(election.startingDate)
+                                    DatabaseElectionManager.apiService.createNewElection(for: election, userXAuth: UserDefaults.standard.string(forKey: "userXAUTH")!) {
+
+                                        //Update Indicator state
+                                        self.activityShow = false
+                                            
+                                        // Show Success overlay and dismiss
+                                        withAnimation(.easeInOut){
+                                            self.eventUpdateOverlayShow.toggle()
+                                        }
+                                        
+                                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(900)) {
+                                            self.eventUpdateOverlayShow = false
+                                            
+                                            // Navigate back to dashboard view
+                                            self.showCreateElectionView.toggle()
+                                        }
+                                        
+                                        // Sent
+                                        print("Sent to Server successfully!")
+                                    }
+//
                                 }, label: { Text("Save").font(.callout).foregroundColor(.white)})
                                 
-                        }.background(LinearGradient(gradient: Gradient(colors: [Color("Color2_2"), Color("Color2")]), startPoint: .bottom, endPoint: .top).frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height / 7 , alignment: .center))
+                        }.background(LinearGradient(gradient: Gradient(colors: [Color("Color2_2"), Color("Color2")]), startPoint: .bottom, endPoint: .top).frame(width: UIScreen.main.bounds.width , height: UIScreen.main.bounds.height / 7 , alignment: .center).edgesIgnoringSafeArea(.top))
                         Text("Add Elections")
                                                .foregroundColor(.white)
                                                .fontWeight(.regular)
@@ -278,8 +304,19 @@ struct Mid_Elections: View{
             if self.showAlgoCard{
                 AlgoCardView(showCard: $showAlgoCard, selectedAlgo: $selectedAlgo)
             }
+            
+            if self.activityShow == true{
+                ActivityIndicator()
+            }
+            
+            if self.eventUpdateOverlayShow == true{
+              
+                Color.black.opacity(0.18).edgesIgnoringSafeArea(.all)
+
+                EventUpdateOverlay()
+            }
         }
-        
+
     }
     
 }
