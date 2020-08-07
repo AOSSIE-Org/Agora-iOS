@@ -19,7 +19,10 @@
 		E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E15FA5DF2423400300E9BF58 /* ElectionView.swift */; };
 		E164BCDE24235C43002E8B23 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164BCDD24235C43002E8B23 /* CardView.swift */; };
 		E164BCE024236FD7002E8B23 /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E164BCDF24236FD7002E8B23 /* Navigation.swift */; };
+		E16BE01C24C6ECF40018CB0F /* KVKCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; };
+		E16BE01D24C6ECF40018CB0F /* KVKCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E16F276B2486366800F754B0 /* UserTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F276A2486366800F754B0 /* UserTextField.swift */; };
+		E1708E8E24C769BF006BEB34 /* ElectionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1708E8D24C769BF006BEB34 /* ElectionDetailView.swift */; };
 		E17B642B2427163400475579 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B642A2427163400475579 /* Settings.swift */; };
 		E17B642D2427189B00475579 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E17B642C2427189B00475579 /* LoginView.swift */; };
 		E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E181E7192484E27100875E3F /* TopCircleShape.swift */; };
@@ -46,8 +49,6 @@
 		E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E1AA77992498A5E90067A231 /* FacebookLogin */; };
 		E1AA779C2498AF980067A231 /* FacebookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1AA779B2498AF980067A231 /* FacebookButton.swift */; };
 		E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B4FCCE2492774700907329 /* DatabaseUser.swift */; };
-		E1C8E4A124B6ECE500AACDA8 /* KVKCalendar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; };
-		E1C8E4A224B6ECE500AACDA8 /* KVKCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1C8E4A324B6ECE500AACDA8 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD63102428AC7E00DFCA04 /* RealmSwift.framework */; };
 		E1C8E4A524B6ECE600AACDA8 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD63132428AC7E00DFCA04 /* Realm.framework */; };
 		E1D3B7BA24BA14810077D82C /* CardShimmer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D3B7B924BA14810077D82C /* CardShimmer.swift */; };
@@ -76,13 +77,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		E1C8E4A724B6ECE600AACDA8 /* Embed Frameworks */ = {
+		E16BE01E24C6ECF40018CB0F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E1C8E4A224B6ECE500AACDA8 /* KVKCalendar.framework in Embed Frameworks */,
+				E16BE01D24C6ECF40018CB0F /* KVKCalendar.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -106,6 +107,7 @@
 		E16E5E46246EEDB00040A9CF /* KVKCalendar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KVKCalendar.framework; path = Carthage/Build/iOS/KVKCalendar.framework; sourceTree = "<group>"; };
 		E16E5E47246EEDB00040A9CF /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		E16F276A2486366800F754B0 /* UserTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTextField.swift; sourceTree = "<group>"; };
+		E1708E8D24C769BF006BEB34 /* ElectionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElectionDetailView.swift; sourceTree = "<group>"; };
 		E17B642A2427163400475579 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		E17B642C2427189B00475579 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E181E7192484E27100875E3F /* TopCircleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopCircleShape.swift; sourceTree = "<group>"; };
@@ -159,7 +161,7 @@
 				E1AA77982498A5E90067A231 /* FacebookCore in Frameworks */,
 				E19012F6243074B600741EF9 /* SwiftyJSON in Frameworks */,
 				E1C8E4A324B6ECE500AACDA8 /* RealmSwift.framework in Frameworks */,
-				E1C8E4A124B6ECE500AACDA8 /* KVKCalendar.framework in Frameworks */,
+				E16BE01C24C6ECF40018CB0F /* KVKCalendar.framework in Frameworks */,
 				E1C8E4A524B6ECE600AACDA8 /* Realm.framework in Frameworks */,
 				E1AA779A2498A5E90067A231 /* FacebookLogin in Frameworks */,
 				E19012F9243075D100741EF9 /* Alamofire in Frameworks */,
@@ -253,6 +255,7 @@
 		E15FA5D024233E3E00E9BF58 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				E1708E8C24C769A3006BEB34 /* ElectionDetail */,
 				E117947B24B02CAE0093C86F /* KVKCalendar */,
 				E17B642C2427189B00475579 /* LoginView.swift */,
 				E15FA5DD24233FF300E9BF58 /* DashboardView.swift */,
@@ -262,6 +265,14 @@
 				E1E98279242935FD007C461C /* ElectionEditView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		E1708E8C24C769A3006BEB34 /* ElectionDetail */ = {
+			isa = PBXGroup;
+			children = (
+				E1708E8D24C769BF006BEB34 /* ElectionDetailView.swift */,
+			);
+			path = ElectionDetail;
 			sourceTree = "<group>";
 		};
 		E18F186C2420F770002FED89 = {
@@ -412,7 +423,7 @@
 				E18F18722420F770002FED89 /* Frameworks */,
 				E18F18732420F770002FED89 /* Resources */,
 				E18D86782466D52600959C40 /* ShellScript */,
-				E1C8E4A724B6ECE600AACDA8 /* Embed Frameworks */,
+				E16BE01E24C6ECF40018CB0F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -582,6 +593,7 @@
 				E15FA5D224233E7200E9BF58 /* ButtonModifier.swift in Sources */,
 				E19FF6B724852E5F0087A238 /* CornersShape.swift in Sources */,
 				E1E9827A242935FD007C461C /* ElectionEditView.swift in Sources */,
+				E1708E8E24C769BF006BEB34 /* ElectionDetailView.swift in Sources */,
 				E17B642B2427163400475579 /* Settings.swift in Sources */,
 				E192DB2224B846FA00D1E5EC /* TabBarAccessor.swift in Sources */,
 				E181E71D2484F7BD00875E3F /* AppleIdButton.swift in Sources */,

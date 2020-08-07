@@ -13,10 +13,14 @@ import RealmSwift
 
 struct CalendarDisplayView: UIViewRepresentable {
     @ObservedObject var databaseElectionEvents = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 4)).objects(DatabaseElection.self))
+    @ObservedObject var calendarManager: CalendarManager
+    @Binding var isCallingFunc: Bool
     
     var selectDate: Date?
-    public init(selectDate: Date?) {
+    public init(selectDate: Date?, isCallingFunc:Binding<Bool>, calendarManager:CalendarManager ) {
         self.selectDate = selectDate
+        self._isCallingFunc = isCallingFunc
+        self.calendarManager = calendarManager
     }
     private var calendar: CalendarView = {
         
@@ -24,20 +28,28 @@ struct CalendarDisplayView: UIViewRepresentable {
         if UIDevice.current.userInterfaceIdiom == .phone {
             style.month.isHiddenSeporator = true
             style.timeline.widthTime = 40
-            style.timeline.offsetTimeX = 2
-            style.timeline.offsetLineLeft = 2
+            style.timeline.offsetTimeX = 6
+            style.timeline.offsetLineLeft = 7
             style.timeline.eventCornersRadius = CGSize(width: 8, height: 8)
-            style.timeline.startFromFirstEvent = true
         } else {
             style.timeline.widthEventViewer = 500
         }
-        style.timeline.startFromFirstEvent = false
+        style.timeline.startFromFirstEvent = true
         style.timeline.offsetTimeY = 80
         style.timeline.offsetEvent = 3
         style.timeline.currentLineHourWidth = 40
         style.allDay.isPinned = true
         style.startWeekDay = .sunday
         style.timeHourSystem = .twelveHour
+        style.headerScroll.colorSelectDate = .white
+        style.headerScroll.colorDate = .white
+        style.headerScroll.isHiddenTitleDate = false
+        style.headerScroll.isHiddenCornerTitleDate = false
+        style.headerScroll.colorWeekendDate = .systemYellow
+        style.headerScroll.colorBackground = .clear
+        style.headerScroll.colorTitleDate = .white
+        
+        style.month.isHiddenTitleDate = true
         
         return CalendarView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), style: style)
         
@@ -54,13 +66,16 @@ struct CalendarDisplayView: UIViewRepresentable {
     
     func updateUIView(_ uiView: CalendarView, context: UIViewRepresentableContext<CalendarDisplayView>) {
         context.coordinator.eventsForCalendar()
-        
+        if isCallingFunc {
+            context.coordinator.handleCalendarTypeSelection(uiView)
+            isCallingFunc = false
+        }
         
     }
     
     // Tell SwiftUI about the Coordinator class
     func makeCoordinator() -> CalendarDisplayView.Coordinator {
-        Coordinator(self, databaseElectionEvents)
+        Coordinator(self, databaseElectionEvents,calendarManager)
     }
     
     // MARK: Calendar DataSource and Delegate
@@ -68,6 +83,7 @@ struct CalendarDisplayView: UIViewRepresentable {
     
     class Coordinator: NSObject, CalendarDataSource, CalendarDelegate {
         
+        var calendarManager: CalendarManager
         var selectDate: Date?
         private var events = [Event]()
 
@@ -83,7 +99,7 @@ struct CalendarDisplayView: UIViewRepresentable {
                 event.id = index
                 event.start = model.start // start date event
                 event.end = model.end // end date event
-                event.color = EventColor(UIColor.init(named: "Color1") ?? UIColor.blue)
+                event.color = EventColor(UIColor.init(named: "Color1") ?? UIColor.blue,alpha: 0.95)
                 event.isAllDay = model.isAllDay
                 event.isContainsFile = false
                 event.textForMonth = model.title
@@ -92,7 +108,7 @@ struct CalendarDisplayView: UIViewRepresentable {
                 if model.isAllDay {
                     event.text = "\(model.title)"
                 } else {
-                    event.text = "\(model.start) - \(model.end)\n\(model.title)"
+                    event.text = "\(timeFormatter(date: model.start)) - \(timeFormatter(date: model.end))\n\(model.title)"
                 }
                 events.append(event)
                 
@@ -117,7 +133,7 @@ struct CalendarDisplayView: UIViewRepresentable {
             // - backgroundColor = cell background color
             // - textColor = cell text color
             // - dotBackgroundColor = selected date dot color
-            return DateStyle(backgroundColor: UIColor.init(named: "Color2_2") ?? .clear, textColor: .white, dotBackgroundColor: .systemRed)
+            return DateStyle(backgroundColor: .clear, textColor: calendarManager.currentTypeUserSelection == 2 ? .black : .white, dotBackgroundColor: UIColor(named: "Red"))
         }
         
         func didSelectDate(_ date: Date?, type: CalendarType, frame: CGRect?) {
@@ -129,13 +145,13 @@ struct CalendarDisplayView: UIViewRepresentable {
         }
         
         
-        
         private let view: CalendarDisplayView
         private let bindableDatabase:BindableResults<DatabaseElection>
         
-        init(_ view: CalendarDisplayView,_ databaseResult:BindableResults<DatabaseElection>) {
+        init(_ view: CalendarDisplayView,_ databaseResult:BindableResults<DatabaseElection>, _ calendarManager:CalendarManager ) {
             self.view = view
             self.bindableDatabase = databaseResult
+            self.calendarManager = calendarManager
             super.init()
             
             loadEvents { (events) in
@@ -145,11 +161,26 @@ struct CalendarDisplayView: UIViewRepresentable {
         }
         
         
+        func handleCalendarTypeSelection(_ uiView: CalendarView){
+            let type = CalendarType.allCases[calendarManager.currentTypeUserSelection]
+            uiView.set(type: type, date: selectDate ?? Date())
+            uiView.reloadData()
+        }
+        
+        func updateYear(_ date:Date?){
+            
+            let toYearFormatter = DateFormatter()
+            toYearFormatter.dateFormat = "YYYY"
+            let name = toYearFormatter.string(from: date!)
+            calendarManager.currentYear = name
+        }
+        
+        
     }
 }
 
 struct CalendarDisplayView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarDisplayView(selectDate: Date())
+        CalendarDisplayView(selectDate: Date(), isCallingFunc: .constant(false), calendarManager: CalendarManager())
     }
 }

@@ -116,6 +116,8 @@ final class ScrollDayHeaderView: UIView {
         collection.delegate = self
         collection.dataSource = self
         collection.isScrollEnabled = isScrollEnabled
+        // Set to clear
+        collection.backgroundColor = .clear
         collection.register(ScrollHeaderDayCell.self, forCellWithReuseIdentifier: ScrollHeaderDayCell.cellIdentifier)
         return collection
     }
@@ -243,6 +245,32 @@ extension ScrollDayHeaderView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ScrollHeaderDayCell.cellIdentifier,
                                                       for: indexPath) as? ScrollHeaderDayCell ?? ScrollHeaderDayCell()
+        
+        // ====
+        cell.layer.cornerRadius = 10
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor.clear.cgColor
+
+        cell.layer.backgroundColor = UIColor.white.cgColor
+        cell.layer.shadowColor = UIColor.gray.cgColor
+        cell.layer.shadowOffset = CGSize(width: 2.0, height: 4.0)
+        cell.layer.shadowRadius = 1.0
+        cell.layer.shadowOpacity = 0.9
+        cell.layer.masksToBounds = true
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 1).cgPath
+        layer.cornerRadius = 1
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.5, y: 1.5)
+        gradientLayer.colors = [#colorLiteral(red: 0.4199999869, green: 0.451000005, blue: 1, alpha: 1).cgColor ,#colorLiteral(red: 0.2430000007, green: 0.2779999971, blue: 0.9060000181, alpha: 1).cgColor]
+        gradientLayer.frame = cell.bounds
+        gradientLayer.opacity = 0.7
+        gradientLayer.cornerRadius = 1
+
+        cell.backgroundView = UIView()
+        cell.backgroundView?.layer.addSublayer(gradientLayer)
+        
         let day = days[indexPath.row]
         cell.style = style
         cell.item = styleForDay(day)
@@ -308,8 +336,15 @@ extension ScrollDayHeaderView: UICollectionViewDelegate, UICollectionViewDelegat
         }
     }
     
+    // Spacing between each cell
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 6
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let widht = collectionView.frame.width / 7
+        //  Cell size
+        let widht = (collectionView.frame.width - 2) / 7
         let height = collectionView.frame.height
         return CGSize(width: widht, height: height)
     }

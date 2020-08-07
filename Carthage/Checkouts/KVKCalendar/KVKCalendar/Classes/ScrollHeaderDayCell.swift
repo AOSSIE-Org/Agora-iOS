@@ -101,7 +101,7 @@ final class ScrollHeaderDayCell: UICollectionViewCell {
         
         addSubview(titleLabel)
         addSubview(dateLabel)
-        
+        // For dot
         dateLabel.layer.cornerRadius = dateLabel.frame.width / 2
     }
     
@@ -112,6 +112,7 @@ final class ScrollHeaderDayCell: UICollectionViewCell {
     private func populateCell(_ item: DayStyle) {
         guard item.day.type == .saturday || item.day.type == .sunday else {
             populateDay(date: item.day.date, colorText: item.style?.textColor ?? headerStyle.colorDate, style: item.style)
+            // ==== Header
             titleLabel.textColor = headerStyle.colorDate
             backgroundColor = item.style?.backgroundColor ?? headerStyle.colorWeekdayBackground
             return
