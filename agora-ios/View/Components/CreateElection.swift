@@ -45,6 +45,9 @@ struct Mid_Elections: View{
     @State var activityShow:Bool = false
     @State var eventUpdateOverlayShow:Bool = false
     
+    // For Keyboard height
+    @State var height:CGFloat = 0
+    
     //Algorithm
     @State var selectedAlgo:String = "Select Algorithm"
     // Navigation
@@ -292,13 +295,14 @@ struct Mid_Elections: View{
                             }.foregroundColor(.white)
                                 .background(Color.yellow)
                                 .cornerRadius(20)
+                                .padding(.bottom, 10)
                             
                            
                             
                         }.background(Color(.white)).frame(minWidth: 0, maxWidth: UIScreen.main.bounds.width * 0.9, alignment: .center).cornerRadius(10)
                         
                     }
-                }.background(Color(.secondarySystemBackground)).edgesIgnoringSafeArea(.bottom)
+                }.background(Color(.secondarySystemBackground)).edgesIgnoringSafeArea(.bottom).padding(.bottom,self.height) // Move view according to keyboard
             }
             
             if self.showAlgoCard{
@@ -314,6 +318,25 @@ struct Mid_Elections: View{
                 Color.black.opacity(0.18).edgesIgnoringSafeArea(.all)
 
                 EventUpdateOverlay()
+            }
+        }
+        .onAppear{
+            // MARK: Keyboard
+            // Show Keyboard remove outside safearea height
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification, object: nil, queue: .main){
+                (not) in
+                let data = not.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+                let height = data.cgRectValue.height - (UIApplication.shared.windows.first?.safeAreaInsets.bottom)!
+                
+                self.height = height
+                
+                print(height)
+            }
+            // Hide Keyboard
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidHideNotification, object: nil, queue: .main){
+                (_) in
+                print("Keyboard Hidden")
+                self.height = 0
             }
         }
 

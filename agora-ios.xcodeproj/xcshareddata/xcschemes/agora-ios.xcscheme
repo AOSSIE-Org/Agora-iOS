@@ -32,7 +32,7 @@
             ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
             <ActionContent
                title = "Run Script"
-               scriptText = "#Find the UDID of the booted simulator&#10;#And use PlistBuddy to change the flag to true or false&#10;#Set the variable useHardwareKeyboard with the desired result&#10;#Relaunch the simulator&#10;useHardwareKeyboard=false&#10;export UDID=$(xcrun simctl list devices | grep &quot;(Booted)&quot; | grep -E -o -i &quot;([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})&quot;)&#10;/usr/libexec/PlistBuddy -c &quot;Set :DevicePreferences:$UDID:ConnectHardwareKeyboard ${useHardwareKeyboard}&quot; ~/Library/Preferences/com.apple.iphonesimulator.plist&#10;xcrun simctl shutdown $UDID&#10;xcrun simctl boot $UDID&#10;">
+               scriptText = "#Find the UDID of the booted simulator&#10;#And use PlistBuddy to change the flag to true or false&#10;#Set the variable useHardwareKeyboard with the desired result&#10;#Relaunch the simulator&#10;/usr/bin/xcrun simctl uninstall booted aossie.agora-ios&#10;useHardwareKeyboard=false&#10;&#10;">
                <EnvironmentBuildable>
                   <BuildableReference
                      BuildableIdentifier = "primary"

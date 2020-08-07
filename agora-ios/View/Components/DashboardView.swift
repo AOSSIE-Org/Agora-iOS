@@ -76,10 +76,7 @@ struct Top_Dashboard: View {
 // MARK: Mid:-
 struct Mid_Dashboard: View{
     @State var inputSearch:String = ""
-    @State var electionTotalCount:Int = 0
-    @State var electionActiveCount:Int = 0
-    @State var electionFinishedCount:Int = 0
-    @State var electionPendingCount:Int = 0
+    @EnvironmentObject var electionCountManager:ElectionCountManager
     @State var showShimmer:Bool = true
     
     //Realm
@@ -100,10 +97,10 @@ struct Mid_Dashboard: View{
                             CardShimmer(height: UIScreen.main.bounds.height / 6 - 10)
                         }
                     }else{
-                        StaticCard(headerText: "Total Elections", numberElections:$electionTotalCount , myColor: "_Purple").transition(.move(edge: .leading))
-                        StaticCard(headerText: "Active Elections", numberElections: $electionActiveCount,myColor: "Blue").transition(.move(edge: .trailing))
-                        StaticCard(headerText: "Finished Elections", numberElections: $electionFinishedCount,myColor: "Pink").transition(.move(edge: .leading))
-                        StaticCard(headerText: "Pending Elections", numberElections: $electionPendingCount,myColor: "Red").transition(.move(edge: .trailing))
+                        StaticCard(headerText: "Total Elections", numberElections:electionCountManager.electionCountModel.electionTotalCountValue , myColor: "_Purple").transition(.move(edge: .leading))
+                        StaticCard(headerText: "Active Elections", numberElections: electionCountManager.electionCountModel.electionActiveCountValue,myColor: "Blue").transition(.move(edge: .trailing))
+                        StaticCard(headerText: "Finished Elections", numberElections: electionCountManager.electionCountModel.electionFinishedCountValue,myColor: "Pink").transition(.move(edge: .leading))
+                        StaticCard(headerText: "Pending Elections", numberElections:electionCountManager.electionCountModel.electionPendingCountValue,myColor: "Red").transition(.move(edge: .trailing))
                     }
                 }
                 
@@ -111,13 +108,34 @@ struct Mid_Dashboard: View{
             }
             
         }.onAppear(){
-            self.loadElectionData()
+            self.electionCountManager.loadElectionData(){
+                
+                // Default Shimmer time
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(900)) {
+                    self.showShimmer = false
+                }
+            }
         }
         
     }
-    public func loadElectionData(){
-        self.showShimmer = true
-        electionSetCountToZero()
+
+}
+
+
+class ElectionCountManager: ObservableObject {
+    
+    //Realm
+    let config = Realm.Configuration(schemaVersion : 4)
+    @ObservedObject var electionsResults = BindableResults(results: try! Realm(configuration: Realm.Configuration(schemaVersion : 4)).objects(DatabaseElection.self))
+    
+    // If change update views
+    @Published var electionCountModel = ElectionCountModel()
+    
+
+    // request updated value from the server
+    public func loadElectionData(completion:()->Void){
+        
+        
          //  Update UI with User Data
           do{
               let realm = try Realm(configuration: self.config)
@@ -145,36 +163,34 @@ struct Mid_Dashboard: View{
               do{
                   let realm = try Realm(configuration: self.config)
                   let  results = realm.objects(DatabaseElection.self)
-                  
+                
+                electionCountModel.electionSetCountToZero()
                   // Update Total Elections StaticCard
-                  self.electionTotalCount = results.count
+                  electionCountModel.electionTotalCountValue = results.count
                   
                   
                   let nowDate = Date()
                   for result in results{
                       //Update Pending Elections StaticCard
                       if nowDate < result.start{
-                          self.electionPendingCount += 1
+                          electionCountModel.electionPendingCountValue += 1
                       }
                       // Update Finished Elections StaticCard
                       if nowDate > result.end{
-                          self.electionFinishedCount += 1
+                          electionCountModel.electionFinishedCountValue += 1
                       }
                       else{
                           //Update Active Elections StaticCard
-                          self.electionActiveCount += 1
+                          electionCountModel.electionActiveCountValue += 1
                       }
                   }
 
-                  print("REALM: Total Records \(self.electionTotalCount)")
+                  print("REALM: Total Records \(electionCountModel.electionTotalCountValue)")
                   
                   
                   print(results)
-                
-                // Default Shimmer time
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(900)) {
-                    self.showShimmer = false
-                }
+
+                 completion()
                   
                   
               }catch{
@@ -185,18 +201,26 @@ struct Mid_Dashboard: View{
         
     }
     
-    private func electionSetCountToZero(){
-        electionTotalCount = 0
-        electionActiveCount = 0
-        electionFinishedCount = 0
-        electionPendingCount = 0
-    }
+
+}
+
+struct ElectionCountModel {
+    var electionTotalCountValue = 0
+    var electionActiveCountValue = 0
+    var electionPendingCountValue = 0
+    var electionFinishedCountValue = 0
     
+    public mutating func electionSetCountToZero(){
+        electionTotalCountValue = 0
+        electionActiveCountValue = 0
+        electionPendingCountValue = 0
+        electionFinishedCountValue = 0
+    }
 }
 
 struct StaticCard: View {
     @State var headerText:String = "Total Elections"
-    @Binding var numberElections:Int
+    @State var numberElections:Int
     @State var myColor:String = "Blue"
     var body:some View{
         HStack {

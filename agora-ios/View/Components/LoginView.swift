@@ -47,7 +47,7 @@ struct LoginView: View {
                             .padding(.bottom,UIApplication.shared.windows.first?.safeAreaInsets.bottom)
                         
                     }
-                }
+                }.accessibility(identifier: "baseLoginView")
             }
         }.onAppear{
             
@@ -258,6 +258,8 @@ struct AuthenticateView:View {
     @ObservedObject var fbManager = UserLoginManager()
     @ObservedObject var appleView = AppleViewModel()
     
+    @EnvironmentObject var electionCountManager:ElectionCountManager
+    
     var body: some View{
         
         ZStack(alignment:.topLeading){
@@ -378,13 +380,17 @@ struct AuthenticateView:View {
                                 self.alert = true
                             }){
                                 
-                                self.activityShow = false
                                 
                                 // Get all elections and store in db onSuccess
                                 DatabaseElectionManager.getAllElections {
-                                    // If got userXAUTH login
-                                    UserDefaults.standard.set(true, forKey: "status")
-                                    NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                                    self.electionCountManager.loadElectionData {
+                                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .milliseconds(1500)) {
+                                            self.activityShow = false
+                                            // If got userXAUTH login
+                                            UserDefaults.standard.set(true, forKey: "status")
+                                            NotificationCenter.default.post(name: NSNotification.Name("statusChange"), object: nil)
+                                        }
+                                    }
                                 }
                                 
                                 
