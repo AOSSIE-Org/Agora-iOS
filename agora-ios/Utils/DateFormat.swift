@@ -37,4 +37,21 @@ extension Date{
         dateFormatter.timeZone = NSTimeZone(forSecondsFromGMT: 0) as TimeZone
         return dateFormatter.string(from: self)
     }
+    
+    mutating func changeDays(by days: Int) {
+        self = Calendar.current.date(byAdding: .day, value: days, to: self)!
+    }
+    
+    mutating func changeMinutes(by days: Int) {
+        self = Calendar.current.date(byAdding: .minute, value: days, to: self)!
+    }
+}
+
+func dateToReadableStringDateFormatter(date: Date) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = "h:mm a 'on' MMMM dd, yyyy"
+    formatter.amSymbol = "AM"
+    formatter.pmSymbol = "PM"
+    
+    return formatter.string(from: date)
 }

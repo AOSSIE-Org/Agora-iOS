@@ -9,17 +9,14 @@ import SwiftUI
 
 struct ButtonModifier: ViewModifier {
     var width:CGFloat = 360
+    var height:CGFloat = 50
     
     func body(content: Content) -> some View {
         content
-            .foregroundColor(.white)
-            .font(.system(.headline, design: .rounded))
-            .padding()
-            .frame(minWidth: 0, maxWidth: width, alignment: .center)
-            .background(RoundedRectangle(cornerRadius: 15, style: .continuous)
-                .fill(Color.mainColor))
-            .padding(.bottom)
-        
+            .foregroundColor(.black)
+            .background(LinearGradient(gradient: Gradient(colors: [Color("Color2_2"), Color("Color2")]), startPoint: .bottom, endPoint: .top))
+            .cornerRadius(20)
+            .frame(width:width,height: height)
     }
 }
 
