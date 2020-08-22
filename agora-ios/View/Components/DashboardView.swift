@@ -97,10 +97,10 @@ struct Mid_Dashboard: View{
                             CardShimmer(height: UIScreen.main.bounds.height / 6 - 10)
                         }
                     }else{
-                        StaticCard(headerText: "Total Elections", numberElections:electionCountManager.electionCountModel.electionTotalCountValue , myColor: "_Purple").transition(.move(edge: .leading))
-                        StaticCard(headerText: "Active Elections", numberElections: electionCountManager.electionCountModel.electionActiveCountValue,myColor: "Blue").transition(.move(edge: .trailing))
-                        StaticCard(headerText: "Finished Elections", numberElections: electionCountManager.electionCountModel.electionFinishedCountValue,myColor: "Pink").transition(.move(edge: .leading))
-                        StaticCard(headerText: "Pending Elections", numberElections:electionCountManager.electionCountModel.electionPendingCountValue,myColor: "Red").transition(.move(edge: .trailing))
+                        StaticCard(headerText: "Total Elections", numberElections:electionCountManager.electionCountModel.electionTotalCountValue , cardColor: "_Purple").transition(.move(edge: .leading))
+                        StaticCard(headerText: "Active Elections", numberElections: electionCountManager.electionCountModel.electionActiveCountValue,cardColor: "Blue").transition(.move(edge: .trailing))
+                        StaticCard(headerText: "Finished Elections", numberElections: electionCountManager.electionCountModel.electionFinishedCountValue,cardColor: "Pink").transition(.move(edge: .leading))
+                        StaticCard(headerText: "Pending Elections", numberElections:electionCountManager.electionCountModel.electionPendingCountValue,cardColor: "Red").transition(.move(edge: .trailing))
                     }
                 }
                 
@@ -221,7 +221,7 @@ struct ElectionCountModel {
 struct StaticCard: View {
     @State var headerText:String = "Total Elections"
     @State var numberElections:Int
-    @State var myColor:String = "Blue"
+    @State var cardColor:String = "Blue"
     var body:some View{
         HStack {
             HStack{
@@ -245,7 +245,7 @@ struct StaticCard: View {
             }.padding()
                 .padding(.top, 15)
                 .frame(width:UIScreen.main.bounds.width - 20,height:120)
-                .background(Color(myColor))
+                .background(Color(cardColor))
                 .cornerRadius(10)
                 .shadow(color: .gray, radius: 6, x: 0, y: 2)
                 .animation(.spring())

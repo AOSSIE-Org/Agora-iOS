@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		E117947D24B02CC80093C86F /* CalendarDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E117947C24B02CC80093C86F /* CalendarDisplayView.swift */; };
 		E117947F24B068FF0093C86F /* CalendarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E117947E24B068FF0093C86F /* CalendarContentView.swift */; };
+		E1245A5324DA8CAA00503B7E /* Notifications.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1245A5224DA8CAA00503B7E /* Notifications.swift */; };
 		E12816F82490BCC900E03C24 /* Ballot.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12816F72490BCC900E03C24 /* Ballot.swift */; };
 		E12816FA2490BE4A00E03C24 /* VoterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12816F92490BE4A00E03C24 /* VoterList.swift */; };
 		E13215D22423A0BD00B40532 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13215D12423A0BD00B40532 /* SearchBar.swift */; };
@@ -93,6 +94,7 @@
 /* Begin PBXFileReference section */
 		E117947C24B02CC80093C86F /* CalendarDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDisplayView.swift; sourceTree = "<group>"; };
 		E117947E24B068FF0093C86F /* CalendarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarContentView.swift; sourceTree = "<group>"; };
+		E1245A5224DA8CAA00503B7E /* Notifications.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		E12816F72490BCC900E03C24 /* Ballot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ballot.swift; sourceTree = "<group>"; };
 		E12816F92490BE4A00E03C24 /* VoterList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoterList.swift; sourceTree = "<group>"; };
 		E13215D12423A0BD00B40532 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				E1D3B7B924BA14810077D82C /* CardShimmer.swift */,
 				E1ED14F124BEDE5C00467DF2 /* EventUpdateOverlay.swift */,
 				E1ED14F324BEE21E00467DF2 /* Badge.swift */,
+				E1245A5224DA8CAA00503B7E /* Notifications.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				E192DB2224B846FA00D1E5EC /* TabBarAccessor.swift in Sources */,
 				E181E71D2484F7BD00875E3F /* AppleIdButton.swift in Sources */,
 				E15FA5E02423400300E9BF58 /* ElectionView.swift in Sources */,
+				E1245A5324DA8CAA00503B7E /* Notifications.swift in Sources */,
 				E181E71A2484E27100875E3F /* TopCircleShape.swift in Sources */,
 				E1B4FCCF2492774700907329 /* DatabaseUser.swift in Sources */,
 				E18F18792420F770002FED89 /* AppDelegate.swift in Sources */,

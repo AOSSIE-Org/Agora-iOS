@@ -31,10 +31,11 @@ struct CalendarDisplayView: UIViewRepresentable {
             style.timeline.offsetTimeX = 6
             style.timeline.offsetLineLeft = 7
             style.timeline.eventCornersRadius = CGSize(width: 8, height: 8)
+            style.timeline.startFromFirstEvent = true
         } else {
             style.timeline.widthEventViewer = 500
         }
-        style.timeline.startFromFirstEvent = true
+        
         style.timeline.offsetTimeY = 80
         style.timeline.offsetEvent = 3
         style.timeline.currentLineHourWidth = 40
@@ -96,7 +97,7 @@ struct CalendarDisplayView: UIViewRepresentable {
             
             for (index, model) in bindableDatabase.results.enumerated() {
                 var event = Event()
-                event.id = index
+                event.id = model._id // election id
                 event.start = model.start // start date event
                 event.end = model.end // end date event
                 event.color = EventColor(UIColor.init(named: "Color1") ?? UIColor.blue,alpha: 0.95)
@@ -140,7 +141,24 @@ struct CalendarDisplayView: UIViewRepresentable {
             selectDate = date ?? Date()
             loadEvents { (events) in
                 self.events = events
+                updateYear(date)
                 self.view.calendar.reloadData()
+            }
+        }
+        
+        
+        func didSelectEvent(_ event: Event, type: CalendarType, frame: CGRect?) {
+            print(type, event)
+            switch type {
+            case .day:
+                calendarManager.election.removeAll()
+                print(event.id)
+                // Get election details from db and navigate to details view
+                calendarManager.getParticularElectionFromDb(id: event.id as! String)
+                calendarManager.eventUpdateOverlayShow = true
+                
+            default:
+                break
             }
         }
         
@@ -164,6 +182,13 @@ struct CalendarDisplayView: UIViewRepresentable {
         func handleCalendarTypeSelection(_ uiView: CalendarView){
             let type = CalendarType.allCases[calendarManager.currentTypeUserSelection]
             uiView.set(type: type, date: selectDate ?? Date())
+            // If month calendar view then resize view
+            if calendarManager.currentTypeUserSelection == 2 {
+                uiView.reloadFrame(CGRect(x: 0, y: 50 , width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height ))
+            } else {
+                uiView.reloadFrame(CGRect(x: 0, y: 0 , width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height ))
+            }
+            
             uiView.reloadData()
         }
         

@@ -74,7 +74,7 @@ struct Mid_Elections: View{
                                     self.activityShow.toggle()
                                     // Upload to server
                                     let ballot = Ballot(voteBallot: "0", hash: "0")
-                                    let election = Election(name: self.name, description: self.description, electionType: self.electionType, candidates: self.candidates, ballotVisibility: self.ballotVisibility, voterListVisibility: self.voterListVisibility, isInvite: self.isInvite, startingDate: self.startingDate.asString(), endingDate: self.endingDate.asString(), isRealTime: self.isRealTime, votingAlgo: self.selectedAlgo, noVacancies: self.noVacancies, ballot: [ballot])
+                                    let election = Election(name: self.name, description: self.description, electionType: self.electionType, candidates: self.candidates, ballotVisibility: self.ballotVisibility, voterListVisibility: self.voterListVisibility, isInvite: self.isInvite, startingDate: self.startingDate, endingDate: self.endingDate, isRealTime: self.isRealTime, votingAlgo: self.selectedAlgo, noVacancies: self.noVacancies, ballot: [ballot])
 
 
                                     print(election.startingDate)

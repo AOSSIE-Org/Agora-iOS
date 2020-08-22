@@ -18,6 +18,7 @@ class DatabaseElection: Object{
     @objc dynamic var electionType:String = ""
     @objc dynamic var creatorName:String = ""
     @objc dynamic var creatorEmail:String = ""
+    var candidates = List<String>()
     
     @objc dynamic var start = Date()
     @objc dynamic var end = Date()
