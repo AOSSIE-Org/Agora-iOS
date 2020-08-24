@@ -78,12 +78,14 @@ class agora_iosUITests: XCTestCase {
         
         sleep(1)
         app/*@START_MENU_TOKEN@*/.buttons["shift"]/*[[".keyboards.buttons[\"shift\"]",".buttons[\"shift\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.keys["g"].tap()
+        app.keys["s"].tap()
+        app.keys["o"].tap()
+        app.keys["c"].tap()
         app.keys["t"].tap()
         app.keys["e"].tap()
         app.keys["s"].tap()
         app.keys["t"].tap()
-        app.keys["more"].tap()
-        app.keys["1"].tap()
 
         passwordField.doubleTap()
         sleep(1)
@@ -91,8 +93,6 @@ class agora_iosUITests: XCTestCase {
         app.keys["e"].tap()
         app.keys["s"].tap()
         app.keys["t"].tap()
-        app.keys["more"].tap()
-        app.keys["1"].tap()
        
         app.scrollViews.otherElements.buttons["Sign In"].tap()
 
@@ -132,12 +132,14 @@ class agora_iosUITests: XCTestCase {
         usernameField.doubleTap()
         sleep(1)
         app/*@START_MENU_TOKEN@*/.buttons["shift"]/*[[".keyboards.buttons[\"shift\"]",".buttons[\"shift\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.tap()
+        app.keys["g"].tap()
+        app.keys["s"].tap()
+        app.keys["o"].tap()
+        app.keys["c"].tap()
         app.keys["t"].tap()
         app.keys["e"].tap()
         app.keys["s"].tap()
         app.keys["t"].tap()
-        app.keys["more"].tap()
-        app.keys["1"].tap()
 
         passwordField.doubleTap()
         sleep(1)
@@ -145,8 +147,6 @@ class agora_iosUITests: XCTestCase {
         app.keys["e"].tap()
         app.keys["s"].tap()
         app.keys["t"].tap()
-        app.keys["more"].tap()
-        app.keys["1"].tap()
 
         app.scrollViews.otherElements.buttons["Sign In"].tap()
 
