@@ -30,6 +30,9 @@ To run the development environment for this frontend, you need [Git](https://git
 
 (1) . https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically
 
+## License 
+
+* Agora-iOS is published under [GPL-3.0 License](https://github.com/AOSSIE-Org/Agora-iOS/blob/master/LICENSE). Do read the License before Contributing.
 
 ## Some don'ts
 
